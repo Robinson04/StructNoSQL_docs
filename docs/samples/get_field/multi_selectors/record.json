@@ -1,0 +1,11 @@
+{
+  "userId": "x42",
+  "username": "Robinson",
+  "friends": {
+    "b112": {
+      "name": "Malo",
+      "profession": "electrical engineer",
+      "score": 100
+    }
+  }
+}

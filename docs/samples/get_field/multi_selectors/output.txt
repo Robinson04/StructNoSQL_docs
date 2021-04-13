@@ -1,0 +1,1 @@
+{'name': 'Malo', 'profession': 'electrical engineer', 'score': 100}

@@ -15,3 +15,4 @@ wheels/
 MANIFEST
 node_modules/
 .docusaurus/
+venv/

@@ -78,4 +78,79 @@ else:
 Relationship status with b112 is businessPartner
 ```
         
+
+## Multi fields selectors
+
+If you need to access multiple items that share the same location, you can use a multi-selector. In the ```field_path```
+specify the attributes you want to retrieved by enclosing them in brackets and with a comma separating each attribute.
+For example : ```myItem.(attribute1, attribute2, attribute3)```
+
+:::tip
+A single database request will be constructed and send to retrieve your multiple attributes. It is then more efficient 
+to use multi selectors or the [```get_multiple_fields```](./get_multiple_fields) operation as much as you can, instead of sending multiple 
+operations to your database to retrieve the data you need.
+:::
+
+You cannot use a multi-selector to get multiple fields that are not in the same location. For that use case, you need
+the ```get_multiple_fields``` operation.
+
+
+
+### Queried record :
+```json
+{
+  "userId": "x42",
+  "username": "Robinson",
+  "friends": {
+    "b112": {
+      "name": "Malo",
+      "profession": "electrical engineer",
+      "score": 100
+    }
+  }
+}
+```
+
+### Code
+```python
+from StructNoSQL import TableDataModel, BasicTable, PrimaryIndex, BaseField, MapModel
+from typing import Dict, Optional
+
+
+class UsersTableModel(TableDataModel):
+    userId = BaseField(name='userId', field_type=str, required=True)
+    class FriendModel(MapModel):
+        name = BaseField(name='name', field_type=str, required=False)
+        profession = BaseField(name='profession', field_type=str, required=False)
+        score = BaseField(name='score', field_type=int, required=False)
+    friends = BaseField(name='friends', field_type=Dict[str, FriendModel], key_name='friendId', required=False)
+
+
+class UsersTable(BasicTable):
+    def __init__(self):
+        primary_index = PrimaryIndex(hash_key_name='userId', hash_key_variable_python_type=str)
+        super().__init__(
+            table_name='accounts-data', region_name='eu-west-2',
+            data_model=UsersTableModel(), primary_index=primary_index,
+            auto_create_table=True
+        )
+
+
+table_client = UsersTable()
+
+requested_friend_id = 'b112'
+response_data: Optional[dict] = table_client.get_field(
+    key_value='x42',
+    field_path='friends.{{friendId}}.(name, profession, score)',
+    query_kwargs={'friendId': requested_friend_id}
+)
+print(response_data)
+
+```
+
+### Output
+```
+{'name': 'Malo', 'profession': 'electrical engineer', 'score': 100}
+```
+        
  

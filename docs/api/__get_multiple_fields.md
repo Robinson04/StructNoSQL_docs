@@ -58,3 +58,7 @@ success = table_client.update_field(
 ```
 
 
+{{sampler::get_multiple_fields}}
+
+
+
