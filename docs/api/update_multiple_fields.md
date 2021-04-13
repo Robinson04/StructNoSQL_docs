@@ -35,32 +35,61 @@ parts of your operation that have already been completed, will not be reverted.
 
 ## Example
 
+
+### Queried record :
+```json
+{
+  "userId": "x42",
+  "username": "Robinson"
+}
+```
+
+### Code
 ```python
-from StructNoSQL import TableDataModel, BaseField, MapModel, FieldSetter
-from typing import Dict
+from StructNoSQL import TableDataModel, BasicTable, PrimaryIndex, BaseField, MapModel, FieldSetter
+from typing import Optional, Dict
+
 
 class UsersTableModel(TableDataModel):
     userId = BaseField(name='userId', field_type=str, required=True)
     username = BaseField(name='username', field_type=str, required=False)
-    class FriendModel(MapModel):
-        relationshipStatus = BaseField(name='relationshipStatus', field_type=str, required=False)
-    friends = BaseField(name='friends', field_type=Dict[str, FriendModel], index_name='friendId', required=False)
-    lastInteractionTime = BaseField(name='lastInteractionTime', field_type=int, required=False)
-# Load your table model inside a table client in order to perform any operation
+    class AuthTokenModel(MapModel):
+        expirationTimestamp = BaseField(name='expirationTimestamp', field_type=int, required=True)
+    tokens = BaseField(name='tokens', field_type=Dict[str, AuthTokenModel], key_name='tokenId', required=False)
+    lastConnectionTimestamp = BaseField(name='lastConnectionTimestamp', field_type=int, required=False)
 
-from time import time
-timestamp = int(time())
-success = table_client.update_multiple_fields(
-    index_name='userId', key_value='exampleUserId', setters=[
-        FieldSetter(field_path='lastInteractionTime', value_to_set=timestamp),
-        FieldSetter(field_path='username', value_to_set='newExampleUsername'),
-        FieldSetter(
-            field_path='friends.{{friendId}}.relationshipStatus', 
-            query_kwargs={'friendId': 'exampleFriendId'}, 
-            value_to_set='superFriends'
+
+class UsersTable(BasicTable):
+    def __init__(self):
+        primary_index = PrimaryIndex(hash_key_name='userId', hash_key_variable_python_type=str)
+        super().__init__(
+            table_name='accounts-data', region_name='eu-west-2',
+            data_model=UsersTableModel(), primary_index=primary_index,
+            auto_create_table=True
         )
+
+
+table_client = UsersTable()
+
+update_success: bool = table_client.update_multiple_fields(
+    key_value='x42', setters=[
+        FieldSetter(field_path='username', value_to_set='Paul'),
+        FieldSetter(
+            field_path='tokens.{{tokenId}}',
+            query_kwargs={'tokenId': 't42'},
+            value_to_set={'expirationTimestamp': '1618324660'}
+        ),
+        FieldSetter(field_path='lastConnectionTimestamp', value_to_set='1606714120')
     ]
 )
+print(f"Multi update success : {update_success}")
+
 ```
 
+### Output
+```
+Multi update success : True
+
+```
+        
 

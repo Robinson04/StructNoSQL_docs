@@ -96,7 +96,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/Robinson04/StructNoSQL_docs/edit/master/',
+          editUrl: 'https://github.com/Robinson04/StructNoSQL_docs/edit/main/',
         },
         blog: {
           showReadingTime: true,

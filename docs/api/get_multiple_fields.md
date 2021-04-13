@@ -13,7 +13,28 @@ slug: /api/get_multiple_fields
 | query_kwargs  | NO       | dict | Used to pass data to populate a field_path that contains keys. See example below  : |
 
 
+### `key_name` 
+#### [string] -- [REQUIRED]
 
+The key_name of the primary or secondary index that will be used to find the record you want to 
+perform the operation onto. It will usually be the primary index field (like userId or id) that you defined.
+
+_Note : The selection with secondary indexes is still in Beta and not fully working, see https://github.com/Robinson04/StructNoSQL/issues/10_
+
+### `key_value` [string | int | float] -- <br/>[REQUIRED]
+
+The record selector value for your operation. Will need to be of the same type as the type you defined the 
+index field you specified with the key_name parameter, otherwise, you will get a DataValidation error.
+
+### `field_path` [string] -- <br/>[REQUIRED]
+
+The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
+
+### `value_to_set` [Any] -- <br/>[REQUIRED]
+The value that will be set/update the attribute you selected with the field_path property.
+
+### `query_kwargs` [dict]
+Used to pass data to populate a field_path that contains keys. For example :
 
 ### query_kwargs example usage
 ```python
@@ -36,7 +57,7 @@ success = table_client.update_field(
 )
 ```
 
-## Example
+
 
 ### Queried record :
 ```json
