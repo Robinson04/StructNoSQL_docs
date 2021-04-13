@@ -1,0 +1,17 @@
+# Distribution / packaging
+*.idea
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+MANIFEST
+node_modules/
+.docusaurus/

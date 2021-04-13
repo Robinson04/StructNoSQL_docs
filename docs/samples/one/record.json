@@ -1,0 +1,15 @@
+{
+  "userId": "x42",
+  "username": "Robinson",
+  "friends": {
+    "b242": {
+      "relationshipStatus": "superFriend"
+    },
+    "b59O": {
+      "relationshipStatus": "lover"
+    },
+    "b112": {
+      "relationshipStatus": "businessPartner"
+    }
+  }
+}
