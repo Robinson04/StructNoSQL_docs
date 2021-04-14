@@ -80,7 +80,7 @@ function Feature({imageUrl, title, description}) {
   );
 }
 
-function Home() {
+export default function Home() {
   const context = useDocusaurusContext();
   const {siteConfig = {}} = context;
   return (
@@ -93,16 +93,18 @@ function Home() {
           <p className="hero__subtitle">{siteConfig.tagline}</p>
           <div className={styles.buttons}>
             <Link
-              className={clsx(
-                'button button--outline button--secondary button--lg',
-                styles.getStarted,
-              )}
+              className={clsx('button button--outline button--secondary button--lg', styles.getStarted)}
               to={useBaseUrl('docs/')}>
               Get Started
             </Link>
           </div>
         </div>
       </header>
+    </Layout>
+  );
+}
+
+/*
       <main>
         {features && features.length > 0 && (
           <section className={styles.features}>
@@ -129,19 +131,4 @@ function Home() {
           </section>
         )}
       </main>
-    </Layout>
-  );
-}
-
-/*
-            <p>class UsersTableModel(TableDataModel):</p>
-
-
-    userId = BaseField(name='userId', field_type=str, required=True)
-    username = BaseField(name='username', field_type=str, required=False)
-    class FriendModel(MapModel):
-        relationshipStatus = BaseField(name='relationshipStatus', field_type=str, required=False)
-    friends = BaseField(name='friends', field_type=Dict[str, FriendModel], index_name='friendId', required=False)
  */
-
-export default Home;

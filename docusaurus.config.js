@@ -25,7 +25,7 @@ module.exports = {
     navbar: {
       title: 'StructNoSQL',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'Inoft Logo',
         src: 'img/logo.png',
       },
       items: [
@@ -101,8 +101,7 @@ module.exports = {
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+          editUrl: 'https://github.com/Robinson04/StructNoSQL_docs/edit/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

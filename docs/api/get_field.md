@@ -3,6 +3,12 @@ id: get_field
 slug: /api/get_field
 ---
 
+**Allow to retrieve a single or multiple fields from your table.**
+
+```python
+table_client.get_field(key_value=str, field_path=str, query_kwargs=dict)
+```
+
 ## Parameters
 
 | Property name | Required | Accepted types | Description |
