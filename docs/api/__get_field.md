@@ -6,17 +6,18 @@ slug: /api/get_field
 **Allow to retrieve a single or multiple fields from your table.**
 
 ```python
-table_client.get_field(key_value=str, field_path=str, query_kwargs=dict)
+retrieved_item: Any = table_client.get_field(
+    key_value=str, field_path=str, query_kwargs=Optional[dict]
+)
 ```
 
 ## Parameters
 
-| Property name | Required | Accepted types | Description |
-| ------------- | :------: | :------------: | :---------- |
-| key_name      | YES      | str  | The key\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto. It will usually be the primary index field (like userId or id) that you defined. _Note : The selection with secondary indexes is still in Beta and not fully working, see https://github.com/Robinson04/StructNoSQL/issues/10_ |
-| key_value     | YES      | Any  | The record selector value for your operation. Will need to be of the same type as the type you defined the index field you specified with the key_name parameter, otherwise, you will get a DataValidation error. |
-| field_path    | YES      | str  | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md) |
-| query_kwargs  | NO       | dict | Used to pass data to populate a field_path that contains keys. See example below  : |
+{{file::api/parts/table_header.md}}
+{{file::api/parts/key_name_table_row.md}}
+{{file::api/parts/key_value_table_row.md}}
+{{file::api/parts/field_path_table_row.md}}
+{{file::api/parts/query_kwargs_table_row.md}}
 
 
 ## Single field retrieving

@@ -1,14 +1,16 @@
 ---
-id: remove_field
-slug: /api/remove_field
+id: remove_multiple_fields
+slug: /api/remove_multiple_fields
 ---
 
-**Remove a single field from your table and return the removed value with a single database operation. 
-Return None if the removal failed.**
+**Remove multiple fields from your table and return the removed values. Return None if the removals failed.**
 
 ```python
-removed_item: Optional[dict] = table_client.remove_field(
-    key_value=str, field_path=str, query_kwargs=Optional[dict]
+removed_items: Optional[dict] = table_client.remove_multiple_fields(
+    key_value=str, removers={
+        str: FieldRemover(field_path=str, query_kwargs=Optional[dict]),
+        str: FieldRemover(field_path=str, query_kwargs=Optional[dict])
+    }
 )
 ```
 
@@ -18,8 +20,7 @@ removed_item: Optional[dict] = table_client.remove_field(
 | ------------------ | :------: | :-----------------: | :---------- |
 | key_name      | YES      | str  | The key\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto. It will usually be the primary index field (like userId or id) that you defined. _Note : The selection with secondary indexes is still in Beta and not fully working, see https://github.com/Robinson04/StructNoSQL/issues/10_
 | key_value     | YES      | Any  | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
-| field_path    | YES      | str  | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
-| query_kwargs  | NO       | dict | Used to pass data to populate a field_path that contains keys. See example below :
+| removers      | YES      | Dict[str,&nbsp;[FieldRemover](../api/FieldRemover.md)] | A dictionary with the keys that will be used to return the removed items, and the values being FieldRemover's to select the field's to remove.
 
 
 ## Multi fields selectors
@@ -34,13 +35,18 @@ removed_item: Optional[dict] = table_client.remove_field(
       "productName": "Soluble coffee jar",
       "quantity": 8
     }
+  },
+  "tokens": {
+    "t32": {
+      "expirationTimestamp": "1618322249"
+    }
   }
 }
 ```
 
 ### Code
 ```python
-from StructNoSQL import TableDataModel, BasicTable, PrimaryIndex, BaseField, MapModel, FieldSetter
+from StructNoSQL import TableDataModel, BasicTable, PrimaryIndex, BaseField, MapModel, FieldSetter, FieldRemover
 from typing import Optional, Dict
 
 
@@ -50,6 +56,9 @@ class UsersTableModel(TableDataModel):
         productName = BaseField(name='productName', field_type=str, required=True)
         quantity = BaseField(name='quantity', field_type=int, required=True)
     shoppingCartItems = BaseField(name='shoppingCartItems', field_type=Dict[str, ShoppingCartItemModel], key_name='itemId', required=False)
+    class AuthTokenModel(MapModel):
+        expirationTimestamp = BaseField(name='expirationTimestamp', field_type=int, required=True)
+    tokens = BaseField(name='tokens', field_type=Dict[str, AuthTokenModel], key_name='tokenId', required=False)
 
 
 class UsersTable(BasicTable):
@@ -64,18 +73,22 @@ class UsersTable(BasicTable):
 
 table_client = UsersTable()
 
-removed_item: Optional[dict] = table_client.remove_field(
-    key_value='x42',
-    field_path='shoppingCartItems.{{itemId}}',
-    query_kwargs={'itemId': 'i42'}
+removed_items: Optional[dict] = table_client.remove_multiple_fields(
+    key_value='x42', removers={
+        'shoppingCartItem': FieldRemover(
+            field_path='shoppingCartItems.{{itemId}}',
+            query_kwargs={'itemId': 'i42'}
+        ),
+        'removedTokens': FieldRemover(field_path='tokens')
+    }
 )
-print(f"Removed item : {removed_item}")
+print(f"Removed items : {removed_items}")
 
 ```
 
 ### Output
 ```
-Removed item : {'productName': "Soluble coffee jar", 'quantity': 8}
+Removed item : {'shoppingCartItem': {'productName': '"Soluble coffee jar", 'quantity': 8}, 'removedTokens': {'t32': {'expirationTimestamp': "1618322249"}}
 ```
         
  

@@ -20,6 +20,7 @@ without any performance cost compared to a field at the root of your table.
 ### Creating your table model class
 
 Create a new class with any name, that inherit from the TableDataModel class.
+Add a required field of type str, 
 
 ```python
 from StructNoSQL import TableDataModel, BaseField

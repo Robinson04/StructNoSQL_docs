@@ -5,16 +5,22 @@ sidebar_label: update_multiple_fields
 slug: /api/update_multiple_fields
 ---
 
-## Description
-Set/update multiple distinct attributes in a single record in a single database operations. 
-All of your setters will be grouped into a single database operation send in a single request to the database.
-This make this function more efficient than calling multiple times the update_field.
+**Update multiple fields from your table with a single database operation and return the success of the 
+operation with True or False.**
+
+```python
+update_success: bool = table_client.update_field(
+    key_value=str, setters=[
+        FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict]),
+        FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict])
+    ]
+)
+```
+
+## To note
 
 Since all your setters will be grouped in a single operation, if a single of your setter is invalid and cause the 
 operation to crash, all of your setters will be rejected/and reverted.
-
-As long as you are setting/updating fields in the same record, you have complete flexibility, and the ability to select 
-any field in any path (even complex or nested paths). All those operations will be grouped in a single database request.
 
 :::warning Not always Atomic !
 The data validation will be runned on the enterity of your data before starting to
@@ -27,10 +33,10 @@ parts of your operation that have already been completed, will not be reverted.
 
 ## Parameters
 
-| Property name | Required | Accepted types    | Description |
-| ------------- | :------: | :---------------: | :---------- |
-| key_name      | YES      | str               | The key\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto. It will usually be the primary index field (like userId or id) that you defined. _Note : The selection with secondary indexes is still in Beta and not fully working, see https://github.com/Robinson04/StructNoSQL/issues/10_ |
-| key_value     | YES      | Any               | The record selector value for your operation. Will need to be of the same type as the type you defined the index field you specified with the key_name parameter, otherwise, you will get a DataValidation error. |
+| Property&nbsp;name | Required | Accepted&nbsp;types | Description |
+| ------------------ | :------: | :-----------------: | :---------- |
+| key_name      | YES      | str  | The key\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto. It will usually be the primary index field (like userId or id) that you defined. _Note : The selection with secondary indexes is still in Beta and not fully working, see https://github.com/Robinson04/StructNoSQL/issues/10_
+| key_value     | YES      | Any  | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
 | setters       | YES      | List[FieldSetter] | A list of FieldSetter object. See [FieldSetter](../api/FieldSetter.md) |
 
 ## Example

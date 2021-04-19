@@ -1,16 +1,20 @@
 ---
-id: remove_field
-slug: /api/remove_field
+id: delete_field
+slug: /api/delete_field
 ---
 
-**Remove a single field from your table and return the removed value with a single database operation. 
-Return None if the removal failed.**
+**Delete a single field from your table and return success of operation with True or False.**
 
 ```python
-removed_item: Optional[dict] = table_client.remove_field(
+deletion_success: bool = table_client.delete_field(
     key_value=str, field_path=str, query_kwargs=Optional[dict]
 )
 ```
+
+Delete a single field and return a value of True or False according to the deletion success.
+
+If you try to delete a field that does not exist, the deletion will be considered a success, and a value of True will be
+returned. The deletion will fail only if an error occurred in the sending or execution of your request.
 
 ## Parameters
 
@@ -22,7 +26,7 @@ removed_item: Optional[dict] = table_client.remove_field(
 | query_kwargs  | NO       | dict | Used to pass data to populate a field_path that contains keys. See example below :
 
 
-## Multi fields selectors
+## Basic
 
 
 ### Queried record :
@@ -40,8 +44,8 @@ removed_item: Optional[dict] = table_client.remove_field(
 
 ### Code
 ```python
-from StructNoSQL import TableDataModel, BasicTable, PrimaryIndex, BaseField, MapModel, FieldSetter
-from typing import Optional, Dict
+from StructNoSQL import TableDataModel, BasicTable, PrimaryIndex, BaseField, MapModel
+from typing import Dict
 
 
 class UsersTableModel(TableDataModel):
@@ -64,12 +68,12 @@ class UsersTable(BasicTable):
 
 table_client = UsersTable()
 
-removed_item: Optional[dict] = table_client.remove_field(
+deletion_success: bool = table_client.delete_field(
     key_value='x42',
     field_path='shoppingCartItems.{{itemId}}',
     query_kwargs={'itemId': 'i42'}
 )
-print(f"Removed item : {removed_item}")
+print(f"Deletion success result : {deletion_success}")
 
 ```
 

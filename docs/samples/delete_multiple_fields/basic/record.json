@@ -1,0 +1,14 @@
+{
+  "userId": "x42",
+  "shoppingCartItems": {
+    "i42": {
+      "productName": "Soluble coffee jar",
+      "quantity": 8
+    }
+  },
+  "tokens": {
+    "t32": {
+      "expirationTimestamp": "1618322249"
+    }
+  }
+}
