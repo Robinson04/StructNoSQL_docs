@@ -2,9 +2,13 @@ module.exports = {
   mainSidebar: {
     Basics: [
         'introduction',
-        'basics/modeling_your_database',
+        'basics/installation',
         'basics/creating_your_first_table',
+        'basics/modeling_your_database',
         'basics/recursive_nesting'
+    ],
+    "Caching Table": [
+        'caching_table/introduction',
     ],
     API: [
         'api/put_record',
