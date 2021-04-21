@@ -33,9 +33,9 @@ parts of your operation that have already been completed, will not be reverted.
 
 ## Parameters
 
-{{file::../parts/table_header.md}}
-{{file::../parts/key_name_table_row.md}}
-{{file::../parts/key_value_table_row.md}}
+{{file::../docs_parts/table_header.md}}
+{{file::../docs_parts/key_name_table_row.md}}
+{{file::../docs_parts/key_value_table_row.md}}
 | setters       | YES      | List[FieldSetter] | A list of FieldSetter object. See [FieldSetter](../api/FieldSetter.md) |
 
 ## Example

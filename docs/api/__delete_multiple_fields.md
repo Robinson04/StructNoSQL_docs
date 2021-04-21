@@ -16,9 +16,9 @@ deletion_success: bool = table_client.delete_multiple_fields(
 
 ## Parameters
 
-{{file::../parts/table_header.md}}
-{{file::../parts/key_name_table_row.md}}
-{{file::../parts/key_value_table_row.md}}
+{{file::../docs_parts/table_header.md}}
+{{file::../docs_parts/key_name_table_row.md}}
+{{file::../docs_parts/key_value_table_row.md}}
 | removers      | YES      | List[[FieldRemover](../api/FieldRemover.md)] | A list of FieldRemover's object's to select the fields to delete.
 
 

@@ -4,6 +4,7 @@ module.exports = {
         'introduction',
         'basics/modeling_your_database',
         'basics/creating_your_first_table',
+        'basics/recursive_nesting'
     ],
     API: [
         'api/put_record',
@@ -18,6 +19,7 @@ module.exports = {
         'api/remove_multiple_fields',
         'api/FieldSetter',
         'api/FieldRemover',
+        'api/ActiveSelf',
     ],
     Details: [
         'performances',

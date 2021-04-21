@@ -1,0 +1,17 @@
+{
+  "userId": "x42",
+  "parameters": {
+    "exampleParameterId": {
+      "childParameters": {
+        "firstNestedParameterId": {
+          "parameterValue": 23,
+          "childParameters": {
+            "secondNestedParameterId": {
+              "parameterValue": 9421
+            }
+          }
+        }
+      }
+    }
+  }
+}

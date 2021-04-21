@@ -16,10 +16,10 @@ retrieved_items: Dict[str, Any] = table_client.get_multiple_fields(
 
 ## Parameters
 
-{{file::../parts/table_header.md}}
-{{file::../parts/key_name_table_row.md}}
-{{file::../parts/key_value_table_row.md}}
-{{file::../parts/field_path_table_row.md}}
-{{file::../parts/query_kwargs_table_row.md}}
+{{file::../docs_parts/table_header.md}}
+{{file::../docs_parts/key_name_table_row.md}}
+{{file::../docs_parts/key_value_table_row.md}}
+{{file::../docs_parts/field_path_table_row.md}}
+{{file::../docs_parts/query_kwargs_table_row.md}}
 
 {{sampler::get_multiple_fields/basic}}
