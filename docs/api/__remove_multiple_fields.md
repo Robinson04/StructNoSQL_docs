@@ -16,9 +16,9 @@ removed_items: Optional[dict] = table_client.remove_multiple_fields(
 
 ## Parameters
 
-{{file::api/parts/table_header.md}}
-{{file::api/parts/key_name_table_row.md}}
-{{file::api/parts/key_value_table_row.md}}
+{{file::../parts/table_header.md}}
+{{file::../parts/key_name_table_row.md}}
+{{file::../parts/key_value_table_row.md}}
 | removers      | YES      | Dict[str,&nbsp;[FieldRemover](../api/FieldRemover.md)] | A dictionary with the keys that will be used to return the removed items, and the values being FieldRemover's to select the field's to remove.
 
 

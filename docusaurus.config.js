@@ -4,14 +4,14 @@ module.exports = {
       'and advanced database queries functions. Compatible with Serverless applications.',
   url: 'https://engine.inoft.com/StructNoSQL',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'inoft', // Usually your GitHub org/user name.
-  projectName: 'StructNoSQL', // Usually your repo name.
+  organizationName: 'Inoft',
+  projectName: 'StructNoSQL',
   i18n: {
-    defaultLocale: 'fr',
-    locales: ['fr', 'en'],
+    defaultLocale: 'en',
+    locales: ['en'],  // , 'fr'],
     localeConfigs: {
       fr: {
         label: 'Français',
@@ -30,12 +30,12 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/',
+          to: '/',
           activeBasePath: 'docs',
           label: 'Docs',
           position: 'left',
         },
-        {to: 'blog', label: 'Blog', position: 'left'},
+        // {to: 'blog', label: 'Blog', position: 'left'},
         {
           type: 'localeDropdown',
           position: 'right',
@@ -53,26 +53,19 @@ module.exports = {
         {
           title: 'Docs',
           items: [
-            {
-              label: 'Style Guide',
-              to: 'docs/',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
-            },
+            {label: 'Basics', to: '/',},
+            {label: 'API', to: '/api/put_record',},
+            {label: 'Details', to: '/details/performances',},
           ],
         },
         {
           title: 'Community',
           items: [
-            {
-              label: 'Discord',
-              href: 'https://discord.gg/4dQPHTu',
-            }
+            {label: 'Discord', href: 'https://discord.gg/4dQPHTu'},
+            {label: 'Github', href: 'https://github.com/Robinson04/StructNoSQL/issues'},
           ],
         },
-        {
+        /*{
           title: 'More',
           items: [
             {
@@ -84,9 +77,9 @@ module.exports = {
               href: 'https://github.com/Robinson04/StructNoSQL',
             },
           ],
-        },
+        },*/
       ],
-      copyright: `Inoft 2020 - ${new Date().getFullYear()}. Construis avec Docusaurus.`,
+      copyright: `Inoft 2020 - ${new Date().getFullYear()}. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -95,14 +88,13 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl: 'https://github.com/Robinson04/StructNoSQL_docs/edit/main/',
+          routeBasePath: '/',
         },
-        blog: {
+        /*blog: {
           showReadingTime: true,
-          // Please change this to your repo.
           editUrl: 'https://github.com/Robinson04/StructNoSQL_docs/edit/main/',
-        },
+        },*/
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },

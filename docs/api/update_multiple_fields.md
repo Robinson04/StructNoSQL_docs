@@ -24,7 +24,7 @@ operation to crash, all of your setters will be rejected/and reverted.
 
 :::warning Not always Atomic !
 The data validation will be runned on the enterity of your data before starting to
-send database requests. As explained in [Operations Sectioning](../advanced/operations_sectioning.md), if the sum of the 
+send database requests. As explained in [Operations Sectioning](../details/operations_sectioning.md), if the sum of the 
 size of all your setters exceeds 400KB (the DynamoDB limit per operation), your request will automatically be divided 
 into multiple requests. If a/some part's of your operation are executed without causing a database rejection, and then 
 one of the part of your operation is rejected, you will get a success value of False from the function call, yet, the 
@@ -35,7 +35,7 @@ parts of your operation that have already been completed, will not be reverted.
 
 | Property&nbsp;name | Required | Accepted&nbsp;types | Description |
 | ------------------ | :------: | :-----------------: | :---------- |
-| key_name      | YES      | str  | The key\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto. It will usually be the primary index field (like userId or id) that you defined. _Note : The selection with secondary indexes is still in Beta and not fully working, see https://github.com/Robinson04/StructNoSQL/issues/10_
+| key_name      | No       | str  | The key\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto. It will usually be the primary index field (like userId or id) that you defined. _Note : The selection with secondary indexes is still in Beta and not fully working, see https://github.com/Robinson04/StructNoSQL/issues/10_
 | key_value     | YES      | Any  | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
 | setters       | YES      | List[FieldSetter] | A list of FieldSetter object. See [FieldSetter](../api/FieldSetter.md) |
 

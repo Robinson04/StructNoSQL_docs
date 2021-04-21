@@ -18,11 +18,11 @@ returned. The deletion will fail only if an error occurred in the sending or exe
 
 ## Parameters
 
-{{file::api/parts/table_header.md}}
-{{file::api/parts/key_name_table_row.md}}
-{{file::api/parts/key_value_table_row.md}}
-{{file::api/parts/field_path_table_row.md}}
-{{file::api/parts/query_kwargs_table_row.md}}
+{{file::../parts/table_header.md}}
+{{file::../parts/key_name_table_row.md}}
+{{file::../parts/key_value_table_row.md}}
+{{file::../parts/field_path_table_row.md}}
+{{file::../parts/query_kwargs_table_row.md}}
 
 
 ## Basic

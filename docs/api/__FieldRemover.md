@@ -16,8 +16,8 @@ FieldRemover(field_path=Any, query_kwargs=Optional[dict])
 
 ## Parameters
 
-{{file::api/parts/table_header.md}}
-{{file::api/parts/field_path_table_row.md}}
-{{file::api/parts/query_kwargs_table_row.md}}
+{{file::../parts/table_header.md}}
+{{file::../parts/field_path_table_row.md}}
+{{file::../parts/query_kwargs_table_row.md}}
 
  

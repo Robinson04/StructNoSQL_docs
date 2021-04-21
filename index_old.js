@@ -5,7 +5,7 @@ import Link from '@docusaurus/Link';
 import CodeBlock from '@docusaurus/theme-classic/lib-next/theme/CodeBlock';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import styles from './styles.module.css';
+import styles from './src/pages/styles.module.css';
 
 
 /*

@@ -1,11 +1,9 @@
 module.exports = {
-  someSidebar: {
+  mainSidebar: {
     Basics: [
+        'introduction',
         'basics/modeling_your_database',
         'basics/creating_your_first_table',
-        'doc1',
-        'doc2',
-        'doc3'
     ],
     API: [
         'api/put_record',
@@ -21,7 +19,6 @@ module.exports = {
         'api/FieldSetter',
         'api/FieldRemover',
     ],
-    Features: ['mdx'],
     Details: [
         'performances',
         'reserved_words'
