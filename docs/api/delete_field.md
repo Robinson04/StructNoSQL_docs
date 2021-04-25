@@ -29,7 +29,7 @@ returned. The deletion will fail only if an error occurred in the sending or exe
 ## Basic
 
 
-### Queried record :
+### Queried record
 ```json
 {
   "userId": "x42",

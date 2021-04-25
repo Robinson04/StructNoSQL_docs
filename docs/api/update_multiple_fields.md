@@ -42,7 +42,7 @@ parts of your operation that have already been completed, will not be reverted.
 ## Example
 
 
-### Queried record :
+### Queried record
 ```json
 {
   "userId": "x42",

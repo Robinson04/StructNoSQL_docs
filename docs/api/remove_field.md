@@ -25,7 +25,7 @@ removed_item: Optional[dict] = table_client.remove_field(
 ## Multi fields selectors
 
 
-### Queried record :
+### Queried record
 ```json
 {
   "userId": "x42",

@@ -26,7 +26,7 @@ deletion_success: bool = table_client.delete_multiple_fields(
 ## Multi fields selectors
 
 
-### Queried record :
+### Queried record
 ```json
 {
   "userId": "x42",

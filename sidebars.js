@@ -9,6 +9,9 @@ module.exports = {
     ],
     "Caching Table": [
         'caching_table/introduction',
+        'caching_table/creating_a_caching_table',
+        'caching_table/committing_operations',
+        'caching_table/clearing_cache',
     ],
     API: [
         'api/put_record',
@@ -24,6 +27,9 @@ module.exports = {
         'api/FieldSetter',
         'api/FieldRemover',
         'api/ActiveSelf',
+        'api/commit_operations',
+        'api/commit_update_operations',
+        'api/commit_remove_operations',
     ],
     Details: [
         'performances',

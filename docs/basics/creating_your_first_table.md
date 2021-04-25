@@ -1,7 +1,6 @@
 ---
 id: creating_your_first_table
 title: Creating your first table
-slug: /creating-first-table
 ---
 
 Each table is composed of two parts.
@@ -93,4 +92,4 @@ table_client = UsersTable()
 
 You can now fully perform operations on your table trough the table_client.
 Right now, the model of your table only has an 'userId' field. 
-Move to the next section to enrich your table model.
+Move to the next section to enrich your table model.gith

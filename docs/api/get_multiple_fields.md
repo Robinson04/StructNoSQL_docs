@@ -24,7 +24,7 @@ retrieved_items: Dict[str, Any] = table_client.get_multiple_fields(
 | query_kwargs  | NO       | dict | Used to pass data to populate a field_path that contains keys. See example below :
 
 
-### Queried record :
+### Queried record
 ```json
 {
   "userId": "x42",

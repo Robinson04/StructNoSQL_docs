@@ -23,7 +23,7 @@ retrieved_item: Any = table_client.get_field(
 
 ## Single field retrieving
 
-### Queried record :
+### Queried record
 ```json
 {
   "userId": "x42",
@@ -104,7 +104,7 @@ the ```get_multiple_fields``` operation.
 
 
 
-### Queried record :
+### Queried record
 ```json
 {
   "userId": "x42",

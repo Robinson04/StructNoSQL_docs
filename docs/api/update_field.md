@@ -23,7 +23,7 @@ update_success: bool = table_client.update_field(
 
 
 
-### Queried record :
+### Queried record
 ```json
 {
   "userId": "x42",

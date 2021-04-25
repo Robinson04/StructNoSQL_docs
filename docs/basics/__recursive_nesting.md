@@ -3,6 +3,8 @@ id: recursive_nesting
 title: Recursive nesting
 ---
 
+This is a delicate functionality. Do not try to do recursive nesting if this is your first time using StructNoSQL.
+
 ### Step 1 : Creating your field with the ActiveSelf object
 
 ```python
