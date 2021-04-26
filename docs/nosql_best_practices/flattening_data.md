@@ -135,12 +135,20 @@ relation_update_success: bool = table_client.update_field(
 )
 ```
 
-With this second approach, all our items are present in same dict, which means you should not consider counter ids and 
-instead use unique identifiers for example uuid's (read more at [Unique ids](../nosql_best_practices/unique_ids.md)).
+With this second approach, all our items are present in same dict, which means you should not consider using counter ids 
+and instead use unique identifiers for example uuid's (read more at [Unique ids](../nosql_best_practices/unique_ids.md)).
 Each item has a new non-required field, the parentId, which should contain the id of another item that should act as the
 parent for your item.
+
+This allows you to only modify a single field in your item to change its relationship, no matter the size of the item,
+or even if there are other items that consider as their parent the item you are modifying.
+
+This also gives you the ability to not be constrained by the DynamoDB depth limit of 32 (read more at 
+[The depth limit](../basics/recursive_nesting.md#the-depth-limit)) since all of your items start at the same depth level.
+
 It is then your responsibility to reconstruct your data from the flattened data either server side, or better, client 
-side.
+side. You will find below two examples, one in ```Python``` and one in ```Typescript``` to efficiently reconstruct 
+nested data from flattened data.
 
 
 ## (Python) Reconstruct nested data from flattened data
@@ -308,7 +316,7 @@ export function reconstructData(flattenedData: { [key: string]: RetrievedLayoutI
     }
 
     for (let parentKeyId in childrenWaitingByParentIds) {
-        const childrenItems = childrenWaitingByParentIds[parentKeyId];
+        const childrenItems: { [key: string]: ClientLayoutItemData } = childrenWaitingByParentIds[parentKeyId];
         allItems[parentKeyId].children = childrenItems;
     }
     return rootItems;

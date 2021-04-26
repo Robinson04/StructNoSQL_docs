@@ -35,7 +35,7 @@ export function reconstructData(flattenedData: { [key: string]: RetrievedLayoutI
     }
 
     for (let parentKeyId in childrenWaitingByParentIds) {
-        const childrenItems = childrenWaitingByParentIds[parentKeyId];
+        const childrenItems: { [key: string]: ClientLayoutItemData } = childrenWaitingByParentIds[parentKeyId];
         allItems[parentKeyId].children = childrenItems;
     }
     return rootItems;
