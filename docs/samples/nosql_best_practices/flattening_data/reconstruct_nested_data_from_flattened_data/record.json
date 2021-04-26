@@ -1,0 +1,19 @@
+{
+  "userId": "x42",
+  "layoutItems": {
+    "item1": {
+      "active": true,
+      "size": 60
+    },
+    "item2": {
+      "active": false,
+      "size": 35,
+      "parentId": "item1"
+    },
+    "item3": {
+      "active": false,
+      "size": 89,
+      "parentId": "item2"
+    }
+  }
+}

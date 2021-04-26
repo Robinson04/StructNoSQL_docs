@@ -13,6 +13,10 @@ module.exports = {
         'caching_table/committing_operations',
         'caching_table/clearing_cache',
     ],
+    "NoSQL best practices": [
+        "nosql_best_practices/flattening-data",
+        "nosql_best_practices/unique-ids"
+    ],
     API: [
         'api/put_record',
         'api/delete_record',
