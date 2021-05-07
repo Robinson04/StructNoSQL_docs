@@ -15,7 +15,8 @@ module.exports = {
     ],
     "NoSQL best practices": [
         "nosql_best_practices/flattening-data",
-        "nosql_best_practices/unique-ids"
+        "nosql_best_practices/unique-ids",
+        "nosql_best_practices/preventing-identifier-duplication-risks"
     ],
     API: [
         'api/put_record',
