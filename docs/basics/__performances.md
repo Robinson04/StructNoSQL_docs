@@ -20,15 +20,18 @@ When indexing your table model, all of your fields paths are indexed into a flat
 
 Consider the following model : 
 ```python
+from typing import Dict
+from StructNoSQL import TableDataModel, BaseField, MapModel
+
 class TableModel(TableDataModel):
-    id = BaseField(name='id', field_type=str, required=True)
+    id = BaseField(field_type=str, required=True)
     class ItemModel(MapModel):
-        name = BaseField(name='name', field_type=str, required=True)
+        name = BaseField(field_type=str, required=True)
         class MetadataItemModel(MapModel):
-            type = BaseField(name='type', field_type=str, required=True)
-            value = BaseField(name='value', field_type=int, required=False)
-        metadata = BaseField(name='metadata', field_type=Dict[str, MetadataItemModel], key_name='metaItemId', required=False)
-    container = BaseField(name='container', field_type=Dict[str, ItemModel], key_name='itemId', required=False)
+            type = BaseField(field_type=str, required=True)
+            value = BaseField(field_type=int, required=False)
+        metadata = BaseField(field_type=Dict[str, MetadataItemModel], key_name='metaItemId', required=False)
+    container = BaseField(field_type=Dict[str, ItemModel], key_name='itemId', required=False)
 ```
 
 Which will produce a flattened switch of :

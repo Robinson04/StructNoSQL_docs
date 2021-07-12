@@ -1,15 +1,15 @@
-from StructNoSQL import TableDataModel, BasicTable, PrimaryIndex, BaseField, MapModel, ActiveSelf
+from StructNoSQL import TableDataModel, DynamoDBBasicTable, PrimaryIndex, BaseField, MapModel, ActiveSelf
 from typing import Dict
 
 
 class UsersTableModel(TableDataModel):
-    userId = BaseField(name='userId', field_type=str, required=True)
+    userId = BaseField(field_type=str, required=True)
     class ParameterModel(MapModel):
-        childParameters = BaseField(name='childParameters', field_type=Dict[str, ActiveSelf], key_name='childParameterKey{i}', max_nested_depth=8, required=False)
-    parameters = BaseField(name='parameters', field_type=Dict[str, ParameterModel], key_name='parameterKey', required=False)
+        childParameters = BaseField(field_type=Dict[str, ActiveSelf], key_name='childParameterKey{i}', max_nested_depth=8, required=False)
+    parameters = BaseField(field_type=Dict[str, ParameterModel], key_name='parameterKey', required=False)
 
 
-class UsersTable(BasicTable):
+class UsersTable(DynamoDBBasicTable):
     def __init__(self):
         primary_index = PrimaryIndex(hash_key_name='userId', hash_key_variable_python_type=str)
         super().__init__(

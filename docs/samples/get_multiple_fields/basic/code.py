@@ -1,17 +1,17 @@
-from StructNoSQL import TableDataModel, BasicTable, PrimaryIndex, BaseField, MapModel, FieldGetter
+from StructNoSQL import TableDataModel, DynamoDBBasicTable, PrimaryIndex, BaseField, MapModel, FieldGetter
 from typing import Dict, Optional
 
 
 class UsersTableModel(TableDataModel):
-    userId = BaseField(name='userId', field_type=str, required=True)
-    username = BaseField(name='username', field_type=str, required=False)
+    userId = BaseField(field_type=str, required=True)
+    username = BaseField(field_type=str, required=False)
     class AuthTokenModel(MapModel):
-        expirationTimestamp = BaseField(name='expirationTimestamp', field_type=int, required=True)
-    tokens = BaseField(name='tokens', field_type=Dict[str, AuthTokenModel], key_name='tokenId', required=False)
-    lastConnectionTimestamp = BaseField(name='lastConnectionTimestamp', field_type=int, required=False)
+        expirationTimestamp = BaseField(field_type=int, required=True)
+    tokens = BaseField(field_type=Dict[str, AuthTokenModel], key_name='tokenId', required=False)
+    lastConnectionTimestamp = BaseField(field_type=int, required=False)
 
 
-class UsersTable(BasicTable):
+class UsersTable(DynamoDBBasicTable):
     def __init__(self):
         primary_index = PrimaryIndex(hash_key_name='userId', hash_key_variable_python_type=str)
         super().__init__(

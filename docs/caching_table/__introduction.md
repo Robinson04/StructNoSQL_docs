@@ -3,15 +3,15 @@ title: Introduction
 ---
 
 StructNoSQL has mutliple types of table clients. The simplest (and the one used throughout most of the documentation)
-is the ```BasicTable```.
+is the ```DynamoDBBasicTable```.
 
-The ```CachingTable``` will lower the amount of requests to your database, by grouping your operations as much as 
+The ```DynamoDBCachingTable``` will lower the amount of requests to your database, by grouping your operations as much as 
 possible before sending a request to your database, and cache the data your retrieved from your database for re-use 
 without needing to re-request it while keeping an in-memory representation of your data and performing your operations 
 onto the cached data, even before the operations are sent to the database.
 
-It can be used interchangeably with the ```BasicTable```, so the rest of the documentation still applies, with the
-specific features of the BasicTable detailled here.
+It can be used interchangeably with the ```DynamoDBBasicTable```, so the rest of the documentation still applies, with the
+specific features of the DynamoDBBasicTable detailled here.
 
 ### Functionalities
 - Groups update and delete operations to lower the amount of requests
@@ -20,7 +20,7 @@ specific features of the BasicTable detailled here.
 - In-memory representation of the data, where update and delete operations will be performed and cached, even before the
   operations are committed
 - Require a call to the commit_operations function before operations are send
-- Fully interchangeable with the ```BasicTable```, apart for the additional commit_operations function
+- Fully interchangeable with the ```DynamoDBBasicTable```, apart for the additional commit_operations function
 
 ### Use cases
 - Round-turn applications where the commit_operations can easily be enforced at the end of a round (for example, the

@@ -26,7 +26,7 @@ Add a required field of type str,
 from StructNoSQL import TableDataModel, BaseField
 
 class UsersTableModel(TableDataModel):
-    userId = BaseField(name='userId', field_type=str, required=True)
+    userId = BaseField(field_type=str, required=True)
 ```
 
 ### Adding dictionaries/map's
@@ -35,10 +35,10 @@ from StructNoSQL import TableDataModel, BaseField, MapModel
 from typing import Dict
 
 class UsersTableModel(TableDataModel):
-    userId = BaseField(name='userId', field_type=str, required=True)
+    userId = BaseField(field_type=str, required=True)
     class AuthTokenModel(MapModel):
-        expirationTimestamp = BaseField(name='expirationTimestamp', field_type=int, required=True)
-    tokens = BaseField(name='tokens', field_type=Dict[str, AuthTokenModel], key_name='tokenId', required=False)
+        expirationTimestamp = BaseField(field_type=int, required=True)
+    tokens = BaseField(field_type=Dict[str, AuthTokenModel], key_name='tokenId', required=False)
 
 ```
 
@@ -48,19 +48,21 @@ from StructNoSQL import TableDataModel, BaseField, MapModel
 from typing import Dict
 
 class UsersTableModel(TableDataModel):
-    userId = BaseField(name='userId', field_type=str, required=True)
+    userId = BaseField(field_type=str, required=True)
     class AuthTokenModel(MapModel):
-        expirationTimestamp = BaseField(name='expirationTimestamp', field_type=int, required=True)
-    tokens = BaseField(name='tokens', field_type=Dict[str, AuthTokenModel], key_name='tokenId', required=False)
+        expirationTimestamp = BaseField(field_type=int, required=True)
+    tokens = BaseField(field_type=Dict[str, AuthTokenModel], key_name='tokenId', required=False)
 
 ```
 
 ### Creating self nested models
 ```python
+from typing import Any, Dict
+from StructNoSQL import MapModel, BaseField, ActiveSelf
 
 class ParameterModel(MapModel):
-    value = BaseField(name='value', field_type=Any, required=False)
-    childParameters = BaseField(name='childParameters', field_type=Dict[str, ActiveSelf], key_name='childParameterKey{i}', max_nested_depth=8, required=False)
-parameters = BaseField(name='parameters', field_type=Dict[str, ParameterModel], key_name='parameterKey', required=False)
+    value = BaseField(field_type=Any, required=False)
+    childParameters = BaseField(field_type=Dict[str, ActiveSelf], key_name='childParameterKey{i}', max_nested_depth=8, required=False)
+parameters = BaseField(field_type=Dict[str, ParameterModel], key_name='parameterKey', required=False)
 
 ```

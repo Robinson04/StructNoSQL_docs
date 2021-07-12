@@ -56,17 +56,17 @@ You could also go one step beyond, aim to be bulletproof, and prepare for the oc
 by allowing multiple attempts to generate an identifier that is not already used.
 
 ```python
-from StructNoSQL import TableDataModel, BaseField, MapModel, BasicTable, PrimaryIndex
+from StructNoSQL import TableDataModel, BaseField, MapModel, DynamoDBBasicTable, PrimaryIndex
 from typing import Dict, Optional
 import uuid
 
 class TableModel(TableDataModel):
-    id = BaseField(name='id', field_type=str, required=True)
+    id = BaseField(field_type=str, required=True)
     class ProjectModel(MapModel):
-        name = BaseField(name='name', field_type=str, required=True)
-    projects = BaseField(name='projects', field_type=Dict[str, ProjectModel], key_name='projectId', required=False)
+        name = BaseField(field_type=str, required=True)
+    projects = BaseField(field_type=Dict[str, ProjectModel], key_name='projectId', required=False)
 
-class UsersTable(BasicTable):
+class UsersTable(DynamoDBBasicTable):
     def __init__(self):
         primary_index = PrimaryIndex(hash_key_name='userId', hash_key_variable_python_type=str)
         super().__init__(

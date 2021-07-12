@@ -4,7 +4,7 @@ title: Committing operations
 ---
 
 The automatic grouping and caching of data happens under the hood when using a ```CachingTable``` and does not require
-any modifications to your code comparing to using a ```BasicTable```.
+any modifications to your code comparing to using a ```DynamoDBBasicTable```.
 
 
 

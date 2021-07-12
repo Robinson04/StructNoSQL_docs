@@ -1,14 +1,14 @@
 from typing import Optional
 
-from StructNoSQL import TableDataModel, BasicTable, PrimaryIndex, BaseField
+from StructNoSQL import TableDataModel, DynamoDBBasicTable, PrimaryIndex, BaseField
 
 
 class UsersTableModel(TableDataModel):
-    userId = BaseField(name='userId', field_type=str, required=True)
-    username = BaseField(name='username', field_type=str, required=False)
+    userId = BaseField(field_type=str, required=True)
+    username = BaseField(field_type=str, required=False)
 
 
-class UsersTable(BasicTable):
+class UsersTable(DynamoDBBasicTable):
     def __init__(self):
         primary_index = PrimaryIndex(hash_key_name='userId', hash_key_variable_python_type=str)
         super().__init__(

@@ -23,18 +23,21 @@ from StructNoSQL import TableDataModel, MapModel, BaseField, ActiveSelf
 from typing import Dict
 
 class UsersTableModel(TableDataModel):
-    userId = BaseField(name='userId', field_type=str, required=True)
+    userId = BaseField(field_type=str, required=True)
     class ParameterModel(MapModel):
-        childParameters = BaseField(name='childParameters', field_type=Dict[str, ActiveSelf], required=False)
-    parameters = BaseField(name='parameters', field_type=Dict[str, ParameterModel], key_name='parameterKey', required=False)
+        childParameters = BaseField(field_type=Dict[str, ActiveSelf], required=False)
+    parameters = BaseField(field_type=Dict[str, ParameterModel], key_name='parameterKey', required=False)
 ```
 
 :::tip Can be used in complex field_type's
 All three usages below of the ActiveSelf object are valid.
 ```python
-childParameters = BaseField(name='childParameter', field_type=ActiveSelf)
-childParameters = BaseField(name='childParameters', field_type=List[ActiveSelf])
-childParameters = BaseField(name='childParameters', field_type=Dict[str, ActiveSelf])
+from typing import List, Dict
+from StructNoSQL import BaseField, ActiveSelf
+
+childParameters = BaseField(field_type=ActiveSelf)
+childParameters = BaseField(field_type=List[ActiveSelf])
+childParameters = BaseField(field_type=Dict[str, ActiveSelf])
 ```
 :::
 
@@ -47,11 +50,7 @@ For example, you could not use it in a field that is at the root of your table.
 ### Step 2 : Adding the {i} placeholder
 
 ```python
-childParameters = BaseField(
-    name='childParameters', 
-    field_type=Dict[str, ActiveSelf], 
-    key_name='childParameterKey{i}'
-)
+childParameters = BaseField(field_type=Dict[str, ActiveSelf], key_name='childParameterKey{i}')
 ```
 As soon as you use the ActiveSelf object in a field of type List or Dict, you will need to specify a key_name attribute 
 if you did not yet specify one, and you will need to add `{i}` anywhere inside your key_name.
@@ -63,10 +62,10 @@ from StructNoSQL import TableDataModel, MapModel, BaseField, ActiveSelf
 from typing import Dict
 
 class UsersTableModel(TableDataModel):
-    userId = BaseField(name='userId', field_type=str, required=True)
+    userId = BaseField(field_type=str, required=True)
     class ParameterModel(MapModel):
-        childParameters = BaseField(name='childParameters', field_type=Dict[str, ActiveSelf], key_name='childParameterKey{i}', max_nested_depth=8, required=False)
-    parameters = BaseField(name='parameters', field_type=Dict[str, ParameterModel], key_name='parameterKey', required=False)
+        childParameters = BaseField(field_type=Dict[str, ActiveSelf], key_name='childParameterKey{i}', max_nested_depth=8, required=False)
+    parameters = BaseField(field_type=Dict[str, ParameterModel], key_name='parameterKey', required=False)
 ```
 
 To access the nested fields of our example above, you will do the following :
@@ -85,12 +84,7 @@ retrieved_second_nested_child_parameter = table.get_field(
 
 You can (and probably should) limit the amount of times an item can nest himself by using the max_nested_depth attribute.
 ```python
-childParameters = BaseField(
-    name='childParameters', 
-    field_type=Dict[str, ActiveSelf], 
-    key_name='childParameterKey{i}', 
-    max_nested_depth=8
-)
+childParameters = BaseField(field_type=Dict[str, ActiveSelf], key_name='childParameterKey{i}', max_nested_depth=8)
 ```
 
 ---

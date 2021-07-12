@@ -1,17 +1,17 @@
-from StructNoSQL import TableDataModel, BasicTable, PrimaryIndex, BaseField, MapModel
+from StructNoSQL import TableDataModel, DynamoDBBasicTable, PrimaryIndex, BaseField, MapModel
 from typing import Dict, Optional
 
 
 class UsersTableModel(TableDataModel):
-    userId = BaseField(name='userId', field_type=str, required=True)
+    userId = BaseField(field_type=str, required=True)
     class FriendModel(MapModel):
-        name = BaseField(name='name', field_type=str, required=False)
-        profession = BaseField(name='profession', field_type=str, required=False)
-        score = BaseField(name='score', field_type=int, required=False)
-    friends = BaseField(name='friends', field_type=Dict[str, FriendModel], key_name='friendId', required=False)
+        name = BaseField(field_type=str, required=False)
+        profession = BaseField(field_type=str, required=False)
+        score = BaseField(field_type=int, required=False)
+    friends = BaseField(field_type=Dict[str, FriendModel], key_name='friendId', required=False)
 
 
-class UsersTable(BasicTable):
+class UsersTable(DynamoDBBasicTable):
     def __init__(self):
         primary_index = PrimaryIndex(hash_key_name='userId', hash_key_variable_python_type=str)
         super().__init__(

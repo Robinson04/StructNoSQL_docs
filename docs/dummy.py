@@ -1,20 +1,20 @@
 from typing import Dict
 
-from StructNoSQL import TableDataModel, BaseField, MapModel, BasicTable, PrimaryIndex
+from StructNoSQL import TableDataModel, BaseField, MapModel, DynamoDBBasicTable, PrimaryIndex
 
 
 class TableModel(TableDataModel):
-    id = BaseField(name='id', field_type=str, required=True)
+    id = BaseField(field_type=str, required=True)
     class ItemModel(MapModel):
-        name = BaseField(name='name', field_type=str, required=True)
+        name = BaseField(field_type=str, required=True)
         class MetadataItemModel(MapModel):
-            type = BaseField(name='type', field_type=str, required=True)
-            value = BaseField(name='value', field_type=int, required=False)
-        metadata = BaseField(name='metadata', field_type=Dict[str, MetadataItemModel], key_name='metaItemId', required=False)
-    container = BaseField(name='item1', field_type=Dict[str, ItemModel], key_name='itemId', required=False)
+            type = BaseField(field_type=str, required=True)
+            value = BaseField(field_type=int, required=False)
+        metadata = BaseField(field_type=Dict[str, MetadataItemModel], key_name='metaItemId', required=False)
+    item1 = BaseField(field_type=Dict[str, ItemModel], key_name='itemId', required=False)
 
 
-class UsersTable(BasicTable):
+class UsersTable(DynamoDBBasicTable):
     def __init__(self):
         primary_index = PrimaryIndex(hash_key_name='userId', hash_key_variable_python_type=str)
         super().__init__(
