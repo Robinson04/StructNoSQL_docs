@@ -40,6 +40,7 @@ query_metadata will contains information on how to continue your request where y
 {{file::../docs_parts/query_kwargs_table_row.md}}
 {{file::../docs_parts/exclusive_start_key_table_row.md}}
 {{file::../docs_parts/pagination_records_limit_table_row.md}}
+{{file::../docs_parts/filter_expression_table_row.md}}
 {{file::../docs_parts/data_validation_table_row.md}}
  
 ## Availability

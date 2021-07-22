@@ -41,6 +41,7 @@ query_metadata will contains information on how to continue your request where y
 | query_kwargs | NO | dict | None | Used to pass data to populate a field_path that contains keys. See example below :
 | exclusive_start_key | NO | dict | None | The key object to start the query from. This is used in paginated queries, it should not be manually created but retrieved from the 'last_evaluated_key' attribute from the query_metadata of your previous query operation.
 | pagination_records_limit | NO | int | None | The numbers of records to scan before paginating the query. If None, the query will execute until all records matching the key_value have been scanned, or when the retrieved fields from the records exceed 1MB.
+| filter_expression | NO | Any | None | Take and apply any condition from boto3.dynamodb.conditions. See : https://boto3.amazonaws.com/v1/documentation/api/latest/_modules/boto3/dynamodb/conditions.html
 | data_validation | NO | bool | True | Whether data validation from your table model should be applied on the retrieved data. 
  
 ## Availability

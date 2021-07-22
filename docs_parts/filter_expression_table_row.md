@@ -1,0 +1,1 @@
+| filter_expression | NO | Any | None | Take and apply any condition from boto3.dynamodb.conditions. See : https://boto3.amazonaws.com/v1/documentation/api/latest/_modules/boto3/dynamodb/conditions.html
