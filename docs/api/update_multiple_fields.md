@@ -33,11 +33,20 @@ parts of your operation that have already been completed, will not be reverted.
 
 ## Parameters
 
-| Property&nbsp;name | Required | Accepted&nbsp;types | Description |
-| ------------------ | :------: | :-----------------: | :---------- |
-| key_name      | No       | str  | The key\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto. It will usually be the primary index field (like userId or id) that you defined. _Note : The selection with secondary indexes is still in Beta and not fully working, see https://github.com/Robinson04/StructNoSQL/issues/10_
-| key_value     | YES      | Any  | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
+| Property&nbsp;name | Required | Accepted&nbsp;types | Default | Description |
+| ------------------ | :------: | :-----------------: | :-----: | :---------- |
+| index_name | No | str | primary_index name of table | The index\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto.
+| key_value | YES | Any | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
 | setters       | YES      | List[FieldSetter] | A list of FieldSetter object. See [FieldSetter](../api/FieldSetter.md) |
+
+## Availability
+
+| Table | Available |
+| ----- | :-------- |
+| DynamoDBBasicTable | ✅
+| DynamoDBCachingTable | ✅
+| ExternalDynamoDBApiBasicTable | ✅
+| ExternalDynamoDBApiCachingTable | ✅
 
 ## Example
 

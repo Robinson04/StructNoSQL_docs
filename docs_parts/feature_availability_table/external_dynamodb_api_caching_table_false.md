@@ -1,0 +1,1 @@
+| ExternalDynamoDBApiCachingTable | ⬜

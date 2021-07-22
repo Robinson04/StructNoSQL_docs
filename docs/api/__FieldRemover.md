@@ -6,11 +6,11 @@ slug: /api/FieldRemover
 **A constructor object to specify Field's to remove or delete in various operations.**
 
 ```python
-from inoft_vocal_framework import FieldRemover
-FieldRemover(field_path=Any, query_kwargs=Optional[dict])
+from StructNoSQL import FieldRemover
+FieldRemover(field_path=str, query_kwargs=Optional[dict])
 ```
 
-## Usage :
+## Usage
 - [delete_multiple_fields](../api/delete_multiple_fields.md)
 - [remove_multiple_fields](../api/remove_multiple_fields.md)
 

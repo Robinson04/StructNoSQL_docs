@@ -10,3 +10,16 @@ slug: /api/delete_record
 deletion_success = table.delete_record(indexes_keys_selectors=Dict[str, str])
 ```
 
+
+## Availability
+
+| Table | Available |
+| ----- | :-------- |
+| DynamoDBBasicTable | ✅
+| DynamoDBCachingTable | ✅
+| ExternalDynamoDBApiBasicTable | ✅
+| ExternalDynamoDBApiCachingTable | ✅
+
+## Example :
+
+todo

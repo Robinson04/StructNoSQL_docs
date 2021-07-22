@@ -3,25 +3,40 @@ id: get_multiple_fields
 slug: /api/get_multiple_fields
 ---
 
-**Allow to retrieve multiple fields from your table.**
+**Retrieve multiple fields in one operation, from a single record selected by its primary key.**
 
 ```python
 retrieved_items: Dict[str, Any] = table_client.get_multiple_fields(
-    key_value=str, getters={
+    key_value=str, 
+    getters={
         str: FieldGetter(field_path=str, query_kwargs=Optional[dict]),
         str: FieldGetter(field_path=str, query_kwargs=Optional[dict])
-    }
+    },
+    data_validation=bool = True
 )
 ```
 
+:::tip You can use any key for the getters
+No matter the field you are trying to retrieve, you can use any key's for your getter item's. You will receive your 
+results in a dictionary that use the keys of your getters, even if they are not related to the field names you requested.
+:::
+
 ## Parameters
 
-| Property&nbsp;name | Required | Accepted&nbsp;types | Description |
-| ------------------ | :------: | :-----------------: | :---------- |
-| key_name      | No       | str  | The key\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto. It will usually be the primary index field (like userId or id) that you defined. _Note : The selection with secondary indexes is still in Beta and not fully working, see https://github.com/Robinson04/StructNoSQL/issues/10_
-| key_value     | YES      | Any  | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
-| field_path    | YES      | str  | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
-| query_kwargs  | NO       | dict | Used to pass data to populate a field_path that contains keys. See example below :
+| Property&nbsp;name | Required | Accepted&nbsp;types | Default | Description |
+| ------------------ | :------: | :-----------------: | :-----: | :---------- |
+| key_value | YES | Any | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
+| getters | YES | Dict[str,&nbsp;[FieldGetter](../api/FieldGetter)] | - | A dictionary with all the fields to retrieve, and the keys that will be used for the output you will receive. |
+| data_validation | NO | bool | True | Whether data validation from your table model should be applied on the retrieved data. 
+
+## Availability
+
+| Table | Available |
+| ----- | :-------- |
+| DynamoDBBasicTable | ✅
+| DynamoDBCachingTable | ✅
+| ExternalDynamoDBApiBasicTable | ✅
+| ExternalDynamoDBApiCachingTable | ✅
 
 
 ### Queried record

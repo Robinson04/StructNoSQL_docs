@@ -21,6 +21,10 @@ If there is nothing to commit, calling the commit_remove_operations will not sen
 
 commit_remove_operations has no parameters.
 
+## Availability
+
+{{file::../docs_parts/feature_availability_table/preset_only_caching.md}}
+
 ## Example
 
 {{sampler::caching_table/commit_remove_operations/basic}}

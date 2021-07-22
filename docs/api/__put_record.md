@@ -9,6 +9,11 @@ slug: /api/put_record
 and all the required fields of the model. Return the success of the operation with True or False.**
 
 ```python
-success = table.put_record(record_dict_data={'userId': "testUserId", 'name': 'John'})
+success: bool = table.put_record(record_dict_data={'userId': "testUserId", 'name': 'John'})
 ```
+
+
+## Availability
+
+{{file::../docs_parts/feature_availability_table/preset_all.md}}
 

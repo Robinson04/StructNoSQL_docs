@@ -1,2 +1,2 @@
-| Property&nbsp;name | Required | Accepted&nbsp;types | Description |
-| ------------------ | :------: | :-----------------: | :---------- |
+| Property&nbsp;name | Required | Accepted&nbsp;types | Default | Description |
+| ------------------ | :------: | :-----------------: | :-----: | :---------- |

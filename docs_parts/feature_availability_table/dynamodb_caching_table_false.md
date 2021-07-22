@@ -1,0 +1,1 @@
+| DynamoDBCachingTable | ⬜

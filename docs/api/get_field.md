@@ -3,23 +3,33 @@ id: get_field
 slug: /api/get_field
 ---
 
-**Allow to retrieve a single or multiple fields from your table.**
+**Retrieve a single or multiple fields from a single record selected by its primary key.**
 
 ```python
-retrieved_item: Any = table_client.get_field(
-    key_value=str, field_path=str, query_kwargs=Optional[dict]
+retrieved_item: Optional[Any] = table_client.get_field(
+    key_value=str, field_path=str, 
+    query_kwargs=Optional[dict],
+    data_validation=bool = True
 )
 ```
 
 ## Parameters
 
-| Property&nbsp;name | Required | Accepted&nbsp;types | Description |
-| ------------------ | :------: | :-----------------: | :---------- |
-| key_name      | No       | str  | The key\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto. It will usually be the primary index field (like userId or id) that you defined. _Note : The selection with secondary indexes is still in Beta and not fully working, see https://github.com/Robinson04/StructNoSQL/issues/10_
-| key_value     | YES      | Any  | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
-| field_path    | YES      | str  | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
-| query_kwargs  | NO       | dict | Used to pass data to populate a field_path that contains keys. See example below :
+| Property&nbsp;name | Required | Accepted&nbsp;types | Default | Description |
+| ------------------ | :------: | :-----------------: | :-----: | :---------- |
+| key_value | YES | Any | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
+| field_path | YES | str | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
+| query_kwargs | NO | dict | None | Used to pass data to populate a field_path that contains keys. See example below :
+| data_validation | NO | bool | True | Whether data validation from your table model should be applied on the retrieved data. 
 
+## Availability
+
+| Table | Available |
+| ----- | :-------- |
+| DynamoDBBasicTable | ✅
+| DynamoDBCachingTable | ✅
+| ExternalDynamoDBApiBasicTable | ✅
+| ExternalDynamoDBApiCachingTable | ✅
 
 ## Single field retrieving
 
@@ -95,12 +105,12 @@ For example : ```myItem.(attribute1, attribute2, attribute3)```
 
 :::tip
 A single database request will be constructed and send to retrieve your multiple attributes. It is then more efficient 
-to use multi selectors or the [```get_multiple_fields```](./get_multiple_fields) operation as much as you can, instead of sending multiple 
-operations to your database to retrieve the data you need.
+to use multi selectors or the [```get_multiple_fields```](../api/get_multiple_fields.md) operation as much as you can, 
+instead of sending multiple operations to your database to retrieve the data you need.
 :::
 
 You cannot use a multi-selector to get multiple fields that are not in the same location. For that use case, you need
-the ```get_multiple_fields``` operation.
+the [```get_multiple_fields```](../api/get_multiple_fields.md) operation.
 
 
 

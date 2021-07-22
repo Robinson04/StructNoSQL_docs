@@ -1,0 +1,1 @@
+| data_validation | NO | bool | True | Whether data validation from your table model should be applied on the retrieved data. 

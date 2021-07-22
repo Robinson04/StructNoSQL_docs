@@ -19,11 +19,14 @@ returned. The deletion will fail only if an error occurred in the sending or exe
 ## Parameters
 
 {{file::../docs_parts/table_header.md}}
-{{file::../docs_parts/key_name_table_row.md}}
+{{file::../docs_parts/index_name_table_row.md}}
 {{file::../docs_parts/key_value_table_row.md}}
 {{file::../docs_parts/field_path_table_row.md}}
 {{file::../docs_parts/query_kwargs_table_row.md}}
 
+## Availability
+
+{{file::../docs_parts/feature_availability_table/preset_all.md}}
 
 ## Basic
 

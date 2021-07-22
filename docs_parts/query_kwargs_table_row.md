@@ -1,1 +1,1 @@
-| query_kwargs  | NO       | dict | Used to pass data to populate a field_path that contains keys. See example below :
+| query_kwargs | NO | dict | None | Used to pass data to populate a field_path that contains keys. See example below :

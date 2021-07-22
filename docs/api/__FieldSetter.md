@@ -6,11 +6,11 @@ slug: /api/FieldSetter
 **A constructor object to specify Field's to update in various operations.**
 
 ```python
-from inoft_vocal_framework import FieldSetter
-FieldSetter(field_path=Any, value_to_set=Any, query_kwargs=Optional[dict])
+from StructNoSQL import FieldSetter
+FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict])
 ```
 
-## Usage :
+## Usage
 - [update_multiple_fields](../api/update_multiple_fields.md)
 
 ## Parameters

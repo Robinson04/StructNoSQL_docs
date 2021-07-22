@@ -30,6 +30,15 @@ multiple requests.
 
 commit_remove_operations has no parameters.
 
+## Availability
+
+| Table | Available |
+| ----- | :-------- |
+| DynamoDBBasicTable | ⬜
+| DynamoDBCachingTable | ✅
+| ExternalDynamoDBApiBasicTable | ⬜
+| ExternalDynamoDBApiCachingTable | ✅
+
 ## Example
 
 

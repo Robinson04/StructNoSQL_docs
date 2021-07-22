@@ -10,3 +10,11 @@ slug: /api/delete_record
 deletion_success = table.delete_record(indexes_keys_selectors=Dict[str, str])
 ```
 
+
+## Availability
+
+{{file::../docs_parts/feature_availability_table/preset_all.md}}
+
+## Example :
+
+todo

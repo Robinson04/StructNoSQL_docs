@@ -24,6 +24,10 @@ Your update and remove operations are sent in separate requests to your database
 ## Parameters
 
 commit_operations has no parameters.
+ 
+## Availability
+
+{{file::../docs_parts/feature_availability_table/preset_only_caching.md}}
 
 ## Example
 

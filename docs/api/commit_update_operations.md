@@ -27,6 +27,15 @@ multiple requests.
 
 commit_update_operations has no parameters.
 
+## Availability
+
+| Table | Available |
+| ----- | :-------- |
+| DynamoDBBasicTable | ⬜
+| DynamoDBCachingTable | ✅
+| ExternalDynamoDBApiBasicTable | ⬜
+| ExternalDynamoDBApiCachingTable | ✅
+
 ## Example
 
 

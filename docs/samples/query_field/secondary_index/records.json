@@ -1,0 +1,32 @@
+[
+  {
+    "id": "c30",
+    "name": "Game of Thrones",
+    "primaryType": "Fantasy"
+  },
+  {
+    "id": "d52",
+    "name": "Hannibal",
+    "primaryType": "Thriller"
+  },
+  {
+    "id": "m19",
+    "name": "The Witcher",
+    "primaryType": "Fantasy"
+  },
+  {
+    "id": "b12",
+    "name": "Breaking Bad",
+    "primaryType": "Thriller"
+  },
+  {
+    "id": "n96",
+    "name": "The Walking Dead",
+    "primaryType": "Thriller"
+  },
+  {
+    "id": "o28",
+    "name": "Amazon Lord of the Rings",
+    "primaryType": "Fantasy"
+  }
+]
