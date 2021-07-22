@@ -1,0 +1,13 @@
+Here is some thriller tv shows you might enjoy :
+{'name': 'Narcos', 'imdb_rating': 8.8} (id: h57)
+{'name': 'The Walking Dead', 'imdb_rating': 8.2} (id: n96)
+{'name': 'Dark', 'imdb_rating': 8.8} (id: b45)
+
+Here is some thriller tv shows you might enjoy :
+{'name': 'Breaking Bad', 'imdb_rating': 9.4} (id: b12)
+{'name': 'Hannibal', 'imdb_rating': 8.5} (id: d52)
+{'name': 'Chernobyl', 'imdb_rating': 9.4} (id: p05)
+
+No tv shows found in response, you might have hit the end of records.
+
+All tv shows have been retrieved.

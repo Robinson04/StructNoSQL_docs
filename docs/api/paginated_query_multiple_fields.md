@@ -3,27 +3,32 @@ id: paginated_query_multiple_fields
 slug: /api/paginated_query_multiple_fields
 ---
 
-**Delete a single field from your table and return success of operation with True or False.**
+**Wrapper on the [query_multiple_fields](../api/query_multiple_fields.md) operation, that allows to easily perform 
+paginated operation with an iterable instead of manually managing the pagination.**
 
 ```python
 from StructNoSQL import QueryMetadata
+from typing import Generator, Tuple, Optional, Dict, Any
 
-records_values, query_metadata = table_client.query_field(
-    key_value: str, field_path: str, query_kwargs: Optional[dict] = None,
-    index_name: Optional[str] = None,
-    exclusive_start_key: Optional[Any] = None,
-    pagination_records_limit: Optional[int] = None,
-    filter_expression: Optional[Any] = None, 
-    data_validation: bool = True
+records_paginator: Generator[Tuple[Optional[Dict[str, Any]], QueryMetadata], None, None] = (
+    table_client.paginated_query_field(
+        index_name=Optional[str], key_value=Any,
+        getters={
+            str: FieldGetter(field_path=str, query_kwargs=Optional[dict]),
+            str: FieldGetter(field_path=str, query_kwargs=Optional[dict])
+        },
+        pagination_records_limit=Optional[int] = None,
+        exclusive_start_key: Optional[Any] = None,
+        filter_expression=Optional[Any] = None,
+        data_validation: bool = True
+    )
 )
-records_values: Optional[dict]
-query_metadata: QueryMetadata
+for records_items, query_metadata in records_paginator:
+    if records_items is not None:
+        for record_primary_key_value, record_items_data in records_items.items():
+            print(record_primary_key_value)
+            print(record_items_data)  # do stuff
 ```
-
-Delete a single field and return a value of True or False according to the deletion success.
-
-If you try to delete a field that does not exist, the deletion will be considered a success, and a value of True will be
-returned. The deletion will fail only if an error occurred in the sending or execution of your request.
 
 ## Parameters
 
@@ -31,8 +36,10 @@ returned. The deletion will fail only if an error occurred in the sending or exe
 | ------------------ | :------: | :-----------------: | :-----: | :---------- |
 | index_name | No | str | primary_index name of table | The index\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto.
 | key_value | YES | Any | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
-| field_path | YES | str | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
-| query_kwargs | NO | dict | None | Used to pass data to populate a field_path that contains keys. See example below :
+| getters | YES | Dict[str,&nbsp;[FieldGetter](../api/FieldGetter)] | - | A dictionary with all the fields to retrieve, and the keys that will be used for the output you will receive. |
+| exclusive_start_key | NO | dict | None | The key object to start the query from. This is used in paginated queries, it should not be manually created but retrieved from the 'last_evaluated_key' attribute from the query_metadata of your previous query operation.
+| pagination_records_limit | NO | int | None | The numbers of records to scan before paginating the query. If None, the query will execute until all records matching the key_value have been scanned, or when the retrieved fields from the records exceed 1MB.
+| data_validation | NO | bool | True | Whether data validation from your table model should be applied on the retrieved data. 
 
 
 ## Availability
@@ -50,55 +57,177 @@ returned. The deletion will fail only if an error occurred in the sending or exe
 
 ### Queried record
 ```json
-{
-  "userId": "x42",
-  "shoppingCartItems": {
-    "i42": {
-      "productName": "Soluble coffee jar",
-      "quantity": 8
+[
+  {
+    "id": "c30",
+    "name": "Game of Thrones",
+    "primaryType": "Fantasy",
+    "ratings": {
+      "imdb": 9.2,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "d52",
+    "name": "Hannibal",
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 8.5,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "b12",
+    "name": "Breaking Bad",
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 9.4,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "n96",
+    "name": "The Walking Dead",
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 8.2,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "o28",
+    "name": "Amazon Lord of the Rings",
+    "primaryType": "Fantasy",
+    "ratings": {
+      "imdb": null,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "h57",
+    "name": "Narcos",
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 8.8,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "p05",
+    "name": "Chernobyl",
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 9.4,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "m19",
+    "name": "The Witcher",
+    "primaryType": "Fantasy",
+    "ratings": {
+      "imdb": 8.2,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "b45",
+    "name": "Dark",
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 8.8,
+      "rottentomatoes": null
     }
   }
-}
+]
 ```
 
 ### Code
 ```python
-from StructNoSQL import TableDataModel, DynamoDBBasicTable, PrimaryIndex, BaseField, MapModel
-from typing import Dict
+import json
+
+from StructNoSQL import TableDataModel, DynamoDBBasicTable, PrimaryIndex, BaseField, QueryMetadata, \
+    GlobalSecondaryIndex, MapModel, FieldGetter
+from typing import Optional, List, Generator, Tuple
 
 
-class UsersTableModel(TableDataModel):
-    userId = BaseField(field_type=str, required=True)
-    class ShoppingCartItemModel(MapModel):
-        productName = BaseField(field_type=str, required=True)
-        quantity = BaseField(field_type=int, required=True)
-    shoppingCartItems = BaseField(field_type=Dict[str, ShoppingCartItemModel], key_name='itemId', required=False)
+class MoviesTableModel(TableDataModel):
+    id = BaseField(field_type=str, required=True)
+    primaryType = BaseField(field_type=str, required=True)
+    name = BaseField(field_type=str, required=True)
+    class RatingsModel(MapModel):
+        imdb = BaseField(field_type=(int, float), required=False)
+        rottentomatoes = BaseField(field_type=(int, float), required=False)
+    ratings = BaseField(field_type=RatingsModel, required=False)
 
 
-class UsersTable(DynamoDBBasicTable):
+class MoviesTable(DynamoDBBasicTable):
     def __init__(self):
-        primary_index = PrimaryIndex(hash_key_name='userId', hash_key_variable_python_type=str)
         super().__init__(
-            table_name='accounts-data', region_name='eu-west-2',
-            data_model=UsersTableModel(), primary_index=primary_index,
+            table_name='movies-table', region_name='eu-west-2',
+            data_model=MoviesTableModel,
+            primary_index=PrimaryIndex(
+                hash_key_name='id',
+                hash_key_variable_python_type=str
+            ),
+            global_secondary_indexes=[
+                GlobalSecondaryIndex(
+                    hash_key_name='primaryType',
+                    hash_key_variable_python_type=str,
+                    projection_type='ALL'
+                )
+            ],
             auto_create_table=True
         )
 
 
-table_client = UsersTable()
+table_client = MoviesTable()
 
-deletion_success: bool = table_client.delete_field(
-    key_value='x42',
-    field_path='shoppingCartItems.{{itemId}}',
-    query_kwargs={'itemId': 'i42'}
+with open("record.json", 'r') as file:
+    source_records_data: List[dict] = json.load(fp=file)
+    for source_record_item_data in source_records_data:
+        put_record_success: bool = table_client.put_record(record_dict_data=source_record_item_data)
+        if put_record_success is not True:
+            print(f"Could not put {source_record_item_data}")
+
+
+records_paginator: Generator[Tuple[Optional[dict], QueryMetadata], None, None] = (
+    table_client.paginated_query_multiple_fields(
+        index_name='primaryType', key_value='Thriller',
+        getters={
+            'name': FieldGetter(field_path='name'),
+            'imdb_rating': FieldGetter(field_path='ratings.imdb')
+        },
+        pagination_records_limit=3
+    )
 )
-print(f"Deletion success result : {deletion_success}")
+for records_items, query_metadata in records_paginator:
+    if records_items is not None:
+        if len(records_items) > 0:
+            print("\nHere is some thriller tv shows you might enjoy :")
+            for record_primary_key_value, record_item_values in records_items.items():
+                print(f"{record_item_values} (id: {record_primary_key_value})")
+        else:
+            print("\nNo tv shows found in response, you might have hit the end of records.")
+print("\nAll tv shows have been retrieved.")
 
 ```
 
 ### Output
 ```
-Removed item : {'productName': "Soluble coffee jar", 'quantity': 8}
+Here is some thriller tv shows you might enjoy :
+{'name': 'Narcos', 'imdb_rating': 8.8} (id: h57)
+{'name': 'The Walking Dead', 'imdb_rating': 8.2} (id: n96)
+{'name': 'Dark', 'imdb_rating': 8.8} (id: b45)
+
+Here is some thriller tv shows you might enjoy :
+{'name': 'Breaking Bad', 'imdb_rating': 9.4} (id: b12)
+{'name': 'Hannibal', 'imdb_rating': 8.5} (id: d52)
+{'name': 'Chernobyl', 'imdb_rating': 9.4} (id: p05)
+
+No tv shows found in response, you might have hit the end of records.
+
+All tv shows have been retrieved.
 ```
         
  

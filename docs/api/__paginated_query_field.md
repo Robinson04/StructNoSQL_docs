@@ -14,9 +14,9 @@ records_paginator: Generator[Tuple[Optional[dict], QueryMetadata], None, None] =
     table_client.paginated_query_field(
         index_name=Optional[str], key_value=Any,
         field_path=str, pagination_records_limit=Optional[int],
-        filter_expression=Optional[Any] = None,
         pagination_records_limit=Optional[int] = None,
         exclusive_start_key: Optional[Any] = None,
+        filter_expression=Optional[Any] = None,
         data_validation: bool = True
     )
 )

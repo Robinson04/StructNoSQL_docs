@@ -1,0 +1,83 @@
+[
+  {
+    "id": "c30",
+    "name": "Game of Thrones",
+    "primaryType": "Fantasy",
+    "ratings": {
+      "imdb": 9.2,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "d52",
+    "name": "Hannibal",
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 8.5,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "b12",
+    "name": "Breaking Bad",
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 9.4,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "n96",
+    "name": "The Walking Dead",
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 8.2,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "o28",
+    "name": "Amazon Lord of the Rings",
+    "primaryType": "Fantasy",
+    "ratings": {
+      "imdb": null,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "h57",
+    "name": "Narcos",
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 8.8,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "p05",
+    "name": "Chernobyl",
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 9.4,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "m19",
+    "name": "The Witcher",
+    "primaryType": "Fantasy",
+    "ratings": {
+      "imdb": 8.2,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "b45",
+    "name": "Dark",
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 8.8,
+      "rottentomatoes": null
+    }
+  }
+]
