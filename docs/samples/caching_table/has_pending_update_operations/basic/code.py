@@ -21,18 +21,22 @@ table_client = UsersTable()
 with open("record.json", 'r') as file:
     source_record_data: dict = json.load(fp=file)
     put_record_success: bool = table_client.put_record(record_dict_data=source_record_data)
-    # Currently, put_record will always be executed right away, hence is not considered a pending_operation
+    # put_record will always be executed right away, hence is not considered a pending_operation
     if put_record_success is not True:
         print("Error with put_record")
 
 print(f"First has_pending_update_operations : {table_client.has_pending_update_operations()}")
+# At first, we of course will not have any pending operations.
 
 expected_username_update_success: bool = table_client.update_field(
     key_value='x42', field_path='username', value_to_set='Paul'
 )
+# update_field is not required to be executed right away, so instead of directly
+# sending a database operation, an update operation will be scheduled.
 print(f"Username update expected success : {expected_username_update_success}")
 print(f"Second has_pending_update_operations : {table_client.has_pending_update_operations()}")
 
-commit_success: bool = table_client.commit_update_operations()
-print(f"Commit success : {commit_success}")
+update_operations_commit_success: bool = table_client.commit_update_operations()
+print(f"Update operations commit success : {update_operations_commit_success}")
 print(f"Third has_pending_operations : {table_client.has_pending_update_operations()}")
+# After a successful call to commit_operations, we do not have any more pending operations to send.

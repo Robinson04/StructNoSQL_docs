@@ -23,5 +23,4 @@ has_pending_remove_operations has no parameters.
 {{file::../docs_parts/feature_availability_table/preset_only_caching.md}}
 
 ## Example
-
-{{sampler::caching_table/has_pending_operations/basic}}
+{{sampler::caching_table/has_pending_remove_operations/basic}}
