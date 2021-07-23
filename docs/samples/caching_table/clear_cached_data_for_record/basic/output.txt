@@ -1,0 +1,7 @@
+Retrieved tv shows : {
+    'b12': {'name': {'value': 'Breaking Bad', 'fromCache': False}, 'ratings': {'value': {'imdb': 9.4)}, 'fromCache': False}},
+    'd52': {'name': {'value': 'Hannibal', 'fromCache': False}, 'ratings': {'value': {'imdb': 8.5}, 'fromCache': False}}
+}
+TV shows names to keys : {'Breaking Bad': 'b12', 'Hannibal': 'd52'}
+Breaking bad imdb rating : {'value': 9.4, 'fromCache': False}
+Hannibal imdb rating : {'value': 8.5, 'fromCache': True}

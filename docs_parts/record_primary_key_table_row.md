@@ -1,0 +1,1 @@
+| record_primary_key | YES | str | - | The key_value of the primary_index of the record for which to clear its cached data. |

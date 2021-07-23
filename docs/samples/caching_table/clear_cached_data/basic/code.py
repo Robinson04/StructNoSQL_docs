@@ -1,16 +1,15 @@
-from typing import Dict
-from StructNoSQL import TableDataModel, CachingTable, PrimaryIndex, BaseField, MapModel
+import json
+from typing import Any, Optional
+
+from StructNoSQL import TableDataModel, DynamoDBCachingTable, PrimaryIndex, BaseField
 
 
 class UsersTableModel(TableDataModel):
     userId = BaseField(field_type=str, required=True)
     username = BaseField(field_type=str, required=False)
-    class AuthTokenModel(MapModel):
-        expirationTimestamp = BaseField(field_type=int, required=True)
-    tokens = BaseField(field_type=Dict[str, AuthTokenModel], key_name='tokenId', required=False)
 
 
-class UsersTable(CachingTable):
+class UsersTable(DynamoDBCachingTable):
     def __init__(self):
         primary_index = PrimaryIndex(hash_key_name='userId', hash_key_variable_python_type=str)
         super().__init__(
@@ -21,19 +20,34 @@ class UsersTable(CachingTable):
 
 
 table_client = UsersTable()
+table_client.debug = True
+# Set debug to True to retrieve each value
+# with its metadata (ie, the 'fromCache' attribute)
 
-expected_username_update_success: bool = table_client.update_field(
-    key_value='x42', field_path='username', value_to_set='Paul'
-)
-print(f"Username update expected success : {expected_username_update_success}")
+with open("record.json", 'r') as file:
+    source_record_data: dict = json.load(fp=file)
+    put_record_success: bool = table_client.put_record(record_dict_data=source_record_data)
+    if put_record_success is not True:
+        print("Error with put_record")
 
-expected_token_deletion_success: bool = table_client.delete_field(
+    table_client.commit_operations()
+    table_client.clear_cached_data()
+    # put_record will cache our data, so we need to call commit_operations to
+    # make sure the record is created, then clear our cached_data a first time.
+
+first_time_retrieved_username: Optional[Any] = table_client.get_field(
     key_value='x42', field_path='username'
 )
-print(f"Token deletion expected success : {expected_token_deletion_success}")
+print(f"First retrieval username value : {first_time_retrieved_username}")
 
-commit_success = table_client.commit_operations()
-print(f"Commit success : {commit_success}")
-# Since the update_field and delete_field operations does not require to immediately
-# retrieve a field from the database, the operations are actually sent to the database,
-# only at this point when calling the commit_operations function.
+second_time_retrieved_username: Optional[Any] = table_client.get_field(
+    key_value='x42', field_path='username'
+)
+print(f"Second retrieval username value : {second_time_retrieved_username}")
+
+table_client.clear_cached_data()  # <-- We clear the cache
+
+third_time_retrieved_username: Optional[Any] = table_client.get_field(
+    key_value='x42', field_path='username'
+)
+print(f"Third retrieval username value : {third_time_retrieved_username}")

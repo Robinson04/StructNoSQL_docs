@@ -3,17 +3,16 @@ id: clear_cached_data_for_record
 slug: /api/clear_cached_data_for_record
 ---
 
-**Clear all cached data for a single record selected by its primary key value in your [```CachingTable```](../caching_table/introduction.md)**
+**Clear all cached values for a single record selected by its primary key value in your [```CachingTable```](../caching_table/introduction.md)**
 
 ```python
 table_client.clear_cached_data_for_record(record_primary_key=str)
 ```
 
-{{file::../docs_parts/caching_table/only_usable_in_caching_table_warning.md}}
-
 ## Parameters
 
-clear_cached_data_for_record has no parameters.
+{{file::../docs_parts/table_header.md}}
+{{file::../docs_parts/record_primary_key_table_row.md}}
  
 ## Availability
 
@@ -21,4 +20,4 @@ clear_cached_data_for_record has no parameters.
 
 ## Example
 
-{{sampler::caching_table/commit_operations/basic}}
+{{sampler::caching_table/clear_cached_data_for_record/basic}}

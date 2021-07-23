@@ -1,0 +1,29 @@
+[
+  {
+    "id": "b12",
+    "name": "Breaking Bad",
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 9.4,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "c30",
+    "name": "Game of Thrones",
+    "primaryType": "Fantasy",
+    "ratings": {
+      "imdb": 9.2,
+      "rottentomatoes": null
+    }
+  },
+  {
+    "id": "d52",
+    "name": "Hannibal",
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 8.5,
+      "rottentomatoes": null
+    }
+  }
+]
