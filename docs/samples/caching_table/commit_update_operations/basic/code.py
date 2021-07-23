@@ -3,11 +3,11 @@ from StructNoSQL import TableDataModel, CachingTable, PrimaryIndex, BaseField, M
 
 
 class UsersTableModel(TableDataModel):
-    userId = BaseField(name='userId', field_type=str, required=True)
-    username = BaseField(name='username', field_type=str, required=False)
+    userId = BaseField(field_type=str, required=True)
+    username = BaseField(field_type=str, required=False)
     class AuthTokenModel(MapModel):
-        expirationTimestamp = BaseField(name='expirationTimestamp', field_type=int, required=True)
-    tokens = BaseField(name='tokens', field_type=Dict[str, AuthTokenModel], key_name='tokenId', required=False)
+        expirationTimestamp = BaseField(field_type=int, required=True)
+    tokens = BaseField(field_type=Dict[str, AuthTokenModel], key_name='tokenId', required=False)
 
 
 class UsersTable(CachingTable):

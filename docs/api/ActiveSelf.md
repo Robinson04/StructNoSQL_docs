@@ -9,7 +9,7 @@ slug: /api/ActiveSelf
 from StructNoSQL import BaseField, ActiveSelf
 from typing import Dict
 
-childParameters = BaseField(name='childParameters', field_type=Dict[str, ActiveSelf])
+childParameters = BaseField(field_type=Dict[str, ActiveSelf])
 ```
 
 For detailed explanations on using recursive nesting, see : [Recursive nesting](../basics/recursive_nesting)

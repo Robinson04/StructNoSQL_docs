@@ -42,6 +42,8 @@ module.exports = {
         'api/commit_operations',
         'api/commit_update_operations',
         'api/commit_remove_operations',
+        'api/clear_cached_data',
+        'api/clear_cached_data_for_record',
     ],
     Details: [
         'performances',

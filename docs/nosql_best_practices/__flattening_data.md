@@ -18,12 +18,12 @@ from StructNoSQL import TableDataModel, MapModel, BaseField, ActiveSelf
 from typing import Dict
 
 class UsersTableModel(TableDataModel):
-    userId = BaseField(name='userId', field_type=str, required=True)
+    userId = BaseField(field_type=str, required=True)
     class LayoutItemModel(MapModel):
-        active = BaseField(name='active', field_type=bool, required=False)
-        size = BaseField(name='size', field_type=int, required=False)
-        children = BaseField(name='children', field_type=Dict[str, ActiveSelf], key_name='itemChildId{i}', max_nested_depth=8, required=False)
-    layoutItems = BaseField(name='layoutItems', field_type=Dict[str, LayoutItemModel], key_name='itemId', required=False)
+        active = BaseField(field_type=bool, required=False)
+        size = BaseField(field_type=int, required=False)
+        children = BaseField(field_type=Dict[str, ActiveSelf], key_name='itemChildId{i}', max_nested_depth=8, required=False)
+    layoutItems = BaseField(field_type=Dict[str, LayoutItemModel], key_name='itemId', required=False)
 ```
 
 ### Queried record
@@ -94,12 +94,12 @@ from StructNoSQL import TableDataModel, MapModel, BaseField
 from typing import Dict
 
 class UsersTableModel(TableDataModel):
-    userId = BaseField(name='userId', field_type=str, required=True)
+    userId = BaseField(field_type=str, required=True)
     class LayoutItemModel(MapModel):
-        active = BaseField(name='active', field_type=bool, required=False)
-        size = BaseField(name='size', field_type=int, required=False)
-        parentId = BaseField(name='parentId', field_type=str, required=False)
-    layoutItems = BaseField(name='layoutItems', field_type=Dict[str, LayoutItemModel], key_name='itemId', required=False)
+        active = BaseField(field_type=bool, required=False)
+        size = BaseField(field_type=int, required=False)
+        parentId = BaseField(field_type=str, required=False)
+    layoutItems = BaseField(field_type=Dict[str, LayoutItemModel], key_name='itemId', required=False)
 ```
 
 ### Queried record

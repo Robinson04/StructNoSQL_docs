@@ -13,8 +13,8 @@ slug: /basics/field_path_selectors
 from StructNoSQL import BaseTable, PrimaryIndex, TableDataModel, BaseField
 
 class UsersTableModel(TableDataModel):
-    accountId = BaseField(name='userId', field_type=str, required=True)
-    username = BaseField(name='username', field_type=str, required=False)
+    accountId = BaseField(field_type=str, required=True)
+    username = BaseField(field_type=str, required=False)
 
 class UsersTable(BaseTable):
     def __init__(self):

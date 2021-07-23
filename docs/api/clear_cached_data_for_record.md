@@ -1,3 +1,49 @@
+---
+id: clear_cached_data_for_record
+slug: /api/clear_cached_data_for_record
+---
+
+**Clear all cached data for a single record selected by its primary key value in your [```CachingTable```](../caching_table/introduction.md)**
+
+```python
+table_client.clear_cached_data_for_record(record_primary_key=str)
+```
+
+:::warning This functionality is only usable in [```CachingTable```](../caching_table/introduction.md) 
+:::
+
+
+## Parameters
+
+clear_cached_data_for_record has no parameters.
+ 
+## Availability
+
+| Table | Available |
+| ----- | :-------- |
+| DynamoDBBasicTable | ⬜
+| DynamoDBCachingTable | ✅
+| ExternalDynamoDBApiBasicTable | ⬜
+| ExternalDynamoDBApiCachingTable | ✅
+
+## Example
+
+
+### Queried record
+```json
+{
+  "userId": "x42",
+  "username": "Robinson",
+  "tokens": {
+    "t32": {
+      "expirationTimestamp": "1618322249"
+    }
+  }
+}
+```
+
+### Code
+```python
 from typing import Dict
 from StructNoSQL import TableDataModel, CachingTable, PrimaryIndex, BaseField, MapModel
 
@@ -37,3 +83,12 @@ print(f"Commit success : {commit_success}")
 # Since the update_field and delete_field operations does not require to immediately
 # retrieve a field from the database, the operations are actually sent to the database,
 # only at this point when calling the commit_operations function.
+```
+
+### Output
+```
+Username update expected success : True
+Token deletion expected success : True
+Commit success : True
+```
+        

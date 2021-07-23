@@ -3,8 +3,8 @@
 from StructNoSQL import BaseTable, PrimaryIndex, TableDataModel, BaseField
 
 class UsersTableModel(TableDataModel):
-    userId = BaseField(name='userId', field_type=str, required=True)
-    username = BaseField(name='username', field_type=str, required=False)
+    userId = BaseField(field_type=str, required=True)
+    username = BaseField(field_type=str, required=False)
 
 class UsersTable(BaseTable):
     def __init__(self):

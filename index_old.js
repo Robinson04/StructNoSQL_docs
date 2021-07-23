@@ -19,11 +19,11 @@ import styles from './src/pages/styles.module.css';
 class UsersTableModel(TableDataModel):
 
 
-    userId = BaseField(name='userId', field_type=str, required=True)
-    username = BaseField(name='username', field_type=str, required=False)
+    userId = BaseField(field_type=str, required=True)
+    username = BaseField(field_type=str, required=False)
     class FriendModel(MapModel):
-        relationshipStatus = BaseField(name='relationshipStatus', field_type=str, required=False)
-    friends = BaseField(name='friends', field_type=Dict[str, FriendModel], index_name='friendId', required=False)
+        relationshipStatus = BaseField(field_type=str, required=False)
+    friends = BaseField(field_type=Dict[str, FriendModel], index_name='friendId', required=False)
  */
 
 const features = [
@@ -116,11 +116,11 @@ export default function Home() {
 "from typing import Dict\n" +
 "\n" +
 "class UsersTableModel(TableDataModel):\n" +
-"    userId = BaseField(name='userId', field_type=str, required=True)\n" +
-"    username = BaseField(name='username', field_type=str, required=False)\n" +
+"    userId = BaseField(field_type=str, required=True)\n" +
+"    username = BaseField(field_type=str, required=False)\n" +
 "    class FriendModel(MapModel):\n" +
-"        relationshipStatus = BaseField(name='relationshipStatus', field_type=str, required=False)\n" +
-"    friends = BaseField(name='friends', field_type=Dict[str, FriendModel], index_name='friendId', required=False)\n"
+"        relationshipStatus = BaseField(field_type=str, required=False)\n" +
+"    friends = BaseField(field_type=Dict[str, FriendModel], index_name='friendId', required=False)\n"
                   }>
         </CodeBlock>
                 {features.map((props, idx) => (

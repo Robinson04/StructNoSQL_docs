@@ -98,11 +98,11 @@ construct your recursive fields until the 32 depth limit.
 Consider the following model
 ```python 
 class UsersTableModel(TableDataModel):
-    userId = BaseField(name='userId', field_type=str, required=True)
+    userId = BaseField(field_type=str, required=True)
         class ParameterModel(MapModel):
-            childParameters = BaseField(name='childParameters', field_type=Dict[str, ActiveSelf], key_name='childParameterKey{i}', required=False)
-        parameters = BaseField(name='parameters', field_type=Dict[str, ParameterModel], key_name='parameterKey', required=False)
-    friends = BaseField(name='friends', field_type=Dict[str, FriendModel], key_name='friendId', required=False)
+            childParameters = BaseField(field_type=Dict[str, ActiveSelf], key_name='childParameterKey{i}', required=False)
+        parameters = BaseField(field_type=Dict[str, ParameterModel], key_name='parameterKey', required=False)
+    friends = BaseField(field_type=Dict[str, FriendModel], key_name='friendId', required=False)
 ```
 
 
