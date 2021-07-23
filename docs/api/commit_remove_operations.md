@@ -81,7 +81,7 @@ expected_token_deletion_success: bool = table_client.delete_field(
 )
 print(f"Token deletion expected success : {expected_token_deletion_success}")
 
-commit_success = table_client.commit_remove_operations()
+commit_success: bool = table_client.commit_remove_operations()
 print(f"Commit success : {commit_success}")
 ```
 

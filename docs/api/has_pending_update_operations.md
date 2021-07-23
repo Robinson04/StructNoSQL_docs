@@ -81,7 +81,7 @@ expected_username_update_success: bool = table_client.update_field(
 print(f"Username update expected success : {expected_username_update_success}")
 print(f"Second has_pending_operations : {table_client.has_pending_operations()}")
 
-commit_success = table_client.commit_operations()
+commit_success: bool = table_client.commit_operations()
 print(f"Commit success : {commit_success}")
 print(f"Third has_pending_operations : {table_client.has_pending_operations()}")
 

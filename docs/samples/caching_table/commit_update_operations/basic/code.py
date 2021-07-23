@@ -27,5 +27,5 @@ expected_username_update_success: bool = table_client.update_field(
 )
 print(f"Username update expected success : {expected_username_update_success}")
 
-commit_success = table_client.commit_update_operations()
+commit_success: bool = table_client.commit_update_operations()
 print(f"Commit success : {commit_success}")

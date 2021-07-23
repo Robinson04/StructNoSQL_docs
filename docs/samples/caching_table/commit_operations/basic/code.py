@@ -32,7 +32,7 @@ expected_token_deletion_success: bool = table_client.delete_field(
 )
 print(f"Token deletion expected success : {expected_token_deletion_success}")
 
-commit_success = table_client.commit_operations()
+commit_success: bool = table_client.commit_operations()
 print(f"Commit success : {commit_success}")
 # Since the update_field and delete_field operations does not require to immediately
 # retrieve a field from the database, the operations are actually sent to the database,

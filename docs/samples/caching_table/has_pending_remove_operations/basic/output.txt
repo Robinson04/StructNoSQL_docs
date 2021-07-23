@@ -1,0 +1,5 @@
+First has_pending_operations : False
+Username update expected success : True
+Second has_pending_operations : True
+Commit success : True
+Third has_pending_operations : False

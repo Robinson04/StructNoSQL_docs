@@ -25,14 +25,14 @@ with open("record.json", 'r') as file:
     if put_record_success is not True:
         print("Error with put_record")
 
-print(f"First has_pending_operations : {table_client.has_pending_operations()}")
+print(f"First has_pending_update_operations : {table_client.has_pending_update_operations()}")
 
 expected_username_update_success: bool = table_client.update_field(
     key_value='x42', field_path='username', value_to_set='Paul'
 )
 print(f"Username update expected success : {expected_username_update_success}")
-print(f"Second has_pending_operations : {table_client.has_pending_operations()}")
+print(f"Second has_pending_update_operations : {table_client.has_pending_update_operations()}")
 
-commit_success: bool = table_client.commit_operations()
+commit_success: bool = table_client.commit_update_operations()
 print(f"Commit success : {commit_success}")
-print(f"Third has_pending_operations : {table_client.has_pending_operations()}")
+print(f"Third has_pending_operations : {table_client.has_pending_update_operations()}")
