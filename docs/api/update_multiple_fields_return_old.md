@@ -1,17 +1,19 @@
 ---
-id: update_multiple_fields
-slug: /api/update_multiple_fields
+id: update_multiple_fields_return_old
+slug: /api/update_multiple_fields_return_old
 ---
 
-**Update multiple fields values from a single record, in a single database operation.**
+**Update multiple fields values from a single record and return their previous values, in a single database operation.**
 
 ```python
-update_success: bool = table_client.update_field(
-    key_value=str, setters=[
-        FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict]),
-        FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict])
-    ]
+update_success, retrieved_old_values = table_client.update_multiple_fields_return_old(
+    key_value=str, setters={
+        str: FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict]),
+        str: FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict])
+    }
 )
+update_success: bool
+retrieved_old_values: Optional[Dict[str, Any]]
 ```
 
 ## To note
@@ -34,7 +36,7 @@ parts of your operation that have already been completed, will not be reverted.
 | ------------------ | :------: | :-----------------: | :-----: | :---------- |
 | index_name | No | str | primary_index name of table | The index\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto.
 | key_value | YES | Any | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
-| setters       | YES      | List[[FieldSetter](../api/FieldSetter.md)] | A list of FieldSetter object. See [FieldSetter](../api/FieldSetter.md) |
+| setters       | YES      | Dict[str,&nbsp;[FieldSetter](../api/FieldSetter.md)] | A dict of FieldSetter object. See [FieldSetter](../api/FieldSetter.md) |
 
 ## Availability
 
@@ -52,26 +54,28 @@ parts of your operation that have already been completed, will not be reverted.
 ```json
 {
   "userId": "x42",
-  "username": "Robinson"
+  "username": "Robinson",
+  "mails": {
+    "m42": {
+      "status": "not-read"
+    }
+  }
 }
 ```
 
 ### Code
 ```python
 import json
-
 from StructNoSQL import TableDataModel, DynamoDBBasicTable, PrimaryIndex, BaseField, MapModel, FieldSetter
-from typing import Optional, Dict
+from typing import Optional, Dict, Any
 
 
 class UsersTableModel(TableDataModel):
     userId = BaseField(field_type=str, required=True)
     username = BaseField(field_type=str, required=False)
-    class AuthTokenModel(MapModel):
-        expirationTimestamp = BaseField(field_type=int, required=True)
-    tokens = BaseField(field_type=Dict[str, AuthTokenModel], key_name='tokenId', required=False)
-    lastConnectionTimestamp = BaseField(field_type=int, required=False)
-
+    class MailItemModel(MapModel):
+        status = BaseField(field_type=str, required=True)
+    mails = BaseField(field_type=Dict[str, MailItemModel], key_name='mailId')
 
 class UsersTable(DynamoDBBasicTable):
     def __init__(self):
@@ -91,24 +95,27 @@ with open("record.json", 'r') as file:
     if put_record_success is not True:
         print("Error with put_record")
 
-update_success: bool = table_client.update_multiple_fields(
-    key_value='x42', setters=[
-        FieldSetter(field_path='username', value_to_set='Paul'),
-        FieldSetter(
-            field_path='tokens.{{tokenId}}',
-            query_kwargs={'tokenId': 't42'},
-            value_to_set={'expirationTimestamp': '1618324660'}
+update_success, retrieved_old_values = table_client.update_multiple_fields_return_old(
+    key_value='x42', setters={
+        'name': FieldSetter(field_path='username', value_to_set='Paul'),
+        'old_mail_status': FieldSetter(
+            field_path='mails.{{mailId}}',
+            query_kwargs={'mailId': 'm42'},
+            value_to_set={'status': 'read'}
         ),
-        FieldSetter(field_path='lastConnectionTimestamp', value_to_set='1606714120')
-    ]
+    }
 )
+update_success: bool
+retrieved_old_values: Optional[Dict[str, Any]]
 print(f"Multi update success : {update_success}")
+print(f"Retrieved old values : {retrieved_old_values}")
 
 ```
 
 ### Output
 ```
 Multi update success : True
+Retrieved old values : {'name': 'Robinson', 'old_mail_status': {'status': 'not-read'}}
 ```
         
 

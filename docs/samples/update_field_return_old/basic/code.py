@@ -1,4 +1,5 @@
-from typing import Optional
+import json
+from typing import Optional, Any
 
 from StructNoSQL import TableDataModel, DynamoDBBasicTable, PrimaryIndex, BaseField
 
@@ -20,12 +21,21 @@ class UsersTable(DynamoDBBasicTable):
 
 table_client = UsersTable()
 
-update_success: bool = table_client.update_field(
+with open("record.json", 'r') as file:
+    source_record_data: dict = json.load(fp=file)
+    put_record_success: bool = table_client.put_record(record_dict_data=source_record_data)
+    if put_record_success is not True:
+        print("Error with put_record")
+
+update_success, retrieved_old_value = table_client.update_field_return_old(
     key_value='x42', field_path='username', value_to_set='Paul'
 )
+update_success: bool
+retrieved_old_value: Optional[Any]
 print(f"Update success : {update_success}")
+print(f"Retrieved old value : {retrieved_old_value}")
 
-retrieved_new_name: Optional[str] = table_client.get_field(
+retrieved_new_username: Optional[Any] = table_client.get_field(
     key_value='x42', field_path='username'
 )
-print(f"Retrieved new name : {retrieved_new_name}")
+print(f"New username in database : {retrieved_new_username}")

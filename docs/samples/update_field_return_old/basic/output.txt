@@ -1,0 +1,3 @@
+Update success : True
+Retrieved old value : Robinson
+New username in database : Paul

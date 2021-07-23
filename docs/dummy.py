@@ -19,7 +19,7 @@ class UsersTable(DynamoDBBasicTable):
         primary_index = PrimaryIndex(hash_key_name='userId', hash_key_variable_python_type=str)
         super().__init__(
             table_name='accounts-data', region_name='eu-west-2',
-            data_model=TableModel(), primary_index=primary_index,
+            data_model=TableModel, primary_index=primary_index,
             auto_create_table=True
         )
 

@@ -1,0 +1,2 @@
+Multi update success : True
+Retrieved old values : {'name': 'Robinson', 'old_mail_status': {'status': 'not-read'}}

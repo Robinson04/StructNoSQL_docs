@@ -3,7 +3,7 @@ id: update_field
 slug: /api/update_field
 ---
 
-**Update a single field from your table and return the success of the operation with True or False.**
+**Update a single field value.**
 
 ```python
 update_success: bool = table_client.update_field(
@@ -17,7 +17,7 @@ update_success: bool = table_client.update_field(
 {{file::../docs_parts/index_name_table_row.md}}
 {{file::../docs_parts/key_value_table_row.md}}
 {{file::../docs_parts/field_path_table_row.md}}
-| value_to_set  | YES      | Any  | The value that will be set/update the attribute you selected with the field_path property. |
+{{file::../docs_parts/value_to_set_table_row.md}}
 {{file::../docs_parts/query_kwargs_table_row.md}}
 
 ## Availability

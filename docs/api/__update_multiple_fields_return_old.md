@@ -1,17 +1,19 @@
 ---
-id: update_multiple_fields
-slug: /api/update_multiple_fields
+id: update_multiple_fields_return_old
+slug: /api/update_multiple_fields_return_old
 ---
 
-**Update multiple fields values from a single record, in a single database operation.**
+**Update multiple fields values from a single record and return their previous values, in a single database operation.**
 
 ```python
-update_success: bool = table_client.update_field(
-    key_value=str, setters=[
-        FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict]),
-        FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict])
-    ]
+update_success, retrieved_old_values = table_client.update_multiple_fields_return_old(
+    key_value=str, setters={
+        str: FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict]),
+        str: FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict])
+    }
 )
+update_success: bool
+retrieved_old_values: Optional[Dict[str, Any]]
 ```
 
 ## To note
@@ -33,7 +35,7 @@ parts of your operation that have already been completed, will not be reverted.
 {{file::../docs_parts/table_header.md}}
 {{file::../docs_parts/index_name_table_row.md}}
 {{file::../docs_parts/key_value_table_row.md}}
-| setters       | YES      | List[[FieldSetter](../api/FieldSetter.md)] | A list of FieldSetter object. See [FieldSetter](../api/FieldSetter.md) |
+| setters       | YES      | Dict[str,&nbsp;[FieldSetter](../api/FieldSetter.md)] | A dict of FieldSetter object. See [FieldSetter](../api/FieldSetter.md) |
 
 ## Availability
 
@@ -41,5 +43,5 @@ parts of your operation that have already been completed, will not be reverted.
 
 ## Example
 
-{{sampler::update_multiple_fields/basic}}
+{{sampler::update_multiple_fields_return_old/basic}}
 

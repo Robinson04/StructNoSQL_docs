@@ -84,7 +84,7 @@ class UsersTable(DynamoDBBasicTable):
         super().__init__(
             table_name="my-first-table", region_name="eu-west-2", 
             primary_index=primary_index, auto_create_table=True,
-            data_model=UsersTableModel()
+            data_model=UsersTableModel
         )
 
 table_client = UsersTable()
