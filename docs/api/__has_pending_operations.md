@@ -1,17 +1,24 @@
 ---
-id: clear_cached_data
-slug: /api/clear_cached_data
+id: has_pending_operations
+slug: /api/has_pending_operations
 ---
 
-**Clear all cached values for all records in a [```CachingTable```](../caching_table/introduction.md)**
+**Return a bool whether there is any update or remove operations that could be committed with the
+[```commit_operations```](../api/commit_operations.md) or discarded with 
+[```clear_pending_operations```](../api/clear_pending_operations.md) in your 
+[```CachingTable```](../caching_table/introduction.md)**
 
 ```python
-table_client.clear_cached_data()
+do_has_pending_operations: bool = table_client.has_pending_operations()
 ```
+
+{{file::../docs_parts/caching_table/operations_considered_as_update.md}}
+
+{{file::../docs_parts/caching_table/operations_considered_as_remove.md}}
 
 ## Parameters
 
-clear_cached_data has no parameters.
+has_pending_operations has no parameters.
  
 ## Availability
 
@@ -19,4 +26,4 @@ clear_cached_data has no parameters.
 
 ## Example
 
-{{sampler::caching_table/clear_cached_data/basic}}
+{{sampler::caching_table/has_pending_operations/basic}}

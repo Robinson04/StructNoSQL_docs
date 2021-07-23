@@ -1,18 +1,16 @@
 ---
-id: commit_update_operations
-slug: /api/commit_update_operations
+id: has_pending_update_operations
+slug: /api/has_pending_update_operations
 ---
 
-**Only commit all update operations without committing remove operations in a [```CachingTable```](../caching_table/introduction.md)**
+**Return a bool whether there is any update operations that could be committed with the
+[```commit_update_operations```](../api/commit_update_operations.md) or discarded with 
+[```clear_pending_update_operations```](../api/clear_pending_update_operations.md) in your 
+[```CachingTable```](../caching_table/introduction.md)**
 
 ```python
-table_client.commit_update_operations()
+do_has_pending_update_operations: bool = table_client.has_pending_update_operations()
 ```
-
-If there is nothing to commit, calling the commit_update_operations will not send any request to your databases.
-
-If the size of your operations exceed the DynamoDB operations limit of 400kb, they will be sectioned and sent in 
-multiple requests.
 
 #### Operations considered as update :
 - [put_record](../api/put_record.md)
@@ -24,8 +22,8 @@ multiple requests.
 
 ## Parameters
 
-commit_update_operations has no parameters.
-
+has_pending_update_operations has no parameters.
+ 
 ## Availability
 
 | Table | Available |
@@ -42,30 +40,21 @@ commit_update_operations has no parameters.
 ```json
 {
   "userId": "x42",
-  "username": "Robinson",
-  "tokens": {
-    "t32": {
-      "expirationTimestamp": "1618322249"
-    }
-  }
+  "username": "Robinson"
 }
 ```
 
 ### Code
 ```python
-from typing import Dict
-from StructNoSQL import TableDataModel, CachingTable, PrimaryIndex, BaseField, MapModel
+import json
+from StructNoSQL import TableDataModel, DynamoDBCachingTable, PrimaryIndex, BaseField
 
 
 class UsersTableModel(TableDataModel):
     userId = BaseField(field_type=str, required=True)
     username = BaseField(field_type=str, required=False)
-    class AuthTokenModel(MapModel):
-        expirationTimestamp = BaseField(field_type=int, required=True)
-    tokens = BaseField(field_type=Dict[str, AuthTokenModel], key_name='tokenId', required=False)
 
-
-class UsersTable(CachingTable):
+class UsersTable(DynamoDBCachingTable):
     def __init__(self):
         primary_index = PrimaryIndex(hash_key_name='userId', hash_key_variable_python_type=str)
         super().__init__(
@@ -77,19 +66,33 @@ class UsersTable(CachingTable):
 
 table_client = UsersTable()
 
+with open("record.json", 'r') as file:
+    source_record_data: dict = json.load(fp=file)
+    put_record_success: bool = table_client.put_record(record_dict_data=source_record_data)
+    # Currently, put_record will always be executed right away, hence is not considered a pending_operation
+    if put_record_success is not True:
+        print("Error with put_record")
+
+print(f"First has_pending_operations : {table_client.has_pending_operations()}")
+
 expected_username_update_success: bool = table_client.update_field(
     key_value='x42', field_path='username', value_to_set='Paul'
 )
 print(f"Username update expected success : {expected_username_update_success}")
+print(f"Second has_pending_operations : {table_client.has_pending_operations()}")
 
-commit_success = table_client.commit_update_operations()
+commit_success = table_client.commit_operations()
 print(f"Commit success : {commit_success}")
+print(f"Third has_pending_operations : {table_client.has_pending_operations()}")
 
 ```
 
 ### Output
 ```
+First has_pending_operations : False
 Username update expected success : True
+Second has_pending_operations : True
 Commit success : True
+Third has_pending_operations : False
 ```
         

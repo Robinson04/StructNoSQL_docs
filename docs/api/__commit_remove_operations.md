@@ -9,8 +9,6 @@ slug: /api/commit_remove_operations
 table_client.commit_remove_operations()
 ```
 
-{{file::../docs_parts/caching_table/only_usable_in_caching_table_warning.md}}
-
 If there is nothing to commit, calling the commit_remove_operations will not send any request to your databases.
 
 {{file::../docs_parts/caching_table/if_operations_size_exceed_max_size_they_are_sectioned.md}}

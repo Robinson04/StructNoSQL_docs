@@ -9,10 +9,6 @@ slug: /api/commit_remove_operations
 table_client.commit_remove_operations()
 ```
 
-:::warning This functionality is only usable in [```CachingTable```](../caching_table/introduction.md) 
-:::
-
-
 If there is nothing to commit, calling the commit_remove_operations will not send any request to your databases.
 
 If the size of your operations exceed the DynamoDB operations limit of 400kb, they will be sectioned and sent in 
@@ -23,8 +19,7 @@ multiple requests.
 - [delete_field](../api/delete_field.md)
 - [delete_multiple_fields](../api/delete_multiple_fields.md)
 - [remove_field](../api/remove_field.md) (will be executed right away if the value to remove is not found in the cache)
-- [remove_multiple_fields](../api/remove_multiple_fields.md) (will be executed right away if the values to remove are 
-  not found in the cache)
+- [remove_multiple_fields](../api/remove_multiple_fields.md) (will be executed right away if the values to remove are not found in the cache)
 
 ## Parameters
 

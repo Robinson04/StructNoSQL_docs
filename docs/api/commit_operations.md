@@ -9,10 +9,6 @@ slug: /api/commit_operations
 table_client.commit_operations()
 ```
 
-:::warning This functionality is only usable in [```CachingTable```](../caching_table/introduction.md) 
-:::
-
-
 If there is nothing to commit, calling the commit_operations will not send any request to your databases.
 
 Your update and remove operations are sent in separate requests to your databases.
@@ -23,15 +19,17 @@ multiple requests.
 #### Operations considered as update :
 - [put_record](../api/put_record.md)
 - [update_field](../api/update_field.md)
+- [update_field_return_old](../api/update_field.md) (will be executed right away if the value to remove is not found in the cache)
 - [update_multiple_fields](../api/update_multiple_fields.md)
+- [update_multiple_fields_return_old](../api/update_multiple_fields.md) (will be executed right away if the values to update are not found in the cache)
+
 
 #### Operations considered as remove:  
 - [delete_record](../api/delete_record.md)
 - [delete_field](../api/delete_field.md)
 - [delete_multiple_fields](../api/delete_multiple_fields.md)
 - [remove_field](../api/remove_field.md) (will be executed right away if the value to remove is not found in the cache)
-- [remove_multiple_fields](../api/remove_multiple_fields.md) (will be executed right away if the values to remove are 
-  not found in the cache)
+- [remove_multiple_fields](../api/remove_multiple_fields.md) (will be executed right away if the values to remove are not found in the cache)
 
 ## Parameters
 

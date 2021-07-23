@@ -9,8 +9,6 @@ slug: /api/commit_update_operations
 table_client.commit_update_operations()
 ```
 
-{{file::../docs_parts/caching_table/only_usable_in_caching_table_warning.md}}
-
 If there is nothing to commit, calling the commit_update_operations will not send any request to your databases.
 
 {{file::../docs_parts/caching_table/if_operations_size_exceed_max_size_they_are_sectioned.md}}
