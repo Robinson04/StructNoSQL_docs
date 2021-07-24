@@ -35,5 +35,5 @@ has_pending_remove_operations has no parameters.
 
 This example displays how a data discrepancy can be created.
 
-{{sampler::caching_table/clear_pending_operations/details}}
+{{sampler::caching_table/clear_pending_operations/discrepancy}}
 

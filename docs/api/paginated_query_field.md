@@ -37,11 +37,10 @@ in order to know the number of records page to except.
 Notice that the operation has support for the exclusive_start_key, and each item of the records_paginator is a tuple
 containing both the records_items and the query_metadata. This allows you to start you records_paginator at a specific
 point to resume from a previous query operation, and you can save the last_evaluated_key of the query_metadata's to
-continue your query operation later as detailed in [query_field](../api/query_field.md)
+continue your query operation later as detailed in [query_pagination](../basics/query_pagination)
 :::
 
 ## Parameters
-
 | Property&nbsp;name | Required | Accepted&nbsp;types | Default | Description |
 | ------------------ | :------: | :-----------------: | :-----: | :---------- |
 | index_name | No | str | primary_index name of table | The index\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto.
@@ -52,9 +51,7 @@ continue your query operation later as detailed in [query_field](../api/query_fi
 | pagination_records_limit | NO | int | None | The numbers of records to scan before paginating the query. If None, the query will execute until all records matching the key_value have been scanned, or when the retrieved fields from the records exceed 1MB.
 | data_validation | NO | bool | True | Whether data validation from your table model should be applied on the retrieved data. 
 
-
 ## Availability
-
 | Table | Available |
 | ----- | :-------- |
 | DynamoDBBasicTable | ✅
@@ -62,9 +59,7 @@ continue your query operation later as detailed in [query_field](../api/query_fi
 | ExternalDynamoDBApiBasicTable | ✅
 | ExternalDynamoDBApiCachingTable | ✅
 
-
-## Basic
-
+## Example
 
 ### Queried record
 ```json

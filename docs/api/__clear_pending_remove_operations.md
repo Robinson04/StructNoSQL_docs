@@ -29,13 +29,5 @@ has_pending_remove_operations has no parameters.
 - [commit_update_operations](../api/commit_update_operations)
 
 
-## Example : Basic
+## Example
 {{sampler::caching_table/has_pending_remove_operations/basic}}
-
-## Example : Details
-
-This example display various cases where the cache system will smartly optimize 
-your requests, and where in some cases it can be broken by clearing pending_operations.
-
-{{sampler::caching_table/has_pending_remove_operations/details}}
-

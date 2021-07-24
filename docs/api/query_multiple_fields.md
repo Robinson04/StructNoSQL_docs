@@ -24,28 +24,27 @@ query_metadata: QueryMetadata
 Query a field and return of tuple of the both the records_values organized in a dictionary (the keys being the primary key
 value of each record), and a query_metadata object with information needed to paginate your query. 
 
-:::info What's the request pagination ?
+:::tip This operation is paginated
 When the number of records you specified in pagination_records_limit have been scanned, or as soon as the data that you
-will be returned reached 1MB of size, the result will be returned.
-This might happen before all of the records matching your key_value and index_name have been scanned, in which case
-query_metadata will contains information on how to continue your request where you left off.
+will be returned reached 1MB of size, your query will be paginated into multiple pages.
+Refer yourself to [Query pagination](../basics/query_pagination) in order to work with paginated responses.
 :::
- 
-## Parameters
 
+You can use [paginated_query_multiple_fields](../api/paginated_query_multiple_fields.md) for a managed navigation of 
+paginated results with a simple iterable.
+
+## Parameters
 | Property&nbsp;name | Required | Accepted&nbsp;types | Default | Description |
 | ------------------ | :------: | :-----------------: | :-----: | :---------- |
 | index_name | No | str | primary_index name of table | The index\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto.
 | key_value | YES | Any | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
-| field_path | YES | str | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
-| query_kwargs | NO | dict | None | Used to pass data to populate a field_path that contains keys. See example below :
+| getters | YES | Dict[str,&nbsp;[FieldGetter](../api/FieldGetter)] | - | A dictionary with all the fields to retrieve, and the keys that will be used for the output you will receive. |
 | exclusive_start_key | NO | dict | None | The key object to start the query from. This is used in paginated queries, it should not be manually created but retrieved from the 'last_evaluated_key' attribute from the query_metadata of your previous query operation.
 | pagination_records_limit | NO | int | None | The numbers of records to scan before paginating the query. If None, the query will execute until all records matching the key_value have been scanned, or when the retrieved fields from the records exceed 1MB.
 | filter_expression | NO | Any | None | Take and apply any condition from boto3.dynamodb.conditions. See : https://boto3.amazonaws.com/v1/documentation/api/latest/_modules/boto3/dynamodb/conditions.html
 | data_validation | NO | bool | True | Whether data validation from your table model should be applied on the retrieved data. 
  
 ## Availability
-
 | Table | Available |
 | ----- | :-------- |
 | DynamoDBBasicTable | ✅
@@ -53,8 +52,12 @@ query_metadata will contains information on how to continue your request where y
 | ExternalDynamoDBApiBasicTable | ✅
 | ExternalDynamoDBApiCachingTable | ✅
 
-## Basic
+## Related pages
+- [Query pagination](../basics/query_pagination)
+- [QueryMetadata](../api/QueryMetadata)
+- [paginated_query_multiple_fields](../api/paginated_query_multiple_fields)
 
+## Example
 
 ### Queried record
 ```json

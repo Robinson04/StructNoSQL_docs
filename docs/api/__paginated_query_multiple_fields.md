@@ -11,7 +11,7 @@ from StructNoSQL import QueryMetadata
 from typing import Generator, Tuple, Optional, Dict, Any
 
 records_paginator: Generator[Tuple[Optional[Dict[str, Any]], QueryMetadata], None, None] = (
-    table_client.paginated_query_field(
+    table_client.paginated_query_multiple_fields(
         index_name=Optional[str], key_value=Any,
         getters={
             str: FieldGetter(field_path=str, query_kwargs=Optional[dict]),
@@ -30,8 +30,11 @@ for records_items, query_metadata in records_paginator:
             print(record_items_data)  # do stuff
 ```
 
-## Parameters
+{{file::../docs_parts/paginated_queries/query_requests_are_being_sent_as_you_call_records_paginator.md}}
 
+{{file::../docs_parts/paginated_queries/you_can_also_use_manual_pagination.md}}
+
+## Parameters
 {{file::../docs_parts/table_header.md}}
 {{file::../docs_parts/index_name_table_row.md}}
 {{file::../docs_parts/key_value_table_row.md}}
@@ -42,11 +45,8 @@ for records_items, query_metadata in records_paginator:
 
 
 ## Availability
-
 {{file::../docs_parts/feature_availability_table/preset_all.md}}
 
-
-## Basic
-
+## Example
 {{sampler::paginated_query_multiple_fields/basic}}
  

@@ -27,21 +27,11 @@ for records_items, query_metadata in records_paginator:
             print(record_item_data)  # do stuff
 ```
 
-:::info The query request's are being send as you call the records_paginator
-Feel free to break out of the loop of the records_paginator, since the query requests are sent progressively only as you 
-iterate over the records_paginator. This means that you call that you cannot calculate the length of records_paginator
-in order to know the number of records page to except.
-:::
+{{file::../docs_parts/paginated_queries/query_requests_are_being_sent_as_you_call_records_paginator.md}}
 
-:::tip You can also use manual pagination
-Notice that the operation has support for the exclusive_start_key, and each item of the records_paginator is a tuple
-containing both the records_items and the query_metadata. This allows you to start you records_paginator at a specific
-point to resume from a previous query operation, and you can save the last_evaluated_key of the query_metadata's to
-continue your query operation later as detailed in [query_field](../api/query_field.md)
-:::
+{{file::../docs_parts/paginated_queries/you_can_also_use_manual_pagination.md}}
 
 ## Parameters
-
 {{file::../docs_parts/table_header.md}}
 {{file::../docs_parts/index_name_table_row.md}}
 {{file::../docs_parts/key_value_table_row.md}}
@@ -51,13 +41,9 @@ continue your query operation later as detailed in [query_field](../api/query_fi
 {{file::../docs_parts/pagination_records_limit_table_row.md}}
 {{file::../docs_parts/data_validation_table_row.md}}
 
-
 ## Availability
-
 {{file::../docs_parts/feature_availability_table/preset_all.md}}
 
-
-## Basic
-
+## Example
 {{sampler::paginated_query_field/basic}}
  

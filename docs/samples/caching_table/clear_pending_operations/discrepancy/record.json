@@ -1,0 +1,9 @@
+{
+  "userId": "x42",
+  "username": "Robinson",
+  "mails": {
+    "m42": {
+      "status": "not-read"
+    }
+  }
+}

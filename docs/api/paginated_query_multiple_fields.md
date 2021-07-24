@@ -11,7 +11,7 @@ from StructNoSQL import QueryMetadata
 from typing import Generator, Tuple, Optional, Dict, Any
 
 records_paginator: Generator[Tuple[Optional[Dict[str, Any]], QueryMetadata], None, None] = (
-    table_client.paginated_query_field(
+    table_client.paginated_query_multiple_fields(
         index_name=Optional[str], key_value=Any,
         getters={
             str: FieldGetter(field_path=str, query_kwargs=Optional[dict]),
@@ -30,8 +30,20 @@ for records_items, query_metadata in records_paginator:
             print(record_items_data)  # do stuff
 ```
 
-## Parameters
+:::info The query request's are being send as you call the records_paginator
+Feel free to break out of the loop of the records_paginator, since the query requests are sent progressively only as you 
+iterate over the records_paginator. This means that you call that you cannot calculate the length of records_paginator
+in order to know the number of records page to except.
+:::
 
+:::tip You can also use manual pagination
+Notice that the operation has support for the exclusive_start_key, and each item of the records_paginator is a tuple
+containing both the records_items and the query_metadata. This allows you to start you records_paginator at a specific
+point to resume from a previous query operation, and you can save the last_evaluated_key of the query_metadata's to
+continue your query operation later as detailed in [query_pagination](../basics/query_pagination)
+:::
+
+## Parameters
 | Property&nbsp;name | Required | Accepted&nbsp;types | Default | Description |
 | ------------------ | :------: | :-----------------: | :-----: | :---------- |
 | index_name | No | str | primary_index name of table | The index\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto.
@@ -43,7 +55,6 @@ for records_items, query_metadata in records_paginator:
 
 
 ## Availability
-
 | Table | Available |
 | ----- | :-------- |
 | DynamoDBBasicTable | ✅
@@ -51,9 +62,7 @@ for records_items, query_metadata in records_paginator:
 | ExternalDynamoDBApiBasicTable | ✅
 | ExternalDynamoDBApiCachingTable | ✅
 
-
-## Basic
-
+## Example
 
 ### Queried record
 ```json

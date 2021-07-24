@@ -5,7 +5,8 @@ module.exports = {
         'basics/installation',
         'basics/creating_your_first_table',
         'basics/modeling_your_database',
-        'basics/recursive_nesting'
+        'basics/query_pagination',
+        'basics/recursive_nesting',
     ],
     "Caching Table": [
         'caching_table/introduction',
@@ -39,6 +40,7 @@ module.exports = {
         'api/FieldSetter',
         'api/FieldRemover',
         'api/ActiveSelf',
+        'api/QueryMetadata',
         'api/commit_operations',
         'api/commit_update_operations',
         'api/commit_remove_operations',
