@@ -1,12 +1,17 @@
 ---
-id: delete_record
-slug: /api/delete_record
+id: remove_record
+slug: /api/remove_record
 ---
 
-**Delete a record from the database. Return the success of the operation with True or False.**
+**Delete a record from the database and returned its removed values, in a single database operation.**
 
 ```python
-deletion_success: bool = table.delete_record(indexes_keys_selectors=Dict[str, str])
+from typing import Optional
+
+removed_record_data: Optional[dict] = table.remove_record(
+    indexes_keys_selectors=Dict[str, str],
+    data_validation: bool = True
+)
 ```
 
 ## Parameters

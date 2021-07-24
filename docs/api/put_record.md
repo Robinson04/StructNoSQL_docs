@@ -1,7 +1,5 @@
 ---
 id: put_record
-title: put_record
-sidebar_label: put_record
 slug: /api/put_record
 ---
 

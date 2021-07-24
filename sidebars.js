@@ -22,6 +22,7 @@ module.exports = {
     API: [
         'api/put_record',
         'api/delete_record',
+        'api/remove_record',
         'api/get_field',
         'api/get_multiple_fields',
         'api/query_field',
