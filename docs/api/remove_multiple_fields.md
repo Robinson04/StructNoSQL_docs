@@ -20,7 +20,7 @@ removed_items: Optional[dict] = table_client.remove_multiple_fields(
 | ------------------ | :------: | :-----------------: | :-----: | :---------- |
 | index_name | No | str | primary_index name of table | The index\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto.
 | key_value | YES | Any | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
-| removers      | YES      | Dict[str,&nbsp;[FieldRemover](../api/FieldRemover.md)] | A dictionary with the keys that will be used to return the removed items, and the values being FieldRemover's to select the field's to remove.
+| removers      | YES      | Dict[str, [FieldRemover](../api/FieldRemover.md)] | A dictionary with the keys that will be used to return the removed items, and the values being FieldRemover's to select the field's to remove.
 
 ## Availability
 

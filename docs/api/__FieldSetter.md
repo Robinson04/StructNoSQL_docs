@@ -12,6 +12,7 @@ FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict])
 
 ## Usage
 - [update_multiple_fields](../api/update_multiple_fields.md)
+- [update_multiple_fields_return_old](../api/update_multiple_fields_return_old.md)
 
 ## Parameters
 

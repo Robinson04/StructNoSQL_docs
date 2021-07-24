@@ -19,7 +19,7 @@ removed_items: Optional[dict] = table_client.remove_multiple_fields(
 {{file::../docs_parts/table_header.md}}
 {{file::../docs_parts/index_name_table_row.md}}
 {{file::../docs_parts/key_value_table_row.md}}
-| removers      | YES      | Dict[str,&nbsp;[FieldRemover](../api/FieldRemover.md)] | A dictionary with the keys that will be used to return the removed items, and the values being FieldRemover's to select the field's to remove.
+| removers      | YES      | Dict[str, [FieldRemover](../api/FieldRemover.md)] | A dictionary with the keys that will be used to return the removed items, and the values being FieldRemover's to select the field's to remove.
 
 ## Availability
 

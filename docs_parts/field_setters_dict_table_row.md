@@ -1,0 +1,1 @@
+| setters | YES | Dict[str,&nbsp;[FieldSetter](../api/FieldSetter.md)] | - | A dict of FieldSetter object. See [FieldSetter](../api/FieldSetter.md) |

@@ -6,7 +6,7 @@ slug: /api/update_multiple_fields
 **Update multiple fields values from a single record, in a single database operation.**
 
 ```python
-update_success: bool = table_client.update_field(
+update_success: bool = table_client.update_multiple_fields(
     key_value=str, setters=[
         FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict]),
         FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict])
@@ -14,32 +14,18 @@ update_success: bool = table_client.update_field(
 )
 ```
 
-## To note
+{{file::../docs_parts/update_multiple_fields/will_usually_be_atomic.md}}
 
-Since all your setters will be grouped in a single operation, if a single of your setter is invalid and cause the 
-operation to crash, all of your setters will be rejected/and reverted.
-
-:::warning Not always Atomic !
-The data validation will be runned on the enterity of your data before starting to
-send database requests. As explained in [Operations Sectioning](../details/operations_sectioning.md), if the sum of the 
-size of all your setters exceeds 400KB (the DynamoDB limit per operation), your request will automatically be divided 
-into multiple requests. If a/some part's of your operation are executed without causing a database rejection, and then 
-one of the part of your operation is rejected, you will get a success value of False from the function call, yet, the 
-parts of your operation that have already been completed, will not be reverted.
-:::
+{{file::../docs_parts/update_multiple_fields/not_always_atomic.md}}
 
 ## Parameters
-
 {{file::../docs_parts/table_header.md}}
 {{file::../docs_parts/index_name_table_row.md}}
 {{file::../docs_parts/key_value_table_row.md}}
-| setters       | YES      | List[[FieldSetter](../api/FieldSetter.md)] | A list of FieldSetter object. See [FieldSetter](../api/FieldSetter.md) |
+{{file::../docs_parts/field_setters_list_table_row.md}}
 
 ## Availability
-
 {{file::../docs_parts/feature_availability_table/preset_all.md}}
 
 ## Example
-
 {{sampler::update_multiple_fields/basic}}
-

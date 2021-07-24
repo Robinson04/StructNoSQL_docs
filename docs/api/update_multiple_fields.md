@@ -6,7 +6,7 @@ slug: /api/update_multiple_fields
 **Update multiple fields values from a single record, in a single database operation.**
 
 ```python
-update_success: bool = table_client.update_field(
+update_success: bool = table_client.update_multiple_fields(
     key_value=str, setters=[
         FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict]),
         FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict])
@@ -14,13 +14,15 @@ update_success: bool = table_client.update_field(
 )
 ```
 
-## To note
-
-Since all your setters will be grouped in a single operation, if a single of your setter is invalid and cause the 
-operation to crash, all of your setters will be rejected/and reverted.
+:::tip Will usually be Atomic
+Any setter that does not pass data validation will be discarded client side by StructNoSQL, but since all of your valid 
+setters will be grouped in a single operation, if a single of your setter is invalid and cause the operation to crash, 
+all of your setters will be rejected/and reverted (for example, trying to access/modify a value inside a field that 
+should be a dict, where it is in reality a list)
+:::
 
 :::warning Not always Atomic !
-The data validation will be runned on the enterity of your data before starting to
+The data validation will be ran on the entirety of your data before starting to
 send database requests. As explained in [Operations Sectioning](../details/operations_sectioning.md), if the sum of the 
 size of all your setters exceeds 400KB (the DynamoDB limit per operation), your request will automatically be divided 
 into multiple requests. If a/some part's of your operation are executed without causing a database rejection, and then 
@@ -29,15 +31,14 @@ parts of your operation that have already been completed, will not be reverted.
 :::
 
 ## Parameters
-
 | Property&nbsp;name | Required | Accepted&nbsp;types | Default | Description |
 | ------------------ | :------: | :-----------------: | :-----: | :---------- |
 | index_name | No | str | primary_index name of table | The index\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto.
 | key_value | YES | Any | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
-| setters       | YES      | List[[FieldSetter](../api/FieldSetter.md)] | A list of FieldSetter object. See [FieldSetter](../api/FieldSetter.md) |
+| setters | YES | List[[FieldSetter](../api/FieldSetter.md)] | - | A list of FieldSetter object. See [FieldSetter](../api/FieldSetter.md) |
+
 
 ## Availability
-
 | Table | Available |
 | ----- | :-------- |
 | DynamoDBBasicTable | ✅
@@ -46,7 +47,6 @@ parts of your operation that have already been completed, will not be reverted.
 | ExternalDynamoDBApiCachingTable | ✅
 
 ## Example
-
 
 ### Queried record
 ```json
@@ -111,4 +111,3 @@ print(f"Multi update success : {update_success}")
 Multi update success : True
 ```
         
-
