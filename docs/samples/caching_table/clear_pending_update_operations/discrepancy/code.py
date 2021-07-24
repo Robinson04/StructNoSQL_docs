@@ -45,8 +45,10 @@ print(f"Removed mail item value expected to be from cache : {removed_mail_item_v
 
 print(f"Second has_pending_remove_operations after removal from cache : {table_client.has_pending_remove_operations()}")
 table_client.clear_pending_remove_operations()
-# Calling clear_pending_remove_operations here put the cache system in an awkward place. The mail_item has already been
-# removed from the in-memory cache when calling the remove_field function,
+# Calling clear_pending_remove_operations here will create a discrepancy with the cache system. The mail_item has
+# already been removed from the in-memory cache when calling the remove_field function, but since the tasked delete
+# operation as been discarded and will never be sent, a discrepancy will be created between the in-memory cache and
+# the actual data in the database.
 
 mail_item_expected_deletion_success: bool = table_client.delete_field(
     key_value='x42', field_path='mails.{{mailId}}', query_kwargs={'mailId': 'm42'}
@@ -59,4 +61,4 @@ removed_value: Optional[dict] = table_client.remove_field(
     key_value='x42', field_path='mails.{{mailId}}', query_kwargs={'mailId': 'm42'}
 )
 print(f"removed_value : {removed_value}")
-print(f"Fourth has_pending_remove_operations : {table_client.has_pending_remove_operations()}")
+print(f"Fourth has_pending_remove_operations : {table_client.has_pending_update_operations()}")

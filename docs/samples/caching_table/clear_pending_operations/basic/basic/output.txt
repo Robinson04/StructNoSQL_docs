@@ -1,0 +1,4 @@
+First has_pending_operations before update : False
+Update expected success : True
+Second has_pending_operations before clear : True
+Third has_pending_operations after clear : False

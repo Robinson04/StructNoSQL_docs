@@ -7,7 +7,7 @@ slug: /api/clear_pending_update_operations
 [```CachingTable```](../caching_table/introduction.md)**
 
 ```python
-clear_success: bool = table_client.clear_pending_update_operations()
+table_client.clear_pending_update_operations()
 ```
 
 {{file::../docs_parts/caching_table/not_clearing_cache_can_create_discrepancies.md}}

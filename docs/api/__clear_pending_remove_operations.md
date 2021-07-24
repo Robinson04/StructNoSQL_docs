@@ -7,16 +7,10 @@ slug: /api/clear_pending_remove_operations
 [```CachingTable```](../caching_table/introduction.md)**
 
 ```python
-do_has_pending_remove_operations: bool = table_client.has_pending_remove_operations()
+table_client.clear_pending_remove_operations()
 ```
 
 {{file::../docs_parts/caching_table/not_clearing_cache_can_create_discrepancies.md}}
-
-:::info The remove operations are grouped
-One reason that the CachingTable's postpone your operations and set them as 'pending operations', is to group them in
-the smallest number of database operations. Operations that are not necessary will be sent (for example, if you 
-update the same field value twice, where only the last operation would be required to be send)
-:::
 
 {{file::../docs_parts/caching_table/operations_considered_as_remove.md}}
 
@@ -31,8 +25,8 @@ has_pending_remove_operations has no parameters.
 ## Related operations
 - [clear_cached_data_and_pending_operations](../api/clear_cached_data_and_pending_operations)
 - [clear_pending_operations](../api/clear_pending_operations)
-- [has_pending_remove_operations](../api/commit_remove_operations)
-- [commit_remove_operations](../api/commit_remove_operations)
+- [has_pending_update_operations](../api/commit_update_operations)
+- [commit_update_operations](../api/commit_update_operations)
 
 
 ## Example : Basic
