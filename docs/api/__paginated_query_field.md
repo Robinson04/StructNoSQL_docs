@@ -44,6 +44,11 @@ for records_items, query_metadata in records_paginator:
 ## Availability
 {{file::../docs_parts/feature_availability_table/preset_all.md}}
 
+## Related pages
+- [Query pagination](../basics/query_pagination)
+- [QueryMetadata](../api/QueryMetadata)
+- [query_field](../api/query_field)
+
 ## Example
 {{sampler::paginated_query_field/basic}}
  

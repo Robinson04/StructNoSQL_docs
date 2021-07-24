@@ -1,1 +1,1 @@
-| exclusive_start_key | NO | dict | None | The key object to start the query from. This is used in paginated queries, it should not be manually created but retrieved from the 'last_evaluated_key' attribute from the query_metadata of your previous query operation.
+| exclusive_start_key | NO | dict | None | The key object to start the query from. This is used in paginated queries, it should not be manually created but retrieved from the 'last_evaluated_key' attribute from the [query_metadata](../api/QueryMetadata) of your previous query operation.

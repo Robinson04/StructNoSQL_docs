@@ -37,7 +37,7 @@ in order to know the number of records page to except.
 Notice that the operation has support for the exclusive_start_key, and each item of the records_paginator is a tuple
 containing both the records_items and the query_metadata. This allows you to start you records_paginator at a specific
 point to resume from a previous query operation, and you can save the last_evaluated_key of the query_metadata's to
-continue your query operation later as detailed in [query_pagination](../basics/query_pagination)
+continue your query operation later as detailed in [Query pagination](../basics/query_pagination)
 :::
 
 ## Parameters
@@ -47,7 +47,7 @@ continue your query operation later as detailed in [query_pagination](../basics/
 | key_value | YES | Any | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
 | field_path | YES | str | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
 | query_kwargs | NO | dict | None | Used to pass data to populate a field_path that contains keys. See example below :
-| exclusive_start_key | NO | dict | None | The key object to start the query from. This is used in paginated queries, it should not be manually created but retrieved from the 'last_evaluated_key' attribute from the query_metadata of your previous query operation.
+| exclusive_start_key | NO | dict | None | The key object to start the query from. This is used in paginated queries, it should not be manually created but retrieved from the 'last_evaluated_key' attribute from the [query_metadata](../api/QueryMetadata) of your previous query operation.
 | pagination_records_limit | NO | int | None | The numbers of records to scan before paginating the query. If None, the query will execute until all records matching the key_value have been scanned, or when the retrieved fields from the records exceed 1MB.
 | data_validation | NO | bool | True | Whether data validation from your table model should be applied on the retrieved data. 
 
@@ -58,6 +58,11 @@ continue your query operation later as detailed in [query_pagination](../basics/
 | DynamoDBCachingTable | ✅
 | ExternalDynamoDBApiBasicTable | ✅
 | ExternalDynamoDBApiCachingTable | ✅
+
+## Related pages
+- [Query pagination](../basics/query_pagination)
+- [QueryMetadata](../api/QueryMetadata)
+- [query_field](../api/query_field)
 
 ## Example
 

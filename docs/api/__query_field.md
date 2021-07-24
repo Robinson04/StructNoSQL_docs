@@ -22,17 +22,14 @@ query_metadata: QueryMetadata
 ``` 
 
 Query a field and return of tuple of the both the records_values organized in a dictionary (the keys being the primary key
-value of each record), and a query_metadata object with information needed to paginate your query. 
+value of each record), and a  [query_metadata](../api/QueryMetadata) object with information needed to paginate your query. 
 
-:::info What's the request pagination ?
-When the number of records you specified in pagination_records_limit have been scanned, or as soon as the data that you
-will be returned reached 1MB of size, the result will be returned.
-This might happen before all of the records matching your key_value and index_name have been scanned, in which case
-query_metadata will contains information on how to continue your request where you left off.
-:::
+{{file::../docs_parts/paginated_queries/this_operation_is_paginated.md}}
+
+You can use [paginated_query_field](../api/paginated_query_field.md) for a managed navigation of 
+paginated results with a simple iterable.
  
 ## Parameters
-
 {{file::../docs_parts/table_header.md}}
 {{file::../docs_parts/index_name_table_row.md}}
 {{file::../docs_parts/key_value_table_row.md}}
@@ -44,10 +41,13 @@ query_metadata will contains information on how to continue your request where y
 {{file::../docs_parts/data_validation_table_row.md}}
  
 ## Availability
-
 {{file::../docs_parts/feature_availability_table/preset_all.md}}
 
-## Basic
+## Related pages
+- [Query pagination](../basics/query_pagination)
+- [QueryMetadata](../api/QueryMetadata)
+- [paginated_query_field](../api/paginated_query_field)
 
+## Example
 {{sampler::query_field/pagination}}
  

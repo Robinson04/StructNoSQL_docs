@@ -22,7 +22,7 @@ query_metadata: QueryMetadata
 ``` 
 
 Query a field and return of tuple of the both the records_values organized in a dictionary (the keys being the primary key
-value of each record), and a query_metadata object with information needed to paginate your query. 
+value of each record), and a [query_metadata](../api/QueryMetadata) object with information needed to paginate your query. 
 
 :::tip This operation is paginated
 When the number of records you specified in pagination_records_limit have been scanned, or as soon as the data that you
@@ -39,7 +39,7 @@ paginated results with a simple iterable.
 | index_name | No | str | primary_index name of table | The index\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto.
 | key_value | YES | Any | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
 | getters | YES | Dict[str,&nbsp;[FieldGetter](../api/FieldGetter)] | - | A dictionary with all the fields to retrieve, and the keys that will be used for the output you will receive. |
-| exclusive_start_key | NO | dict | None | The key object to start the query from. This is used in paginated queries, it should not be manually created but retrieved from the 'last_evaluated_key' attribute from the query_metadata of your previous query operation.
+| exclusive_start_key | NO | dict | None | The key object to start the query from. This is used in paginated queries, it should not be manually created but retrieved from the 'last_evaluated_key' attribute from the [query_metadata](../api/QueryMetadata) of your previous query operation.
 | pagination_records_limit | NO | int | None | The numbers of records to scan before paginating the query. If None, the query will execute until all records matching the key_value have been scanned, or when the retrieved fields from the records exceed 1MB.
 | filter_expression | NO | Any | None | Take and apply any condition from boto3.dynamodb.conditions. See : https://boto3.amazonaws.com/v1/documentation/api/latest/_modules/boto3/dynamodb/conditions.html
 | data_validation | NO | bool | True | Whether data validation from your table model should be applied on the retrieved data. 
@@ -65,47 +65,83 @@ paginated results with a simple iterable.
   {
     "id": "c30",
     "name": "Game of Thrones",
-    "primaryType": "Fantasy"
+    "primaryType": "Fantasy",
+    "ratings": {
+      "imdb": 9.2,
+      "rottentomatoes": null
+    }
   },
   {
     "id": "d52",
     "name": "Hannibal",
-    "primaryType": "Thriller"
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 8.5,
+      "rottentomatoes": null
+    }
   },
   {
     "id": "b12",
     "name": "Breaking Bad",
-    "primaryType": "Thriller"
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 9.4,
+      "rottentomatoes": null
+    }
   },
   {
     "id": "n96",
     "name": "The Walking Dead",
-    "primaryType": "Thriller"
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 8.2,
+      "rottentomatoes": null
+    }
   },
   {
     "id": "o28",
     "name": "Amazon Lord of the Rings",
-    "primaryType": "Fantasy"
+    "primaryType": "Fantasy",
+    "ratings": {
+      "imdb": null,
+      "rottentomatoes": null
+    }
   },
   {
     "id": "h57",
     "name": "Narcos",
-    "primaryType": "Thriller"
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 8.8,
+      "rottentomatoes": null
+    }
   },
   {
     "id": "p05",
     "name": "Chernobyl",
-    "primaryType": "Thriller"
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 9.4,
+      "rottentomatoes": null
+    }
   },
   {
     "id": "m19",
     "name": "The Witcher",
-    "primaryType": "Fantasy"
+    "primaryType": "Fantasy",
+    "ratings": {
+      "imdb": 8.2,
+      "rottentomatoes": null
+    }
   },
   {
     "id": "b45",
     "name": "Dark",
-    "primaryType": "Thriller"
+    "primaryType": "Thriller",
+    "ratings": {
+      "imdb": 8.8,
+      "rottentomatoes": null
+    }
   }
 ]
 ```
@@ -114,14 +150,19 @@ paginated results with a simple iterable.
 ```python
 import json
 
-from StructNoSQL import TableDataModel, DynamoDBBasicTable, PrimaryIndex, BaseField, QueryMetadata, GlobalSecondaryIndex
-from typing import Optional, List
+from StructNoSQL import TableDataModel, DynamoDBBasicTable, PrimaryIndex, BaseField, QueryMetadata, \
+    GlobalSecondaryIndex, MapModel, FieldGetter
+from typing import Optional, List, Generator, Tuple
 
 
 class MoviesTableModel(TableDataModel):
     id = BaseField(field_type=str, required=True)
     primaryType = BaseField(field_type=str, required=True)
     name = BaseField(field_type=str, required=True)
+    class RatingsModel(MapModel):
+        imdb = BaseField(field_type=(int, float), required=False)
+        rottentomatoes = BaseField(field_type=(int, float), required=False)
+    ratings = BaseField(field_type=RatingsModel, required=False)
 
 
 class MoviesTable(DynamoDBBasicTable):
@@ -154,55 +195,43 @@ with open("record.json", 'r') as file:
             print(f"Could not put {source_record_item_data}")
 
 
-first_records_items, first_query_metadata = table_client.query_field(
-    index_name='primaryType', key_value='Thriller',
-    field_path='name', pagination_records_limit=3
-)
-records_items: Optional[dict]
-query_metadata: QueryMetadata
-if first_records_items is not None:
-    print("Here is 3 thriller tv shows you might enjoy :")
-    for record_primary_key_value, record_movie_name in first_records_items.items():
-        print(f"{record_movie_name} (id: {record_primary_key_value})")
-
-if first_query_metadata.has_reached_end is not True:
-    second_records_items, second_query_metadata = table_client.query_field(
+records_paginator: Generator[Tuple[Optional[dict], QueryMetadata], None, None] = (
+    table_client.query_multiple_fields(
         index_name='primaryType', key_value='Thriller',
-        field_path='name', pagination_records_limit=3,
-        exclusive_start_key=first_query_metadata.last_evaluated_key
+        getters={
+            'name': FieldGetter(field_path='name'),
+            'imdb_rating': FieldGetter(field_path='ratings.imdb')
+        },
+        pagination_records_limit=3
     )
-    print("\nHere is 3 other thriller tv shows :")
-    for record_primary_key_value, record_movie_name in second_records_items.items():
-        print(f"{record_movie_name} (id: {record_primary_key_value})")
-
-    # There is only 6 records with the type 'thriller', we would expect to have reached the end of the records to scan, but when a query stop's right at the last record, it will not be considered as reaching the end. We must exceed the last record
-    if second_query_metadata.has_reached_end is True:
-        print("\nAll the movies have been showed")
-    else:
-        print("\nThere might be some remaining movies to show")
-        third_records_items, third_query_metadata = table_client.query_field(
-            index_name='primaryType', key_value='Thriller',
-            field_path='name', pagination_records_limit=3,
-            exclusive_start_key=second_query_metadata.last_evaluated_key
-        )
-        if third_query_metadata.has_reached_end is True:
-            print(f"Now i'm really done, here all the remaining tv shows : {third_records_items}")
+)
+for records_items, query_metadata in records_paginator:
+    if records_items is not None:
+        if len(records_items) > 0:
+            print("\nHere is some thriller tv shows you might enjoy :")
+            for record_primary_key_value, record_item_values in records_items.items():
+                print(f"{record_item_values} (id: {record_primary_key_value})")
+        else:
+            print("\nNo tv shows found in response, you might have hit the end of records.")
+print("\nAll tv shows have been retrieved.")
 
 ```
 
 ### Output
 ```
-Here is 3 thriller tv shows i think you will enjoy :
-Narcos (id: h57)
-The Walking Dead (id: n96)
-Dark (id: b45)
+Here is some thriller tv shows you might enjoy :
+{'name': 'Narcos', 'imdb_rating': 8.8} (id: h57)
+{'name': 'The Walking Dead', 'imdb_rating': 8.2} (id: n96)
+{'name': 'Dark', 'imdb_rating': 8.8} (id: b45)
 
-Here is 3 other thriller tv shows :
-Breaking Bad (id: b12)
-Hannibal (id: d52)
-Chernobyl (id: p05)
+Here is some thriller tv shows you might enjoy :
+{'name': 'Breaking Bad', 'imdb_rating': 9.4} (id: b12)
+{'name': 'Hannibal', 'imdb_rating': 8.5} (id: d52)
+{'name': 'Chernobyl', 'imdb_rating': 9.4} (id: p05)
 
-I have some remaining movies to show you
+No tv shows found in response, you might have hit the end of records.
+
+All tv shows have been retrieved.
 ```
         
  

@@ -22,7 +22,7 @@ query_metadata: QueryMetadata
 ``` 
 
 Query a field and return of tuple of the both the records_values organized in a dictionary (the keys being the primary key
-value of each record), and a query_metadata object with information needed to paginate your query. 
+value of each record), and a [query_metadata](../api/QueryMetadata) object with information needed to paginate your query. 
 
 {{file::../docs_parts/paginated_queries/this_operation_is_paginated.md}}
 
@@ -48,5 +48,5 @@ paginated results with a simple iterable.
 - [paginated_query_multiple_fields](../api/paginated_query_multiple_fields)
 
 ## Example
-{{sampler::query_field/pagination}}
+{{sampler::query_multiple_fields/basic}}
  

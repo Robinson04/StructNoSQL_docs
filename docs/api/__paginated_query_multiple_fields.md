@@ -43,9 +43,13 @@ for records_items, query_metadata in records_paginator:
 {{file::../docs_parts/pagination_records_limit_table_row.md}}
 {{file::../docs_parts/data_validation_table_row.md}}
 
-
 ## Availability
 {{file::../docs_parts/feature_availability_table/preset_all.md}}
+
+## Related pages
+- [Query pagination](../basics/query_pagination)
+- [QueryMetadata](../api/QueryMetadata)
+- [query_multiple_fields](../api/query_multiple_fields)
 
 ## Example
 {{sampler::paginated_query_multiple_fields/basic}}
