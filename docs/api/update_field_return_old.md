@@ -3,7 +3,7 @@ id: update_field_return_old
 slug: /api/update_field_return_old
 ---
 
-**Update a single field value and return it's previous value, in a single database operation.**
+**Update one field value from a single record and return it's previous value, in a single database operation.**
 
 ```python
 update_success, retrieved_old_value = table_client.update_field_return_old(

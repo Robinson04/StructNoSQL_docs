@@ -1,15 +1,16 @@
 import json
-from typing import Optional, Dict
+from typing import Optional, Dict, Any
 from StructNoSQL import TableDataModel, DynamoDBBasicTable, PrimaryIndex, BaseField, MapModel
 
 
 class UsersTableModel(TableDataModel):
     userId = BaseField(field_type=str, required=True)
+    username = BaseField(field_type=str, required=True)
     class ShoppingCartItemModel(MapModel):
-        productName = BaseField(field_type=str, required=True)
-        quantity = BaseField(field_type=int, required=True)
-        maxDiscountPercent = BaseField(field_type=int, required=True)
-    shoppingCartItems = BaseField(field_type=Dict[str, ShoppingCartItemModel], key_name='itemId', required=False)
+        receivedTimestamp = BaseField(field_type=int, required=True)
+        timestampForAutoAnswer = BaseField(field_type=int, required=False)
+        isNotRead = BaseField(field_type=bool, required=False)
+    mails = BaseField(field_type=Dict[str, ShoppingCartItemModel], key_name='mailId', required=False)
 
 class UsersTable(DynamoDBBasicTable):
     def __init__(self):
@@ -29,9 +30,10 @@ with open("record.json", 'r') as file:
     if put_record_success is not True:
         print("Error with put_record")
 
-removed_item: Optional[dict] = table_client.remove_field(
+removed_item_attributes: Optional[Dict[str, Any]] = table_client.remove_field(
     key_value='x42',
-    field_path='shoppingCartItems.{{itemId}}',
-    query_kwargs={'itemId': 'i42'}
+    field_path='mails.{{mailId}}.(timestampForAutoAnswer, isNotRead)',
+    query_kwargs={'mailId': 'm42'}
 )
-print(f"Removed item : {removed_item}")
+# We only remove timestampForAutoAnswer and isNotRead. We do not touch receivedTimestamp.
+print(f"Removed mail attributes : {removed_item_attributes}")

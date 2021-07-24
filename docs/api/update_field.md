@@ -3,7 +3,7 @@ id: update_field
 slug: /api/update_field
 ---
 
-**Update a single field value.**
+**Update one field value from a single record.**
 
 ```python
 update_success: bool = table_client.update_field(

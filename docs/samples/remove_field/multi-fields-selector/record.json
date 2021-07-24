@@ -1,0 +1,11 @@
+{
+  "userId": "x42",
+  "username": "Robinson",
+  "mails": {
+    "m42": {
+      "receivedTimestamp": 1627134011,
+      "timestampForAutoAnswer": 1627252059,
+      "isNotRead": true
+    }
+  }
+}

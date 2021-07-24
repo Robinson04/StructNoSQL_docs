@@ -1,0 +1,1 @@
+Removed mail attributes : {'timestampForAutoAnswer': 1627252059, 'isNotRead': True}

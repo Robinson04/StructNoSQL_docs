@@ -3,7 +3,8 @@
   "shoppingCartItems": {
     "i42": {
       "productName": "Soluble coffee jar",
-      "quantity": 8
+      "quantity": 8,
+      "maxDiscountPercent": 33
     }
   }
 }
