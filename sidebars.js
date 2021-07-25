@@ -5,6 +5,7 @@ module.exports = {
         'basics/installation',
         'basics/creating_your_first_table',
         'basics/modeling_your_database',
+        'basics/updating_fields',
         'basics/query_pagination',
         'basics/recursive_nesting',
     ],
