@@ -109,15 +109,21 @@ update_success: bool = table_client.update_field(
 ### 5 - Updating multiple fields at once
 You can use [update_multiple_fields](../api/update_multiple_fields.md) to update multiple fields at once with a single 
 database operation.
+
 Like update_field, you select the record you want to update with its primary key value passed in the ```key_value``` 
 parameter.
+
 Specify the different fields you want to update by passing a list of [FieldSetter](../api/FieldSetter.md).
+
 Similarly to update_field, each [FieldSetter](../api/FieldSetter.md) requires a field_path and value_to_set parameter,
 and has an optional query_kwargs parameter.
+
 You can update any field at any location while they are still in the same record. All of your updates will be grouped 
 in a single database operation.
+
 If any of your setters are being 'detected' as invalid client side (ie, the value_to_set is invalid) no operation will
 be sent an ```update_success``` of ```False``` will be returned.
+
 If one of your setters fails after being sent to your database (this is rare, and the main reason is if you tried to
 navigate into an existing field with an invalid value, for example trying to navigate into a field defined as a dict
 in your database, but a list is present instead in your database), your setters will usually be atomic, none of them
@@ -140,3 +146,68 @@ update_success: bool = table_client.update_multiple_fields(
     ]
 )
 ```
+
+### 6 : Updating a single field and returning its old value
+You can use [update_field_return_old](../api/update_field_return_old.md) to update a single field value, and return its
+old value, with only one database operation.
+
+If no existing value was found in the field to update, the old_field_value will be ```None```.
+
+All of the ways to select nested fields in the above examples can be used here.
+```python
+from typing import Optional
+
+update_success, old_field_value = table_client.update_field_return_old(
+    key_value='x42', field_path='username', value_to_set="Paul"
+)
+update_success: bool
+old_field_value: Optional[str]
+```
+The typing of update_success and old_field_value is optional, and is done in separated lines of code, because Python 
+does not support typing while unpacking a tuple. 
+
+
+### 7 : Updating multiple fields at once and returning their old values
+
+You can use [update_mutliple_fields_return_old](../api/update_mutliple_fields_return_old.md) to update a single field 
+value, and return their old values, with only one database operation.
+
+Like the previous operations, you select the record you want to update with its primary key value passed in the 
+```key_value``` parameter.
+
+Similarly to update_mutliple_fields, you use the [FieldSetter](../api/FieldSetter.md) to specify the different fields to 
+update. But instead of wrapping them in a list, wrap them in a dictionary, where the keys you define will be used as the 
+keys to construct the ```old_fields_values``` object in which the old field's values will be returned. Pass this 
+dictionary to the ```setters``` parameter.
+
+```python
+from typing import Dict, Optional, Any
+from StructNoSQL import FieldSetter
+import time
+
+new_timestamp: int = int(time.time())
+update_success, old_fields_values = table_client.update_multiple_fields_return_old(
+    key_value='x42', setters={
+        'username': FieldSetter(field_path='username', value_to_set='Paul'),
+        'friend_relationship': FieldSetter(
+            field_path='friends.{{friendId}}.relationship', 
+            query_kwargs={'friendId': 'f42'}, 
+            value_to_set="business partner"
+        ),
+        'metadata_lastLoginTimestamp': FieldSetter(
+            field_path='metadata.lastLoginTimestamp', 
+            value_to_set=new_timestamp
+        )
+    }
+)
+update_success: bool
+old_fields_values: Dict[str, Optional[Any]]
+
+old_username: Optional[str] = old_fields_values['username']
+old_friend_relationship: Optional[str] = old_fields_values['friend_relationship']
+last_login_timestamp: Optional[int] = old_fields_values['metadata_lastLoginTimestamp']
+```
+No matter what, old_fields_values will always be a dictionary containing all the keys of the fields you tried to update. 
+Even if the operation failed, the dictionary will be returned with a ```None``` value for each field.
+Since it is guaranteed that the keys will be present, you can access the removed values directly with brackets instead 
+of using the ```.get``` function on your dictionary.
