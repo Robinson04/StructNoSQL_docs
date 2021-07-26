@@ -17,7 +17,7 @@ removed_record_data: Optional[dict] = table.remove_record(
 ## Parameters
 | Property&nbsp;name | Required | Accepted&nbsp;types | Default | Description |
 | ------------------ | :------: | :-----------------: | :-----: | :---------- |
-| indexes_keys_selectors | YES | dict | - | The key's
+| indexes_keys_selectors | YES | dict | - | The key's 'todo: finish writing that'
 | data_validation | NO | bool | True | Whether data validation from your table model should be applied on the retrieved data. 
 
 ## Availability

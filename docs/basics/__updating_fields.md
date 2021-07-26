@@ -211,3 +211,5 @@ No matter what, old_fields_values will always be a dictionary containing all the
 Even if the operation failed, the dictionary will be returned with a ```None``` value for each field.
 Since it is guaranteed that the keys will be present, you can access the removed values directly with brackets instead 
 of using the ```.get``` function on your dictionary.
+
+### 7 : Updating multiple fields at once and returning their old values without data validation

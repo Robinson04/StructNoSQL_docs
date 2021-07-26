@@ -7,8 +7,9 @@ slug: /basics/retrieving_fields
 
 #### If not present, all the required parent field's will be created when updating a nested field
 
-#### Trying to update a field on a non-existing record (key_value) will create the record.
-
+The 'get' operations can retrieve fields from a record when you select it with its primary key value. To retrieve 
+records based on secondary indexes, you need to query your records as showed in the 
+[Query fields](../basics/query_fields.md) page.
 
 You have multiple operations at your disposition :
 
@@ -59,10 +60,9 @@ with open("record.json", 'r') as file:
 
 
 ### 1 - Getting a single field value
-Updating a field can only be done by selecting a record with its primary key value through the ```key_value``` parameter 
-(primary key values are unique in DynamoDB). 
-Specify the field you want to update with the ```field_path```.
-And the value to update with ```value_to_set```.
+You can use [get_field](../api/get_field.md) to retrieve a single field value.
+Specify the primary key value of the record you want to retrieve the field from with the ```key_value``` parameter.
+Specify the field you want to retrieve with ```field_path```.
 ```python
 from typing import Optional
 
@@ -70,16 +70,12 @@ retrieved_value: Optional[str] = table_client.get_field(
     key_value='x42', field_path='username'
 )
 ```
+If no value has been found or if it did not pass the data validation, ```retrieved_value``` will be None.
+The typing with ```Optional[str]``` is not required.
+
 
 ### 2 - Getting a single field value without data validation
-When retrieving a field, the retrieved data will be passed through the data validation of your table. If the value or
-some parts of it are invalid, they will be removed. The data validation is unforced client side by StructNoSQL, not on 
-the database side which might cause the retrieved_value to be None or have less items than is actually present in the 
-database.
-
-If you need to disable the data_validation and actually retrieve Any data present in the database without any checks or
-alterations being done, you can disable it by passing False to dhe ```data_validation``` parameter.
-
+{{file::../docs_parts/reason_for_disabling_data_validation.md}}
 ```python
 from typing import Optional, Any
 
@@ -93,3 +89,100 @@ if the value is not None (with ```Optional```), it will be a ```str```, as per t
 type it as ```Optional[Any]```. Note that typing Python code is strictly optional and does not changes anything during
 the execution of your code, it is only there to make your code clearer and for your IDE to give quality warnings.
 
+
+### 3 - Getting multiple fields values with a multi-selector
+If you need to retrieve multiple fields that share the same parent path, you can use a multi-selector.
+Wrap the multiple fields names you want to retrieve inside parenthesis. This will be similar to using the 
+[get_multiple_fiends](../api/get_multiple_fields.md) operation, where the multiple fields will be retrieved with a
+single database operation. You will be returned a dictionary with the keys will be all the fields names you requested,
+and their retrieved values if they were found.
+```python
+from typing import Dict, Optional, Any
+
+retrieved_values: Dict[str, Optional[Any]] = table_client.get_field(
+    key_value='x42', field_path='(username, friends)'
+)
+retrieved_username_value: Optional[str] = retrieved_values['username']
+retrieved_friends_value: Optional[dict] = retrieved_values['friends']
+```
+When using a multi-selector, no matter what, retrieved_values will always be a dictionary containing all the names of
+all fields you requested as keys in the dictionary. 
+Even if the operation failed, the dictionary will be returned with a ```None``` value for each field.
+Since it is guaranteed that the keys will be present, you can access the retrieved values directly with brackets instead 
+of using the ```.get``` function on your dictionary.
+
+
+### 4 - Getting multiple nested fields values with a multi-selector
+You can use multi-selectors even with nested fields, and even with query_kwargs.
+The only constraint, is the multi-selector must be the last 'path element' of your field path.
+```python
+from typing import Dict, Optional, Any
+
+retrieved_values: Dict[str, Optional[Any]] = table_client.get_field(
+    key_value='x42', field_path='friends.{{friendId}}.(name, relationship)',
+    query_kwargs={'friendId': 'f42'}
+)
+retrieved_friend_name_value: Optional[str] = retrieved_values['name']
+retrieved_friend_relationship_value: Optional[str] = retrieved_values['relationship']
+```
+If you need to retrieve fields from totally different places, use [get_multiple_fields](../api/get_multiple_fields)
+showcased in the examples below.
+
+
+### 5 - Getting multiple fields values with get_multiple_fields
+You can use [get_multiple_fields](../api/get_multiple_fields) to retrieve multiple fields at once from the same 
+record with a single database operation.
+Like update_field, you select the record you want to update with its primary key value passed in the ```key_value``` 
+parameter.
+Specify the different fields you want to retrieved by passing a dictionary of [FieldGetter](../api/FieldGetter).
+Similarly to get_field, each [FieldGetter](../api/FieldGetter) requires the field_path parameter, and has an optional 
+query_kwargs parameter.
+```python
+from typing import Dict, Optional, Any
+from StructNoSQL import FieldGetter
+
+retrieved_values: Dict[str, Optional[Any]] = table_client.get_multiple_fields(
+    key_value='x42', getters={
+        'username': FieldGetter(field_path='username'),
+        'friend_relationship': FieldGetter(
+            field_path='friends.{{friendId}}.relationship', 
+            query_kwargs={'friendId': 'f42'}, 
+        ),
+        'metadata_lastLoginTimestamp': FieldGetter(
+            field_path='metadata.lastLoginTimestamp', 
+        )
+    }
+)
+retrieved_username: Optional[str] = retrieved_values['username']
+retrieved_friend_relationship: Optional[str] = retrieved_values['friend_relationship']
+retrieved_last_login_timestamp: Optional[int] = retrieved_values['metadata_lastLoginTimestamp']
+```
+No matter what, retrieved_values will always be a dictionary containing all the names of
+all fields you requested as keys in the dictionary. 
+Even if the operation failed, the dictionary will be returned with a ```None``` value for each field.
+Since it is guaranteed that the keys will be present, you can access the retrieved values directly with brackets instead 
+of using the ```.get``` function on your dictionary.
+
+
+### 6 - Getting multiple fields values with get_multiple_fields without data validation
+{{file::../docs_parts/reason_for_disabling_data_validation.md}}
+```python
+from typing import Dict, Optional, Any
+from StructNoSQL import FieldGetter
+
+retrieved_values: Dict[str, Optional[Any]] = table_client.get_multiple_fields(
+    key_value='x42', getters={
+        'username': FieldGetter(field_path='username'),
+        'friend_relationship': FieldGetter(
+            field_path='friends.{{friendId}}.relationship', 
+            query_kwargs={'friendId': 'f42'}, 
+        ),
+        'metadata_lastLoginTimestamp': FieldGetter(
+            field_path='metadata.lastLoginTimestamp', 
+        )
+    }, data_validation=False  # <-- disable data_validation
+)
+retrieved_username: Optional[Any] = retrieved_values['username']
+retrieved_friend_relationship: Optional[Any] = retrieved_values['friend_relationship']
+retrieved_last_login_timestamp: Optional[Any] = retrieved_values['metadata_lastLoginTimestamp']
+```
