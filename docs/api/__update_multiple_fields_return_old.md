@@ -23,7 +23,6 @@ retrieved_old_values: Optional[Dict[str, Any]]
 
 ## Parameters
 {{file::../docs_parts/table_header.md}}
-{{file::../docs_parts/index_name_table_row.md}}
 {{file::../docs_parts/key_value_table_row.md}}
 {{file::../docs_parts/field_setters_dict_table_row.md}}
 {{file::../docs_parts/data_validation_table_row.md}}

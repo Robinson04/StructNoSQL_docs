@@ -21,7 +21,6 @@ will be ```False``` and ```retrieved_old_value``` will be None.
 
 | Property&nbsp;name | Required | Accepted&nbsp;types | Default | Description |
 | ------------------ | :------: | :-----------------: | :-----: | :---------- |
-| index_name | No | str | primary_index name of table | The index\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto.
 | key_value | YES | Any | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
 | field_path | YES | str | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
 | query_kwargs | NO | dict | None | Used to pass data to populate a field_path that contains keys. See example below :

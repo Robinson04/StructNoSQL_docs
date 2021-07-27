@@ -20,7 +20,6 @@ update_success: bool = table_client.update_multiple_fields(
 
 ## Parameters
 {{file::../docs_parts/table_header.md}}
-{{file::../docs_parts/index_name_table_row.md}}
 {{file::../docs_parts/key_value_table_row.md}}
 {{file::../docs_parts/field_setters_list_table_row.md}}
 

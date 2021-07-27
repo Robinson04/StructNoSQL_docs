@@ -15,7 +15,6 @@ update_success: bool = table_client.update_field(
 
 | Property&nbsp;name | Required | Accepted&nbsp;types | Default | Description |
 | ------------------ | :------: | :-----------------: | :-----: | :---------- |
-| index_name | No | str | primary_index name of table | The index\_name of the primary or secondary index that will be used to find the record you want to perform the operation onto.
 | key_value | YES | Any | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
 | field_path | YES | str | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
 | value_to_set  | YES      | Any  | The value that will be set/update the attribute you selected with the field_path property. |
