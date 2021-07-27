@@ -156,7 +156,13 @@ Note that receiving a None value does not necessarily mean the operation failed,
 
 
 ### 5 - Removing a single field value without data validation
-{{file::docs_parts/reason_for_disabling_data_validation.md}}
+The retrieved data will be passed through the data validation of your table. If the value or
+some parts of it are invalid, they will be removed. The data validation is unforced client side by StructNoSQL, not on 
+the database side which might cause the retrieved_value to be None or have less items than is actually present in the 
+database.
+
+If you need to disable the data_validation and actually retrieve any data present in the database without any checks or
+alterations being done, you can disable it by passing False to the ```data_validation``` parameter.
 ```python
 from typing import Optional, Any
 
@@ -176,7 +182,12 @@ removed_values: Dict[str, Optional[Any]] = table_client.remove_field(
 removed_username_value: Optional[str] = removed_values['username']
 removed_friends_value: Optional[dict] = removed_values['friends']
 ```
-{{template::{'filepath': 'docs_parts/multi_selectors_and_getters_templates/multi_selectors_template.md', 'variable_name': "removed_values"}}}
+No matter what, ```removed_values``` will always be a dictionary containing as keys all the names of the 
+fields you {{attempted_operation_explanation}}. 
+Even if the operation failed, the dictionary will be returned with a ```None``` value for each 
+{{individual_target_type_name}}.
+You can safely access the fields values with brackets instead of using the ```.get``` function on your dictionary.
+
 
 
 ### 7 - Removing a nested field value

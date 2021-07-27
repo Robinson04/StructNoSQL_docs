@@ -23,13 +23,13 @@ results in a dictionary that use the keys of your getters, even if they are not 
 
 ## Parameters
 
-{{file::docs_parts/table_header.md}}
-{{file::docs_parts/key_value_table_row.md}}
-{{file::docs_parts/field_getters_table_row.md}}
-{{file::docs_parts/data_validation_table_row.md}}
+{{file::docs_parts/table_header.md::}}
+{{file::docs_parts/key_value_table_row.md::}}
+{{file::docs_parts/field_getters_table_row.md::}}
+{{file::docs_parts/data_validation_table_row.md::}}
 
 ## Availability
 
-{{file::docs_parts/feature_availability_table/preset_all.md}}
+{{file::docs_parts/feature_availability_table/preset_all.md::}}
 
-{{sampler::../samples/get_multiple_fields/basic}}
+{{sampler::../samples/get_multiple_fields/basic::}}

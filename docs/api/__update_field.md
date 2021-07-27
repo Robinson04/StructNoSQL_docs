@@ -13,14 +13,14 @@ update_success: bool = table_client.update_field(
 
 ## Parameters
 
-{{file::docs_parts/table_header.md}}
-{{file::docs_parts/key_value_table_row.md}}
-{{file::docs_parts/field_path_table_row.md}}
-{{file::docs_parts/value_to_set_table_row.md}}
-{{file::docs_parts/query_kwargs_table_row.md}}
+{{file::docs_parts/table_header.md::}}
+{{file::docs_parts/key_value_table_row.md::}}
+{{file::docs_parts/field_path_table_row.md::}}
+{{file::docs_parts/value_to_set_table_row.md::}}
+{{file::docs_parts/query_kwargs_table_row.md::}}
 
 ## Availability
 
-{{file::docs_parts/feature_availability_table/preset_all.md}}
+{{file::docs_parts/feature_availability_table/preset_all.md::}}
 
-{{sampler::../samples/update_field/basic}}
+{{sampler::../samples/update_field/basic::}}

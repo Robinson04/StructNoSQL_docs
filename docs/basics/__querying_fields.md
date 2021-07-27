@@ -229,7 +229,7 @@ If no value has been found or if it did not pass the data validation, ```retriev
 The typing with ```Optional[str]``` is not required.
 
 ### 2 - Querying a single field value without data validation from a secondary index
-{{file::docs_parts/reason_for_disabling_data_validation.md}}
+{{file::docs_parts/reason_for_disabling_data_validation.md::}}
 ```python
 from typing import Dict, Optional, Any
 
@@ -318,7 +318,7 @@ of using the ```.get``` function on your dictionary.
 
 
 ### 6 - Querying multiple fields values with query_multiple_fields without data validation
-{{file::docs_parts/reason_for_disabling_data_validation.md}}
+{{file::docs_parts/reason_for_disabling_data_validation.md::}}
 ```python
 from typing import Dict, Optional, Any
 from StructNoSQL import FieldGetter

@@ -10,12 +10,18 @@ deletion_success: bool = table.delete_record(indexes_keys_selectors=Dict[str, st
 ```
 
 ## Parameters
-{{file::docs_parts/table_header.md}}
-{{file::docs_parts/indexes_keys_selectors_table_row.md}}
-{{file::docs_parts/data_validation_table_row.md}}
+| Property&nbsp;name | Required | Accepted&nbsp;types | Default | Description |
+| ------------------ | :------: | :-----------------: | :-----: | :---------- |
+| indexes_keys_selectors | YES | dict | - | The key's 'todo: finish writing that'
+| data_validation | NO | bool | True | Whether data validation from your table model should be applied on the retrieved data. 
 
 ## Availability
-{{file::docs_parts/feature_availability_table/preset_all.md}}
+| Table | Available |
+| ----- | :-------- |
+| DynamoDBBasicTable | ✅
+| DynamoDBCachingTable | ✅
+| ExternalDynamoDBApiBasicTable | ✅
+| ExternalDynamoDBApiCachingTable | ✅
 
 ## Example :
 todo

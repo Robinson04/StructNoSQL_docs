@@ -19,15 +19,15 @@ will be ```False``` and ```retrieved_old_value``` will be None.
 
 ## Parameters
 
-{{file::docs_parts/table_header.md}}
-{{file::docs_parts/key_value_table_row.md}}
-{{file::docs_parts/field_path_table_row.md}}
-{{file::docs_parts/query_kwargs_table_row.md}}
-{{file::docs_parts/value_to_set_table_row.md}}
-{{file::docs_parts/data_validation_table_row.md}}
+{{file::docs_parts/table_header.md::}}
+{{file::docs_parts/key_value_table_row.md::}}
+{{file::docs_parts/field_path_table_row.md::}}
+{{file::docs_parts/query_kwargs_table_row.md::}}
+{{file::docs_parts/value_to_set_table_row.md::}}
+{{file::docs_parts/data_validation_table_row.md::}}
 
 ## Availability
 
-{{file::docs_parts/feature_availability_table/preset_all.md}}
+{{file::docs_parts/feature_availability_table/preset_all.md::}}
 
-{{sampler::../samples/update_field_return_old/basic}}
+{{sampler::../samples/update_field_return_old/basic::}}

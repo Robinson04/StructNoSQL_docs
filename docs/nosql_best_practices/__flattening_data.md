@@ -104,7 +104,7 @@ class UsersTableModel(TableDataModel):
 
 ### Queried record
 ```json
-{{file::samples/nosql_best_practices/flattening_data/reconstruct_nested_data_from_flattened_data/record.json}}
+{{file::samples/nosql_best_practices/flattening_data/reconstruct_nested_data_from_flattened_data/record.json::}}
 ```
 
 ### Moving the item3 from the item2 children's to the item1 children's
@@ -135,23 +135,23 @@ nested data from flattened data.
 
 ## (Python) Reconstruct nested data from flattened data
 
-{{sampler::../samples/nosql_best_practices/flattening_data/reconstruct_nested_data_from_flattened_data}} 
+{{sampler::../samples/nosql_best_practices/flattening_data/reconstruct_nested_data_from_flattened_data::}} 
 
 
 ## (Typescript) Reconstruct nested data from flattened data
 
 ### Queried record
 ```json
-{{file::samples/nosql_best_practices/flattening_data/reconstruct_nested_data_from_flattened_data/record.json}}
+{{file::samples/nosql_best_practices/flattening_data/reconstruct_nested_data_from_flattened_data/record.json::}}
 ```
 
 ### code.ts
 ```typescript
-{{file::samples/nosql_best_practices/flattening_data/reconstruct_nested_data_from_flattened_data/code.ts}}
+{{file::samples/nosql_best_practices/flattening_data/reconstruct_nested_data_from_flattened_data/code.ts::}}
 ```
 
 ### Output
 ```text
-{{file::samples/nosql_best_practices/flattening_data/reconstruct_nested_data_from_flattened_data/output.txt}}
+{{file::samples/nosql_best_practices/flattening_data/reconstruct_nested_data_from_flattened_data/output.txt::}}
 ```
 

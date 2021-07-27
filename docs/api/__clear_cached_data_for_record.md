@@ -11,13 +11,13 @@ table_client.clear_cached_data_for_record(record_primary_key=str)
 
 ## Parameters
 
-{{file::docs_parts/table_header.md}}
-{{file::docs_parts/record_primary_key_table_row.md}}
+{{file::docs_parts/table_header.md::}}
+{{file::docs_parts/record_primary_key_table_row.md::}}
  
 ## Availability
 
-{{file::docs_parts/feature_availability_table/preset_only_caching.md}}
+{{file::docs_parts/feature_availability_table/preset_only_caching.md::}}
 
 ## Example
 
-{{sampler::../samples/caching_table/clear_cached_data_for_record/basic}}
+{{sampler::../samples/caching_table/clear_cached_data_for_record/basic::}}

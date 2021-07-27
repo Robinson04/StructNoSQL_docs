@@ -26,4 +26,4 @@ has_pending_operations has no parameters.
 
 ## Example
 
-{{sampler::../samples/caching_table/has_pending_operations/basic}}
+{{sampler::../samples/caching_table/has_pending_operations/basic::}}

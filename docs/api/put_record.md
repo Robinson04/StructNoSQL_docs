@@ -13,5 +13,10 @@ success: bool = table.put_record(record_dict_data={'userId': "testUserId", 'name
 
 ## Availability
 
-{{file::docs_parts/feature_availability_table/preset_all.md}}
+| Table | Available |
+| ----- | :-------- |
+| DynamoDBBasicTable | ✅
+| DynamoDBCachingTable | ✅
+| ExternalDynamoDBApiBasicTable | ✅
+| ExternalDynamoDBApiCachingTable | ✅
 

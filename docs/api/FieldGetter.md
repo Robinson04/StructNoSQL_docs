@@ -16,8 +16,9 @@ FieldGetter(field_path=str, query_kwargs=Optional[dict])
 
 ## Parameters
 
-{{file::docs_parts/table_header.md}}
-{{file::docs_parts/field_path_table_row.md}}
-{{file::docs_parts/query_kwargs_table_row.md}}
+| Property&nbsp;name | Required | Accepted&nbsp;types | Default | Description |
+| ------------------ | :------: | :-----------------: | :-----: | :---------- |
+| field_path | YES | str | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
+| query_kwargs | NO | dict | None | Used to pass data to populate a field_path that contains keys. See example below :
 
  

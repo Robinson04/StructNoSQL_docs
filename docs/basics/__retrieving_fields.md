@@ -73,7 +73,7 @@ The typing with ```Optional[str]``` is not required.
 
 
 ### 2 - Getting a single field value without data validation
-{{file::docs_parts/reason_for_disabling_data_validation.md}}
+{{file::docs_parts/reason_for_disabling_data_validation.md::}}
 ```python
 from typing import Optional, Any
 
@@ -173,7 +173,7 @@ of using the ```.get``` function on your dictionary.
 
 
 ### 6 - Getting multiple fields values with get_multiple_fields without data validation
-{{file::docs_parts/reason_for_disabling_data_validation.md}}
+{{file::docs_parts/reason_for_disabling_data_validation.md::}}
 ```python
 from typing import Dict, Optional, Any
 from StructNoSQL import FieldGetter
