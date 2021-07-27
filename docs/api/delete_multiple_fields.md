@@ -7,10 +7,10 @@ slug: /api/delete_multiple_fields
 
 ```python
 deletion_success: bool = table_client.delete_multiple_fields(
-    key_value=str, deleters=[
-        FieldRemover(field_path=str, query_kwargs=Optional[dict]),
-        FieldRemover(field_path=str, query_kwargs=Optional[dict])
-    ]
+    key_value=str, deleters={
+        str: FieldRemover(field_path=str, query_kwargs=Optional[dict]),
+        str: FieldRemover(field_path=str, query_kwargs=Optional[dict])
+    }
 )
 ```
 
@@ -19,7 +19,7 @@ deletion_success: bool = table_client.delete_multiple_fields(
 | Property&nbsp;name | Required | Accepted&nbsp;types | Default | Description |
 | ------------------ | :------: | :-----------------: | :-----: | :---------- |
 | key_value | YES | Any | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
-| removers      | YES      | List[[FieldRemover](../api/FieldRemover.md)] | - | A list of FieldRemover's object's to select the fields to delete.
+| removers      | YES      | Dict[str, [FieldRemover](../api/FieldRemover.md)] | - | A dict of FieldRemover's object's to select the fields to delete.
 
 ## Availability
 

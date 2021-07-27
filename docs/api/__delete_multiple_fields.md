@@ -7,10 +7,10 @@ slug: /api/delete_multiple_fields
 
 ```python
 deletion_success: bool = table_client.delete_multiple_fields(
-    key_value=str, deleters=[
-        FieldRemover(field_path=str, query_kwargs=Optional[dict]),
-        FieldRemover(field_path=str, query_kwargs=Optional[dict])
-    ]
+    key_value=str, deleters={
+        str: FieldRemover(field_path=str, query_kwargs=Optional[dict]),
+        str: FieldRemover(field_path=str, query_kwargs=Optional[dict])
+    }
 )
 ```
 
@@ -18,7 +18,7 @@ deletion_success: bool = table_client.delete_multiple_fields(
 
 {{file::docs_parts/table_header.md::}}
 {{file::docs_parts/key_value_table_row.md::}}
-| removers      | YES      | List[[FieldRemover](../api/FieldRemover.md)] | - | A list of FieldRemover's object's to select the fields to delete.
+| removers      | YES      | Dict[str, [FieldRemover](../api/FieldRemover.md)] | - | A dict of FieldRemover's object's to select the fields to delete.
 
 ## Availability
 

@@ -235,6 +235,7 @@ removed_last_login_timestamp: Optional[int] = removed_values['metadata_lastLogin
 }::}}
 
 ### 10 - Removing multiple fields values with remove_multiple_fields without data validation
+{{file::docs_parts/reason_for_disabling_data_validation.md::}}
 ```python
 from typing import Dict, Optional, Any
 from StructNoSQL import FieldGetter
