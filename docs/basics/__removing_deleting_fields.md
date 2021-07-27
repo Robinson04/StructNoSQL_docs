@@ -129,18 +129,97 @@ instead of using the ```.get``` function on your dictionary.
 
 
 ### 4 - Removing a single field value
+```python
+from typing import Optional
+
+removed_friends_value: Optional[dict] = table_client.remove_field(
+    key_value='x42', field_path='friends'
+)
+```
 
 
 ### 5 - Removing a single field value without data validation
+```python
+from typing import Optional, Any
 
+removed_friends_value: Optional[Any] = table_client.remove_field(
+    key_value='x42', field_path='friends', data_validation=False
+)
+```
 
 ### 6 - Removing multiple fields values with a multi-selector
+```python
+from typing import Dict, Optional, Any
 
+removed_values: Dict[str, Optional[Any]] = table_client.get_field(
+    key_value='x42', field_path='(username, friends)'
+)
+removed_username_value: Optional[str] = removed_values['username']
+removed_friends_value: Optional[dict] = removed_values['friends']
+```
 
-### 7 - Removing multiple nested fields values with a multi-selector
+### 7 - Removing a nested field value
+```python
+from typing import Optional
 
+removed_friend_relationship: Optional[str] = table_client.remove_field(
+    key_value='x42', field_path='friends.{{friendId}}.relationship',
+    query_kwargs={'friendId': 'f42'}
+)
+```
 
-### 8 - Removing multiple fields values with remove_multiple_fields
+### 8 - Removing multiple nested fields values with a multi-selector
+```python
+from typing import Dict, Optional, Any
 
+removed_values: Dict[str, Optional[Any]] = table_client.remove_field(
+    key_value='x42', field_path='friends.{{friendId}}.(name, relationship)',
+    query_kwargs={'friendId': 'f42'}
+)
+removed_friend_name_value: Optional[str] = removed_values['name']
+removed_friend_relationship_value: Optional[str] = removed_values['relationship']
+```
 
-### 8 - Removing multiple fields values with remove_multiple_fields without data validation
+### 9 - Removing multiple fields values with remove_multiple_fields
+```python
+from typing import Dict, Optional, Any
+from StructNoSQL import FieldGetter
+
+removed_values: Dict[str, Optional[Any]] = table_client.remove_multiple_fields(
+    key_value='x42', getters={
+        'status': FieldGetter(field_path='status'),
+        'friend_relationship': FieldGetter(
+            field_path='friends.{{friendId}}.relationship', 
+            query_kwargs={'friendId': 'f42'}, 
+        ),
+        'metadata_lastLoginTimestamp': FieldGetter(
+            field_path='metadata.lastLoginTimestamp', 
+        )
+    }
+)
+removed_status: Optional[str] = removed_values['status']
+removed_friend_relationship: Optional[str] = removed_values['friend_relationship']
+removed_last_login_timestamp: Optional[int] = removed_values['metadata_lastLoginTimestamp']
+```
+
+### 10 - Removing multiple fields values with remove_multiple_fields without data validation
+```python
+from typing import Dict, Optional, Any
+from StructNoSQL import FieldGetter
+
+removed_values: Dict[str, Optional[Any]] = table_client.remove_multiple_fields(
+    key_value='x42', getters={
+        'status': FieldGetter(field_path='status'),
+        'friend_relationship': FieldGetter(
+            field_path='friends.{{friendId}}.relationship', 
+            query_kwargs={'friendId': 'f42'}, 
+        ),
+        'metadata_lastLoginTimestamp': FieldGetter(
+            field_path='metadata.lastLoginTimestamp', 
+        )
+    }, data_validation=False  # <-- disable data_validation
+)
+removed_status: Optional[Any] = removed_values['status']
+removed_friend_relationship: Optional[Any] = removed_values['friend_relationship']
+removed_last_login_timestamp: Optional[Any] = removed_values['metadata_lastLoginTimestamp']
+```

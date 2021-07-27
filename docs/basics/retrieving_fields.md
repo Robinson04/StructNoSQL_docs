@@ -116,7 +116,17 @@ Since it is guaranteed that the keys will be present, you can access the retriev
 of using the ```.get``` function on your dictionary.
 
 
-### 4 - Getting multiple nested fields values with a multi-selector
+### 4 - Getting a single nested field value
+```python
+from typing import Optional
+
+retrieved_friend_name: Optional[str] = table_client.get_field(
+    key_value='x42', field_path='friends.{{friendId}}.name',
+    query_kwargs={'friendId': 'f42'}
+)
+```
+
+### 5 - Getting multiple nested fields values with a multi-selector
 You can use multi-selectors even with nested fields, and even with query_kwargs.
 The only constraint, is the multi-selector must be the last 'path element' of your field path.
 ```python
