@@ -6,6 +6,7 @@ module.exports = {
         'basics/creating_your_first_table',
         'basics/modeling_your_database',
         'basics/retrieving_fields',
+        'basics/querying_fields',
         'basics/updating_fields',
         'basics/removing_deleting_fields',
         'basics/query_pagination',

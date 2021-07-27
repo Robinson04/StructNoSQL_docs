@@ -5,11 +5,9 @@ sidebar_label: Retrieving fields
 slug: /basics/retrieving_fields
 ---
 
-#### If not present, all the required parent field's will be created when updating a nested field
-
 The 'get' operations can retrieve fields from a record when you select it with its primary key value. To retrieve 
 records based on secondary indexes, you need to query your records as showed in the 
-[Query fields](../basics/query_fields.md) page.
+[Querying fields](../basics/querying_fields.md) page.
 
 You have multiple operations at your disposition :
 

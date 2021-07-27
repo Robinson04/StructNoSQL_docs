@@ -7,12 +7,14 @@ slug: /basics/retrieving_fields
 
 The 'get' operations can retrieve fields from a record when you select it with its primary key value. To retrieve 
 records based on secondary indexes, you need to query your records as showed in the 
-[Querying fields](../basics/querying_fields.md) page.
+[Query fields](../basics/query_fields.md) page.
 
 You have multiple operations at your disposition :
 
-- [get_field](../api/get_field.md)
-- [get_multiple_fields](../api/get_multiple_fields.md)
+- [query_field](../api/query_field.md)
+- [query_multiple_fields](../api/query_multiple_fields.md)
+- [paginated_query_field](../api/paginated_query_field.md)
+- [paginated_query_multiple_fields](../api/paginated_query_multiple_fields.md)
 
 todo: should querying fields be included here, or have its own page ?
 
