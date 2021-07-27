@@ -259,7 +259,10 @@ retrieved_values: Dict[str, Optional[Any]] = table_client.get_field(
 retrieved_username_value: Optional[str] = retrieved_values['username']
 retrieved_friends_value: Optional[dict] = retrieved_values['friends']
 ```
-{{template::{'filepath': 'docs_parts/multi_selectors_template.md', 'variable_name': "retrieved_values"}}}
+{{template::{
+    'filepath': 'docs_parts/multi_selectors_and_getters_templates/multi_selectors_template.md', 
+    'variable_name': "retrieved_values"
+}::}}
 
 
 ### 4 - Querying multiple nested fields values with a multi-selector

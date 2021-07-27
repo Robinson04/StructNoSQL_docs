@@ -20,12 +20,7 @@ clear_cached_data_and_pending_operations has no parameters.
  
 ## Availability
 
-| Table | Available |
-| ----- | :-------- |
-| DynamoDBBasicTable | ⬜
-| DynamoDBCachingTable | ✅
-| ExternalDynamoDBApiBasicTable | ⬜
-| ExternalDynamoDBApiCachingTable | ✅
+{{file::docs_parts/feature_availability_table/preset_only_caching.md}}
 
 ## Example
 

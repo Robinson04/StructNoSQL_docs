@@ -73,13 +73,7 @@ The typing with ```Optional[str]``` is not required.
 
 
 ### 2 - Getting a single field value without data validation
-The retrieved data will be passed through the data validation of your table. If the value or
-some parts of it are invalid, they will be removed. The data validation is unforced client side by StructNoSQL, not on 
-the database side which might cause the retrieved_value to be None or have less items than is actually present in the 
-database.
-
-If you need to disable the data_validation and actually retrieve any data present in the database without any checks or
-alterations being done, you can disable it by passing False to the ```data_validation``` parameter.
+{{file::docs_parts/reason_for_disabling_data_validation.md}}
 ```python
 from typing import Optional, Any
 
@@ -110,11 +104,7 @@ retrieved_values: Dict[str, Optional[Any]] = table_client.get_field(
 retrieved_username_value: Optional[str] = retrieved_values['username']
 retrieved_friends_value: Optional[dict] = retrieved_values['friends']
 ```
-When using a multi-selector, no matter what, ```retrieved_values``` will always be a dictionary containing all the names 
-of all fields you requested as keys in the dictionary. 
-Even if the operation failed, the dictionary will be returned with a ```None``` value for each field.
-Since it is guaranteed that the keys will be present, you can access the retrieved values directly with brackets instead 
-of using the ```.get``` function on your dictionary.
+{{template::{'filepath': 'docs_parts/multi_selectors_and_getters_templates/multi_selectors_template.md', 'variable_name': "retrieved_values"}}}
 
 
 ### 4 - Getting a single nested field value
@@ -180,13 +170,7 @@ of using the ```.get``` function on your dictionary.
 
 
 ### 6 - Getting multiple fields values with get_multiple_fields without data validation
-The retrieved data will be passed through the data validation of your table. If the value or
-some parts of it are invalid, they will be removed. The data validation is unforced client side by StructNoSQL, not on 
-the database side which might cause the retrieved_value to be None or have less items than is actually present in the 
-database.
-
-If you need to disable the data_validation and actually retrieve any data present in the database without any checks or
-alterations being done, you can disable it by passing False to the ```data_validation``` parameter.
+{{file::docs_parts/reason_for_disabling_data_validation.md}}
 ```python
 from typing import Dict, Optional, Any
 from StructNoSQL import FieldGetter

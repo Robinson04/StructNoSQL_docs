@@ -18,75 +18,16 @@ returned. The deletion will fail only if an error occurred in the sending or exe
 
 ## Parameters
 
-| Property&nbsp;name | Required | Accepted&nbsp;types | Default | Description |
-| ------------------ | :------: | :-----------------: | :-----: | :---------- |
-| key_value | YES | Any | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
-| field_path | YES | str | - | The path expression to target the attribute to set/update in your record. See [Field path selectors](../basics/field_path_selectors.md)
-| query_kwargs | NO | dict | None | Used to pass data to populate a field_path that contains keys. See example below :
+{{file::docs_parts/table_header.md}}
+{{file::docs_parts/key_value_table_row.md}}
+{{file::docs_parts/field_path_table_row.md}}
+{{file::docs_parts/query_kwargs_table_row.md}}
 
 ## Availability
 
-| Table | Available |
-| ----- | :-------- |
-| DynamoDBBasicTable | ✅
-| DynamoDBCachingTable | ✅
-| ExternalDynamoDBApiBasicTable | ✅
-| ExternalDynamoDBApiCachingTable | ✅
+{{file::docs_parts/feature_availability_table/preset_all.md}}
 
 ## Basic
 
-
-### Queried record
-```json
-{
-  "userId": "x42",
-  "shoppingCartItems": {
-    "i42": {
-      "productName": "Soluble coffee jar",
-      "quantity": 8
-    }
-  }
-}
-```
-
-### Code
-```python
-from StructNoSQL import TableDataModel, DynamoDBBasicTable, PrimaryIndex, BaseField, MapModel
-from typing import Dict
-
-
-class UsersTableModel(TableDataModel):
-    userId = BaseField(field_type=str, required=True)
-    class ShoppingCartItemModel(MapModel):
-        productName = BaseField(field_type=str, required=True)
-        quantity = BaseField(field_type=int, required=True)
-    shoppingCartItems = BaseField(field_type=Dict[str, ShoppingCartItemModel], key_name='itemId', required=False)
-
-
-class UsersTable(DynamoDBBasicTable):
-    def __init__(self):
-        primary_index = PrimaryIndex(hash_key_name='userId', hash_key_variable_python_type=str)
-        super().__init__(
-            table_name='accounts-data', region_name='eu-west-2',
-            data_model=UsersTableModel, primary_index=primary_index,
-            auto_create_table=True
-        )
-
-
-table_client = UsersTable()
-
-deletion_success: bool = table_client.delete_field(
-    key_value='x42',
-    field_path='shoppingCartItems.{{itemId}}',
-    query_kwargs={'itemId': 'i42'}
-)
-print(f"Deletion success result : {deletion_success}")
-
-```
-
-### Output
-```
-Removed item : {'productName': "Soluble coffee jar", 'quantity': 8}
-```
-        
+{{sampler::../samples/delete_field/basic}}
  

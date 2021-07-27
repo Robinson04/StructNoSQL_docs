@@ -122,6 +122,13 @@ status_deletion_success: bool = deletion_successes['status']
 friend_relationship_deletion_success: bool = deletion_successes['friend_relationship']
 last_login_timestamp_deletion_success: bool = deletion_successes['metadata_lastLoginTimestamp']
 ```
+{{template::{
+    'filepath': 'docs_parts/multi_selectors_and_getters_templates/multi_selectors_template.md',
+    'variable_name': "removed_values_AMAZING", 'individual_target_type_name': "remover",
+    'attempted_operation_explanation': "you tried to delete"
+}::}}
+
+
 No matter what, ```deletion_successes``` will always be a dictionary containing all the keys of ```removers``` dictionary.
 Even if the operation failed, the dictionary will be returned with a success value of ```False``` for each remover.
 Since it is guaranteed that the keys will be present, you can access the deletion successes directly with brackets 
@@ -159,11 +166,6 @@ removed_friends_value: Optional[Any] = table_client.remove_field(
 
 ### 6 - Removing multiple fields values with a multi-selector
 If you need to remove multiple fields that share the same parent path, you can use a multi-selector.
-Wrap the multiple fields names you want to retrieve inside parenthesis. This will be similar to using the 
-[remove_multiple_fields](../api/remove_multiple_fields) operation.
-You will be returned a dictionary where the keys will be all the fields names you removed, and their matching removed 
-values if they were found.
-
 ```python
 from typing import Dict, Optional, Any
 
@@ -173,10 +175,14 @@ removed_values: Dict[str, Optional[Any]] = table_client.remove_field(
 removed_username_value: Optional[str] = removed_values['username']
 removed_friends_value: Optional[dict] = removed_values['friends']
 ```
-{{template::{'filepath': 'docs_parts/multi_selectors_template.md', 'variable_name': "removed_values"}}}
+{{template::{
+    'filepath': 'docs_parts/multi_selectors_and_getters_templates/multi_selectors_template.md', 
+    'variable_name': "removed_values"
+}::}}
 
 
 ### 7 - Removing a nested field value
+You can target nested field, and you can use ```query_kwargs``` to target dictionaries or lists items.
 ```python
 from typing import Optional
 
@@ -187,6 +193,8 @@ removed_friend_relationship: Optional[str] = table_client.remove_field(
 ```
 
 ### 8 - Removing multiple nested fields values with a multi-selector
+You can also use a multi-selector in a nested ```field_path```, in which case the keys in ```removed_values``` will be
+the name's of each field in your multi-selector (not their entire field_path's).
 ```python
 from typing import Dict, Optional, Any
 

@@ -12,9 +12,9 @@ slug: /api/has_pending_operations
 do_has_pending_operations: bool = table_client.has_pending_operations()
 ```
 
-{{file::docs_parts/caching_table/operations_considered_as_update.md}}
+{{file::docs_parts/caching_table/operations_considered_as_update.md::}}
 
-{{file::docs_parts/caching_table/operations_considered_as_remove.md}}
+{{file::docs_parts/caching_table/operations_considered_as_remove.md::}}
 
 ## Parameters
 
@@ -22,7 +22,7 @@ has_pending_operations has no parameters.
  
 ## Availability
 
-{{file::docs_parts/feature_availability_table/preset_only_caching.md}}
+{{file::docs_parts/feature_availability_table/preset_only_caching.md::}}
 
 ## Example
 
