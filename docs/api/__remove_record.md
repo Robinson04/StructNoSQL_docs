@@ -15,12 +15,12 @@ removed_record_data: Optional[dict] = table.remove_record(
 ```
 
 ## Parameters
-{{file::../docs_parts/table_header.md}}
-{{file::../docs_parts/indexes_keys_selectors_table_row.md}}
-{{file::../docs_parts/data_validation_table_row.md}}
+{{file::docs_parts/table_header.md}}
+{{file::docs_parts/indexes_keys_selectors_table_row.md}}
+{{file::docs_parts/data_validation_table_row.md}}
 
 ## Availability
-{{file::../docs_parts/feature_availability_table/preset_all.md}}
+{{file::docs_parts/feature_availability_table/preset_all.md}}
 
 ## Example :
 todo

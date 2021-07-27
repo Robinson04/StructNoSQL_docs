@@ -135,7 +135,7 @@ nested data from flattened data.
 
 ## (Python) Reconstruct nested data from flattened data
 
-{{sampler::nosql_best_practices/flattening_data/reconstruct_nested_data_from_flattened_data}} 
+{{sampler::../samples/nosql_best_practices/flattening_data/reconstruct_nested_data_from_flattened_data}} 
 
 
 ## (Typescript) Reconstruct nested data from flattened data

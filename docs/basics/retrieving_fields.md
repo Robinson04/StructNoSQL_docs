@@ -98,8 +98,9 @@ the execution of your code, it is only there to make your code clearer and for y
 If you need to retrieve multiple fields that share the same parent path, you can use a multi-selector.
 Wrap the multiple fields names you want to retrieve inside parenthesis. This will be similar to using the 
 [get_multiple_fields](../api/get_multiple_fields) operation, where the multiple fields will be retrieved with a
-single database operation. You will be returned a dictionary with the keys will be all the fields names you requested,
-and their retrieved values if they were found.
+single database operation. 
+You will be returned a dictionary where the keys will be all the fields names you requested, and their matching 
+retrieved values if they were found.
 ```python
 from typing import Dict, Optional, Any
 
@@ -109,8 +110,8 @@ retrieved_values: Dict[str, Optional[Any]] = table_client.get_field(
 retrieved_username_value: Optional[str] = retrieved_values['username']
 retrieved_friends_value: Optional[dict] = retrieved_values['friends']
 ```
-When using a multi-selector, no matter what, retrieved_values will always be a dictionary containing all the names of
-all fields you requested as keys in the dictionary. 
+When using a multi-selector, no matter what, ```retrieved_values``` will always be a dictionary containing all the names 
+of all fields you requested as keys in the dictionary. 
 Even if the operation failed, the dictionary will be returned with a ```None``` value for each field.
 Since it is guaranteed that the keys will be present, you can access the retrieved values directly with brackets instead 
 of using the ```.get``` function on your dictionary.

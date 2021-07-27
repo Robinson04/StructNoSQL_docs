@@ -10,9 +10,9 @@ slug: /api/clear_pending_remove_operations
 table_client.clear_pending_remove_operations()
 ```
 
-{{file::../docs_parts/caching_table/not_clearing_cache_can_create_discrepancies.md}}
+{{file::docs_parts/caching_table/not_clearing_cache_can_create_discrepancies.md}}
 
-{{file::../docs_parts/caching_table/operations_considered_as_remove.md}}
+{{file::docs_parts/caching_table/operations_considered_as_remove.md}}
 
 ## Parameters
 
@@ -20,7 +20,7 @@ has_pending_remove_operations has no parameters.
  
 ## Availability
 
-{{file::../docs_parts/feature_availability_table/preset_only_caching.md}}
+{{file::docs_parts/feature_availability_table/preset_only_caching.md}}
 
 ## Related operations
 - [clear_cached_data_and_pending_operations](../api/clear_cached_data_and_pending_operations)
@@ -30,4 +30,4 @@ has_pending_remove_operations has no parameters.
 
 
 ## Example
-{{sampler::caching_table/has_pending_remove_operations/basic}}
+{{sampler::../samples/caching_table/has_pending_remove_operations/basic}}

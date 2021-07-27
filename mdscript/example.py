@@ -10,5 +10,5 @@ Runner(
             'template': FileTemplateTransformer
         }
     ),
-    base_dirpath='F:/Inoft/StructNoSQL_docs/docs'
+    base_dirpath='F:/Inoft/StructNoSQL/docs/docs'
 ).start()

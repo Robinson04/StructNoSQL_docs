@@ -15,8 +15,8 @@ clear_cached_data has no parameters.
  
 ## Availability
 
-{{file::../docs_parts/feature_availability_table/preset_only_caching.md}}
+{{file::docs_parts/feature_availability_table/preset_only_caching.md}}
 
 ## Example
 
-{{sampler::caching_table/clear_cached_data/basic}}
+{{sampler::../samples/caching_table/clear_cached_data/basic}}

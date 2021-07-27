@@ -24,23 +24,23 @@ query_metadata: QueryMetadata
 Query a field and return of tuple of the both the records_values organized in a dictionary (the keys being the primary key
 value of each record), and a [query_metadata](../api/QueryMetadata) object with information needed to paginate your query. 
 
-{{file::../docs_parts/paginated_queries/this_operation_is_paginated.md}}
+{{file::docs_parts/paginated_queries/this_operation_is_paginated.md}}
 
 You can use [paginated_query_multiple_fields](../api/paginated_query_multiple_fields.md) for a managed navigation of 
 paginated results with a simple iterable.
 
 ## Parameters
-{{file::../docs_parts/table_header.md}}
-{{file::../docs_parts/index_name_table_row.md}}
-{{file::../docs_parts/key_value_table_row.md}}
-{{file::../docs_parts/field_getters_table_row.md}}
-{{file::../docs_parts/exclusive_start_key_table_row.md}}
-{{file::../docs_parts/pagination_records_limit_table_row.md}}
-{{file::../docs_parts/filter_expression_table_row.md}}
-{{file::../docs_parts/data_validation_table_row.md}}
+{{file::docs_parts/table_header.md}}
+{{file::docs_parts/index_name_table_row.md}}
+{{file::docs_parts/key_value_table_row.md}}
+{{file::docs_parts/field_getters_table_row.md}}
+{{file::docs_parts/exclusive_start_key_table_row.md}}
+{{file::docs_parts/pagination_records_limit_table_row.md}}
+{{file::docs_parts/filter_expression_table_row.md}}
+{{file::docs_parts/data_validation_table_row.md}}
  
 ## Availability
-{{file::../docs_parts/feature_availability_table/preset_all.md}}
+{{file::docs_parts/feature_availability_table/preset_all.md}}
 
 ## Related pages
 - [Query pagination](../basics/query_pagination)
@@ -48,5 +48,5 @@ paginated results with a simple iterable.
 - [paginated_query_multiple_fields](../api/paginated_query_multiple_fields)
 
 ## Example
-{{sampler::query_multiple_fields/basic}}
+{{sampler::../samples/query_multiple_fields/basic}}
  

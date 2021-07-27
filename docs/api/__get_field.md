@@ -15,18 +15,18 @@ retrieved_item: Optional[Any] = table_client.get_field(
 
 ## Parameters
 
-{{file::../docs_parts/table_header.md}}
-{{file::../docs_parts/key_value_table_row.md}}
-{{file::../docs_parts/field_path_table_row.md}}
-{{file::../docs_parts/query_kwargs_table_row.md}}
-{{file::../docs_parts/data_validation_table_row.md}}
+{{file::docs_parts/table_header.md}}
+{{file::docs_parts/key_value_table_row.md}}
+{{file::docs_parts/field_path_table_row.md}}
+{{file::docs_parts/query_kwargs_table_row.md}}
+{{file::docs_parts/data_validation_table_row.md}}
 
 ## Availability
 
-{{file::../docs_parts/feature_availability_table/preset_all.md}}
+{{file::docs_parts/feature_availability_table/preset_all.md}}
 
 ## Single field retrieving
-{{sampler::get_field/single_selection}}
+{{sampler::../samples/get_field/single_selection}}
 
 ## Multi fields selectors
 
@@ -44,5 +44,5 @@ You cannot use a multi-selector to get multiple fields that are not in the same 
 the [```get_multiple_fields```](../api/get_multiple_fields.md) operation.
 
 
-{{sampler::get_field/multi_selectors}}
+{{sampler::../samples/get_field/multi_selectors}}
  

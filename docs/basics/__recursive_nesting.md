@@ -139,4 +139,4 @@ giving you virtually unlimited depth. Read the NoSQL design principles to learn 
 
 
 ## Full Example 
-{{sampler::recursive_nesting/basic}}
+{{sampler::../samples/recursive_nesting/basic}}

@@ -129,6 +129,11 @@ instead of using the ```.get``` function on your dictionary.
 
 
 ### 4 - Removing a single field value
+You can use [remove_field](../api/remove_field) to remove a single field value from a record (removing : deleting and 
+retrieving the removed value in a single database operation).
+Similarly to [delete_field](../api/delete_field), you select the record you want to remove the field from with its 
+primary key value by passing using the ```key_value``` parameter. And you specify to field to remove with the 
+```field_path``` parameter.
 ```python
 from typing import Optional
 
@@ -136,9 +141,14 @@ removed_friends_value: Optional[dict] = table_client.remove_field(
     key_value='x42', field_path='friends'
 )
 ```
+You receive as result the removed value. If no field value was found or if the operation failed, a value of None will 
+be returned.
+Note that receiving a None value does not necessarily mean the operation failed, since you could have allowed the 
+```None``` value as one of the accepted values of the field you are trying to remove. 
 
 
 ### 5 - Removing a single field value without data validation
+{{file::docs_parts/reason_for_disabling_data_validation.md}}
 ```python
 from typing import Optional, Any
 
@@ -148,15 +158,23 @@ removed_friends_value: Optional[Any] = table_client.remove_field(
 ```
 
 ### 6 - Removing multiple fields values with a multi-selector
+If you need to remove multiple fields that share the same parent path, you can use a multi-selector.
+Wrap the multiple fields names you want to retrieve inside parenthesis. This will be similar to using the 
+[remove_multiple_fields](../api/remove_multiple_fields) operation.
+You will be returned a dictionary where the keys will be all the fields names you removed, and their matching removed 
+values if they were found.
+
 ```python
 from typing import Dict, Optional, Any
 
-removed_values: Dict[str, Optional[Any]] = table_client.get_field(
+removed_values: Dict[str, Optional[Any]] = table_client.remove_field(
     key_value='x42', field_path='(username, friends)'
 )
 removed_username_value: Optional[str] = removed_values['username']
 removed_friends_value: Optional[dict] = removed_values['friends']
 ```
+{{template::{'filepath': 'docs_parts/multi_selectors_template.md', 'variable_name': "removed_values"}}}
+
 
 ### 7 - Removing a nested field value
 ```python

@@ -16,9 +16,9 @@ FieldSetter(field_path=str, value_to_set=Any, query_kwargs=Optional[dict])
 
 ## Parameters
 
-{{file::../docs_parts/table_header.md}}
-{{file::../docs_parts/field_path_table_row.md}}
+{{file::docs_parts/table_header.md}}
+{{file::docs_parts/field_path_table_row.md}}
 | value_to_set  | YES      | Any  | The value that will be set for the specified field_path of the setter.
-{{file::../docs_parts/query_kwargs_table_row.md}}
+{{file::docs_parts/query_kwargs_table_row.md}}
 
  

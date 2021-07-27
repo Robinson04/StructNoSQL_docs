@@ -265,8 +265,8 @@ retrieved_values: Dict[str, Optional[Any]] = table_client.get_field(
 retrieved_username_value: Optional[str] = retrieved_values['username']
 retrieved_friends_value: Optional[dict] = retrieved_values['friends']
 ```
-When using a multi-selector, no matter what, retrieved_values will always be a dictionary containing all the names of
-all fields you requested as keys in the dictionary. 
+When using a multi-selector, no matter what, ```retrieved_values``` will always be a dictionary containing all the names 
+of all fields you requested as keys in the dictionary. 
 Even if the operation failed, the dictionary will be returned with a ```None``` value for each field.
 Since it is guaranteed that the keys will be present, you can access the retrieved values directly with brackets instead 
 of using the ```.get``` function on your dictionary.
