@@ -260,8 +260,9 @@ retrieved_username_value: Optional[str] = retrieved_values['username']
 retrieved_friends_value: Optional[dict] = retrieved_values['friends']
 ```
 {{template::{
-    'filepath': 'docs_parts/multi_selectors_and_getters_templates/multi_selectors_template.md', 
-    'variable_name': "retrieved_values"
+    'filepath': 'docs_parts/templates/multi_selectors_template.md', 
+    'variable_name': "retrieved_values", 'individual_target_type_name': "field",
+    'default_value': "None", 'attempted_operation_explanation': "tried to retrieve"
 }::}}
 
 
@@ -310,11 +311,11 @@ retrieved_username: Optional[str] = retrieved_values['username']
 retrieved_friend_relationship: Optional[str] = retrieved_values['friend_relationship']
 retrieved_last_login_timestamp: Optional[int] = retrieved_values['metadata_lastLoginTimestamp']
 ```
-No matter what, retrieved_values will always be a dictionary containing all the names of
-all fields you requested as keys in the dictionary. 
-Even if the operation failed, the dictionary will be returned with a ```None``` value for each field.
-Since it is guaranteed that the keys will be present, you can access the retrieved values directly with brackets instead 
-of using the ```.get``` function on your dictionary.
+{{template::{
+    'filepath': 'docs_parts/templates/multi_selectors_template.md',
+    'variable_name': "retrieved_values", 'individual_target_type_name': "field",
+    'default_value': "None", 'attempted_operation_explanation': "tried to retrieve"
+}::}}
 
 
 ### 6 - Querying multiple fields values with query_multiple_fields without data validation

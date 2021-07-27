@@ -111,9 +111,9 @@ retrieved_username_value: Optional[str] = retrieved_values['username']
 retrieved_friends_value: Optional[dict] = retrieved_values['friends']
 ```
 No matter what, ```retrieved_values``` will always be a dictionary containing as keys all the names of the 
-fields you {{attempted_operation_explanation}}. 
+fields you tried to retrieve. 
 Even if the operation failed, the dictionary will be returned with a ```None``` value for each 
-{{individual_target_type_name}}.
+field.
 You can safely access the fields values with brackets instead of using the ```.get``` function on your dictionary.
 
 
@@ -173,11 +173,12 @@ retrieved_username: Optional[str] = retrieved_values['username']
 retrieved_friend_relationship: Optional[str] = retrieved_values['friend_relationship']
 retrieved_last_login_timestamp: Optional[int] = retrieved_values['metadata_lastLoginTimestamp']
 ```
-No matter what, ```retrieved_values``` will always be a dictionary containing all the names of
-all fields you requested as keys in the dictionary. 
-Even if the operation failed, the dictionary will be returned with a ```None``` value for each field.
-Since it is guaranteed that the keys will be present, you can access the retrieved values directly with brackets instead 
-of using the ```.get``` function on your dictionary.
+No matter what, ```retrieved_values``` will always be a dictionary containing as keys all the names of the 
+fields you tried to retrieve. 
+Even if the operation failed, the dictionary will be returned with a ```None``` value for each 
+field.
+You can safely access the fields values with brackets instead of using the ```.get``` function on your dictionary.
+
 
 
 ### 6 - Getting multiple fields values with get_multiple_fields without data validation

@@ -208,9 +208,10 @@ old_username: Optional[str] = old_fields_values['username']
 old_friend_relationship: Optional[str] = old_fields_values['friend_relationship']
 last_login_timestamp: Optional[int] = old_fields_values['metadata_lastLoginTimestamp']
 ```
-No matter what, old_fields_values will always be a dictionary containing all the keys of the fields you tried to update. 
-Even if the operation failed, the dictionary will be returned with a ```None``` value for each field.
-Since it is guaranteed that the keys will be present, you can access the removed values directly with brackets instead 
-of using the ```.get``` function on your dictionary.
+{{template::{
+    'filepath': 'docs_parts/templates/multi_selectors_template.md',
+    'variable_name': "old_fields_values", 'individual_target_type_name': "field",
+    'default_value': "False", 'attempted_operation_explanation': "tried to update"
+}::}}
 
-### 7 : Updating multiple fields at once and returning their old values without data validation
+### 8 : Updating multiple fields at once and returning their old values without data validation

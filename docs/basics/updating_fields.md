@@ -208,9 +208,11 @@ old_username: Optional[str] = old_fields_values['username']
 old_friend_relationship: Optional[str] = old_fields_values['friend_relationship']
 last_login_timestamp: Optional[int] = old_fields_values['metadata_lastLoginTimestamp']
 ```
-No matter what, old_fields_values will always be a dictionary containing all the keys of the fields you tried to update. 
-Even if the operation failed, the dictionary will be returned with a ```None``` value for each field.
-Since it is guaranteed that the keys will be present, you can access the removed values directly with brackets instead 
-of using the ```.get``` function on your dictionary.
+No matter what, ```old_fields_values``` will always be a dictionary containing as keys all the names of the 
+fields you tried to update. 
+Even if the operation failed, the dictionary will be returned with a ```False``` value for each 
+field.
+You can safely access the fields values with brackets instead of using the ```.get``` function on your dictionary.
 
-### 7 : Updating multiple fields at once and returning their old values without data validation
+
+### 8 : Updating multiple fields at once and returning their old values without data validation

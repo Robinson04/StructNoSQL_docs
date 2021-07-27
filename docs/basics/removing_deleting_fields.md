@@ -122,9 +122,9 @@ status_deletion_success: bool = deletion_successes['status']
 friend_relationship_deletion_success: bool = deletion_successes['friend_relationship']
 last_login_timestamp_deletion_success: bool = deletion_successes['metadata_lastLoginTimestamp']
 ```
-No matter what, ```removed_values_AMAZING``` will always be a dictionary containing as keys all the names of the 
-fields you you tried to delete. 
-Even if the operation failed, the dictionary will be returned with a ```None``` value for each 
+No matter what, ```deletion_successes``` will always be a dictionary containing as keys all the names of the 
+fields you tried to delete. 
+Even if the operation failed, the dictionary will be returned with a ```False``` value for each 
 remover.
 You can safely access the fields values with brackets instead of using the ```.get``` function on your dictionary.
 
@@ -183,9 +183,9 @@ removed_username_value: Optional[str] = removed_values['username']
 removed_friends_value: Optional[dict] = removed_values['friends']
 ```
 No matter what, ```removed_values``` will always be a dictionary containing as keys all the names of the 
-fields you {{attempted_operation_explanation}}. 
+fields you tried to remove. 
 Even if the operation failed, the dictionary will be returned with a ```None``` value for each 
-{{individual_target_type_name}}.
+field.
 You can safely access the fields values with brackets instead of using the ```.get``` function on your dictionary.
 
 
@@ -236,6 +236,12 @@ removed_status: Optional[str] = removed_values['status']
 removed_friend_relationship: Optional[str] = removed_values['friend_relationship']
 removed_last_login_timestamp: Optional[int] = removed_values['metadata_lastLoginTimestamp']
 ```
+No matter what, ```removed_values``` will always be a dictionary containing as keys all the names of the 
+fields you tried to remove. 
+Even if the operation failed, the dictionary will be returned with a ```None``` value for each 
+remover.
+You can safely access the fields values with brackets instead of using the ```.get``` function on your dictionary.
+
 
 ### 10 - Removing multiple fields values with remove_multiple_fields without data validation
 ```python

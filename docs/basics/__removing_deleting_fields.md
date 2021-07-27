@@ -123,9 +123,9 @@ friend_relationship_deletion_success: bool = deletion_successes['friend_relation
 last_login_timestamp_deletion_success: bool = deletion_successes['metadata_lastLoginTimestamp']
 ```
 {{template::{
-    'filepath': 'docs_parts/multi_selectors_and_getters_templates/multi_selectors_template.md',
-    'variable_name': "removed_values_AMAZING", 'individual_target_type_name': "remover",
-    'attempted_operation_explanation': "you tried to delete"
+    'filepath': 'docs_parts/templates/multi_selectors_template.md',
+    'variable_name': "deletion_successes", 'individual_target_type_name': "remover",
+    'default_value': "False", 'attempted_operation_explanation': "tried to delete"
 }::}}
 
 
@@ -176,8 +176,9 @@ removed_username_value: Optional[str] = removed_values['username']
 removed_friends_value: Optional[dict] = removed_values['friends']
 ```
 {{template::{
-    'filepath': 'docs_parts/multi_selectors_and_getters_templates/multi_selectors_template.md', 
-    'variable_name': "removed_values"
+    'filepath': 'docs_parts/templates/multi_selectors_template.md', 
+    'variable_name': "removed_values", 'individual_target_type_name': "field",
+    'default_value': "None", 'attempted_operation_explanation': "tried to remove"
 }::}}
 
 
@@ -227,6 +228,11 @@ removed_status: Optional[str] = removed_values['status']
 removed_friend_relationship: Optional[str] = removed_values['friend_relationship']
 removed_last_login_timestamp: Optional[int] = removed_values['metadata_lastLoginTimestamp']
 ```
+{{template::{
+    'filepath': 'docs_parts/templates/multi_selectors_template.md',
+    'variable_name': "removed_values", 'individual_target_type_name': "remover",
+    'default_value': "None", 'attempted_operation_explanation': "tried to remove"
+}::}}
 
 ### 10 - Removing multiple fields values with remove_multiple_fields without data validation
 ```python
