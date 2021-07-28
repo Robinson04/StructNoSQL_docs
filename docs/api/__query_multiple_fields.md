@@ -43,7 +43,7 @@ paginated results with a simple iterable.
 {{file::docs_parts/feature_availability_table/preset_all.md::}}
 
 ## Related pages
-- [Query pagination](../basics/query_pagination)
+- [Querying fields](../basics/querying_fields)
 - [QueryMetadata](../api/QueryMetadata)
 - [paginated_query_multiple_fields](../api/paginated_query_multiple_fields)
 

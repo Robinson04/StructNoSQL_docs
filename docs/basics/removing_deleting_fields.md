@@ -185,7 +185,11 @@ You can safely access the fields values with brackets instead of using the ```.g
 
 
 ### 7 - Removing a nested field value
-You can target a nested field, and you can use ```query_kwargs``` to target dictionaries or lists items.
+You can target a nested field by separating the names of the fields with a '.' in the ```field_path```. 
+
+To remove either an item inside a dictionary or one of its nested fields, use the
+**\{\{yourFieldKeyName\}\}** selector.
+Then pass the value that will be populated as the key_name with the query_kwargs parameter. 
 ```python
 from typing import Optional
 

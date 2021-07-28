@@ -9,7 +9,6 @@ module.exports = {
         'basics/querying_fields',
         'basics/updating_fields',
         'basics/removing_deleting_fields',
-        'basics/query_pagination',
         'basics/recursive_nesting',
     ],
     "Caching Table": [

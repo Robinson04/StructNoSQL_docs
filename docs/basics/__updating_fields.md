@@ -72,7 +72,7 @@ If the value you tried to update did not conform to your table model, the data v
 operation will be sent, the field will not be updated, and an ```update_success``` of ```False``` will be returned.
 
 ### 2 - Updating a nested map field
-To navigate into a 'child' field, separate the name of fields with a '.' in the field_path.
+{{file::docs_parts/targeting_nested_field.md::}}
 ```python
 import time
 timestamp: int = int(time.time())
@@ -215,3 +215,31 @@ last_login_timestamp: Optional[int] = old_fields_values['metadata_lastLoginTimes
 }::}}
 
 ### 8 : Updating multiple fields at once and returning their old values without data validation
+{{file::docs_parts/reason_for_disabling_data_validation.md::}}
+```python
+from typing import Dict, Optional, Any
+from StructNoSQL import FieldSetter
+import time
+
+new_timestamp: int = int(time.time())
+update_success, old_fields_values = table_client.update_multiple_fields_return_old(
+    key_value='x42', setters={
+        'username': FieldSetter(field_path='username', value_to_set='Paul'),
+        'friend_relationship': FieldSetter(
+            field_path='friends.{{friendId}}.relationship', 
+            query_kwargs={'friendId': 'f42'}, 
+            value_to_set="business partner"
+        ),
+        'metadata_lastLoginTimestamp': FieldSetter(
+            field_path='metadata.lastLoginTimestamp', 
+            value_to_set=new_timestamp
+        )
+    }, data_validation=False  # <-- disable data_validation
+)
+update_success: bool
+old_fields_values: Dict[str, Optional[Any]]
+
+old_username: Optional[Any] = old_fields_values['username']
+old_friend_relationship: Optional[Any] = old_fields_values['friend_relationship']
+last_login_timestamp: Optional[Any] = old_fields_values['metadata_lastLoginTimestamp']
+```

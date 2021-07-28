@@ -60,7 +60,7 @@ continue your query operation later as detailed in [Query pagination](../basics/
 | ExternalDynamoDBApiCachingTable | ✅
 
 ## Related pages
-- [Query pagination](../basics/query_pagination)
+- [Querying fields](../basics/querying_fields)
 - [QueryMetadata](../api/QueryMetadata)
 - [query_field](../api/query_field)
 

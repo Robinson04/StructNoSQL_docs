@@ -111,6 +111,9 @@ retrieved_friends_value: Optional[dict] = retrieved_values['friends']
 
 ### 4 - Getting a single nested field value
 {{file::docs_parts/targeting_nested_field.md::}}
+{{template::{
+    'filepath': 'docs_parts/alter_nested_item_template.md', 'alteration': "retrieve"
+}::}} 
 ```python
 from typing import Optional
 

@@ -178,6 +178,9 @@ removed_friends_value: Optional[dict] = removed_values['friends']
 
 ### 7 - Removing a nested field value
 {{file::docs_parts/targeting_nested_field.md::}}
+{{template::{
+    'filepath': 'docs_parts/alter_nested_item_template.md', 'alteration': "remove"
+}::}} 
 ```python
 from typing import Optional
 

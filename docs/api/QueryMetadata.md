@@ -24,7 +24,7 @@ not have to construct the object yourself.
 - [paginated_query_multiple_fields](../api/paginated_query_multiple_fields)
 
 ## Related pages
-- [Query pagination](../basics/query_pagination)
+- [Querying fields](../basics/querying_fields)
 
 ## Parameters
 | Property&nbsp;name | Required | Accepted&nbsp;types | Default | Description |
