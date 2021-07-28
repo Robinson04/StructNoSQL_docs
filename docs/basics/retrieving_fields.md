@@ -1,8 +1,7 @@
 ---
 id: retrieving_fields
-title: Retrieving fields
-sidebar_label: Retrieving fields
 slug: /basics/retrieving_fields
+title: Retrieving fields
 ---
 
 The 'get' operations can retrieve fields from a record when you select it with its primary key value. To retrieve 
@@ -117,8 +116,7 @@ You can safely access the fields values with brackets instead of using the ```.g
 
 
 ### 4 - Getting a single nested field value
-You can target a nested field by separating the names of the fields with a '.' in the ```field_path```. 
-
+You can target a nested field by separating the names of the fields with a '.' in the ```field_path```.
 To retrieve either an item inside a dictionary or one of its nested fields, use the
 **\{\{yourFieldKeyName\}\}** selector.
 Then pass the value that will be populated as the key_name with the query_kwargs parameter. 

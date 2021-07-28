@@ -1,8 +1,7 @@
 ---
 id: updating_fields
-title: Updating fields
-sidebar_label: Updating fields
 slug: /basics/updating_fields
+title: Updating fields
 ---
 
 #### If not present, all the required parent field's will be created when updating a nested field

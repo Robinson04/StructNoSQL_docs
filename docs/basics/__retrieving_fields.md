@@ -1,8 +1,7 @@
 ---
 id: retrieving_fields
-title: Retrieving fields
-sidebar_label: Retrieving fields
 slug: /basics/retrieving_fields
+title: Retrieving fields
 ---
 
 The 'get' operations can retrieve fields from a record when you select it with its primary key value. To retrieve 

@@ -1,7 +1,6 @@
 ---
 id: field_path_selectors
 title: Field path selectors
-sidebar_label: Field path selectors
 slug: /basics/field_path_selectors
 ---
 

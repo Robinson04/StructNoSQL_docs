@@ -2,7 +2,6 @@
 id: querying_fields
 slug: /basics/querying_fields
 title: Querying fields
-sidebar_label: Querying fields
 ---
 
 The 'get' operations can retrieve fields from a record when you select it with its primary key value. To retrieve 

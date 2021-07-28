@@ -1,8 +1,7 @@
 ---
 id: removing_deleting_fields
-title: Removing & deleting fields
-sidebar_label: Removing & deleting fields
 slug: /basics/removing_deleting_fields
+title: Removing & deleting fields
 ---
 
 The following operations can be performed only by selecting records with their primary key values.
@@ -185,8 +184,7 @@ You can safely access the fields values with brackets instead of using the ```.g
 
 
 ### 7 - Removing a nested field value
-You can target a nested field by separating the names of the fields with a '.' in the ```field_path```. 
-
+You can target a nested field by separating the names of the fields with a '.' in the ```field_path```.
 To remove either an item inside a dictionary or one of its nested fields, use the
 **\{\{yourFieldKeyName\}\}** selector.
 Then pass the value that will be populated as the key_name with the query_kwargs parameter. 

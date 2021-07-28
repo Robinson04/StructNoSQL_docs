@@ -5,6 +5,7 @@ module.exports = {
         'basics/installation',
         'basics/creating_your_first_table',
         'basics/modeling_your_database',
+        'basics/creating_deleting_records',
         'basics/retrieving_fields',
         'basics/querying_fields',
         'basics/updating_fields',

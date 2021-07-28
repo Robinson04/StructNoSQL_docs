@@ -1,8 +1,7 @@
 ---
 id: removing_deleting_fields
-title: Removing & deleting fields
-sidebar_label: Removing & deleting fields
 slug: /basics/removing_deleting_fields
+title: Removing & deleting fields
 ---
 
 The following operations can be performed only by selecting records with their primary key values.
