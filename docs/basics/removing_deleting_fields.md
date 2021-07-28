@@ -11,7 +11,7 @@ expressions to the record's to alter, do a query operation only retrieving the p
 showcased in [Querying field](../basics/querying_fields), and then perform the appropriate delete/remove operation's 
 for each record.  
 
-You have multiple operations at your disposition :
+For deletion and removal, you have multiple operations at your disposition :
 
 - [delete_field](../api/delete_field.md)
 - [delete_multiple_fields](../api/delete_multiple_fields.md)
@@ -97,11 +97,12 @@ showcased in the examples below.
 
 ### 3 - Deleting multiple fields values with delete_multiple_fields
 You can use [delete_multiple_fields](../api/delete_multiple_fields) to delete multiple fields from different places.
-Like ```delete_field```, you select by its primary keu value the record you want to delete fields from, with the 
-```key_value``` parameter.
-Specify the different fields you want to retrieved by passing a dictionary of [FieldRemover](../api/FieldRemover).
-Similarly to ```delete_field```, each [FieldRemover](../api/FieldRemover) requires the field_path parameter, and has an 
-optional query_kwargs parameter.
+Like ```delete_field```, you select by its primary key value the record you want to delete 
+fields from, with the ```key_value``` parameter.
+Specify the different fields you want to delete by passing a dictionary of 
+[FieldRemover](../api/FieldRemover).
+Similarly to ```delete_field```, each [FieldRemover](../api/FieldRemover) requires the field_path 
+parameter, and has an optional query_kwargs parameter.
 ```python
 from typing import Dict
 from StructNoSQL import FieldRemover
@@ -128,12 +129,6 @@ Even if the operation failed, the dictionary will be returned with a ```False```
 remover.
 You can safely access the fields values with brackets instead of using the ```.get``` function on your dictionary.
 
-
-
-No matter what, ```deletion_successes``` will always be a dictionary containing all the keys of ```removers``` dictionary.
-Even if the operation failed, the dictionary will be returned with a success value of ```False``` for each remover.
-Since it is guaranteed that the keys will be present, you can access the deletion successes directly with brackets 
-instead of using the ```.get``` function on your dictionary.
 
 
 ### 4 - Removing a single field value
@@ -216,18 +211,25 @@ removed_friend_relationship_value: Optional[str] = removed_values['relationship'
 ```
 
 ### 9 - Removing multiple fields values with remove_multiple_fields
+You can use [remove_multiple_fields](../api/remove_multiple_fields) to remove multiple fields from different places.
+Like ```remove_field```, you select by its primary key value the record you want to remove 
+fields from, with the ```key_value``` parameter.
+Specify the different fields you want to remove by passing a dictionary of 
+[FieldRemover](../api/FieldRemover).
+Similarly to ```remove_field```, each [FieldRemover](../api/FieldRemover) requires the field_path 
+parameter, and has an optional query_kwargs parameter.
 ```python
 from typing import Dict, Optional, Any
 from StructNoSQL import FieldGetter
 
 removed_values: Dict[str, Optional[Any]] = table_client.remove_multiple_fields(
     key_value='x42', getters={
-        'status': FieldGetter(field_path='status'),
-        'friend_relationship': FieldGetter(
+        'status': FieldRemover(field_path='status'),
+        'friend_relationship': FieldRemover(
             field_path='friends.{{friendId}}.relationship', 
             query_kwargs={'friendId': 'f42'}, 
         ),
-        'metadata_lastLoginTimestamp': FieldGetter(
+        'metadata_lastLoginTimestamp': FieldRemover(
             field_path='metadata.lastLoginTimestamp', 
         )
     }
