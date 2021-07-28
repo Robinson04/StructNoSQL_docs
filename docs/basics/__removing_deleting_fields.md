@@ -99,7 +99,8 @@ showcased in the examples below.
 {{template::{
     'filepath': 'docs_parts/templates/grouped_fields_operation_template.md', 
     'operation_link': "[delete_multiple_fields](../api/delete_multiple_fields)",
-    'type_operation_single': "delete_field", 'alteration_type': "delete"
+    'type_operation_single': "delete_field", 'alteration_type': "delete",
+    'object_link': "[FieldRemover](../api/FieldRemover.md)", 'additional': ""
 }::}}
 ```python
 from typing import Dict
@@ -176,7 +177,7 @@ removed_friends_value: Optional[dict] = removed_values['friends']
 
 
 ### 7 - Removing a nested field value
-You can target nested field, and you can use ```query_kwargs``` to target dictionaries or lists items.
+{{file::docs_parts/targeting_nested_field.md::}}
 ```python
 from typing import Optional
 
@@ -204,7 +205,8 @@ removed_friend_relationship_value: Optional[str] = removed_values['relationship'
 {{template::{
     'filepath': 'docs_parts/templates/grouped_fields_operation_template.md', 
     'operation_link': "[remove_multiple_fields](../api/remove_multiple_fields)",
-    'type_operation_single': "remove_field", 'alteration_type': "remove"
+    'type_operation_single': "remove_field", 'alteration_type': "remove",
+    'object_link': "[FieldRemover](../api/FieldRemover.md)", 'additional': ""
 }::}}
 ```python
 from typing import Dict, Optional, Any

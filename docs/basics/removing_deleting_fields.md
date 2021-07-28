@@ -99,10 +99,9 @@ showcased in the examples below.
 You can use [delete_multiple_fields](../api/delete_multiple_fields) to delete multiple fields from different places.
 Like ```delete_field```, you select by its primary key value the record you want to delete 
 fields from, with the ```key_value``` parameter.
-Specify the different fields you want to delete by passing a dictionary of 
-[FieldRemover](../api/FieldRemover).
-Similarly to ```delete_field```, each [FieldRemover](../api/FieldRemover) requires the field_path 
-parameter, and has an optional query_kwargs parameter.
+Specify the different fields you want to delete by passing a dictionary of [FieldRemover](../api/FieldRemover.md).
+Similarly to ```delete_field```, each [FieldRemover](../api/FieldRemover.md) requires the field_path parameter, and has an 
+optional query_kwargs parameter.
 ```python
 from typing import Dict
 from StructNoSQL import FieldRemover
@@ -186,7 +185,7 @@ You can safely access the fields values with brackets instead of using the ```.g
 
 
 ### 7 - Removing a nested field value
-You can target nested field, and you can use ```query_kwargs``` to target dictionaries or lists items.
+You can target a nested field, and you can use ```query_kwargs``` to target dictionaries or lists items.
 ```python
 from typing import Optional
 
@@ -214,10 +213,9 @@ removed_friend_relationship_value: Optional[str] = removed_values['relationship'
 You can use [remove_multiple_fields](../api/remove_multiple_fields) to remove multiple fields from different places.
 Like ```remove_field```, you select by its primary key value the record you want to remove 
 fields from, with the ```key_value``` parameter.
-Specify the different fields you want to remove by passing a dictionary of 
-[FieldRemover](../api/FieldRemover).
-Similarly to ```remove_field```, each [FieldRemover](../api/FieldRemover) requires the field_path 
-parameter, and has an optional query_kwargs parameter.
+Specify the different fields you want to remove by passing a dictionary of [FieldRemover](../api/FieldRemover.md).
+Similarly to ```remove_field```, each [FieldRemover](../api/FieldRemover.md) requires the field_path parameter, and has an 
+optional query_kwargs parameter.
 ```python
 from typing import Dict, Optional, Any
 from StructNoSQL import FieldGetter

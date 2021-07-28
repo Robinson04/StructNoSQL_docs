@@ -267,8 +267,7 @@ retrieved_friends_value: Optional[dict] = retrieved_values['friends']
 
 
 ### 4 - Querying multiple nested fields values with a multi-selector
-You can use multi-selectors even with nested fields, and even with query_kwargs.
-The only constraint, is the multi-selector must be the last 'path element' of your field path.
+{{file::docs_parts/you_can_use_multi_selectors_with_nested_fields.md::}}
 ```python
 from typing import Dict, Optional, Any
 

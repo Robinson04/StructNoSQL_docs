@@ -14,8 +14,6 @@ You have multiple operations at your disposition :
 - [get_field](../api/get_field.md)
 - [get_multiple_fields](../api/get_multiple_fields.md)
 
-todo: should querying fields be included here, or have its own page ?
-
 
 ### Creating the table for our example
 ```python
@@ -119,6 +117,7 @@ You can safely access the fields values with brackets instead of using the ```.g
 
 
 ### 4 - Getting a single nested field value
+You can target a nested field, and you can use ```query_kwargs``` to target dictionaries or lists items.
 ```python
 from typing import Optional
 
@@ -145,14 +144,13 @@ If you need to retrieve fields from totally different places, use [get_multiple_
 showcased in the examples below.
 
 
-### 5 - Getting multiple fields values with get_multiple_fields
-You can use [get_multiple_fields](../api/get_multiple_fields) to retrieve multiple fields at once from the same 
-record with a single database operation.
-Like update_field, you select the record you want to update with its primary key value passed in the ```key_value``` 
-parameter.
-Specify the different fields you want to retrieved by passing a dictionary of [FieldGetter](../api/FieldGetter).
-Similarly to get_field, each [FieldGetter](../api/FieldGetter) requires the field_path parameter, and has an optional 
-query_kwargs parameter.
+### 6 - Getting multiple fields values with get_multiple_fields
+You can use [get_multiple_fields](../api/get_multiple_fields) to retrieve multiple fields from different places at once from the same record with a single database operation.
+Like ```get_field```, you select by its primary key value the record you want to retrieve 
+fields from, with the ```key_value``` parameter.
+Specify the different fields you want to retrieve by passing a dictionary of [FieldGetter](../api/FieldGetter).
+Similarly to ```get_field```, each [FieldGetter](../api/FieldGetter) requires the field_path parameter, and has an 
+optional query_kwargs parameter.
 ```python
 from typing import Dict, Optional, Any
 from StructNoSQL import FieldGetter
@@ -181,7 +179,7 @@ You can safely access the fields values with brackets instead of using the ```.g
 
 
 
-### 6 - Getting multiple fields values with get_multiple_fields without data validation
+### 7 - Getting multiple fields values with get_multiple_fields without data validation
 The retrieved data will be passed through the data validation of your table. If the value or
 some parts of it are invalid, they will be removed. The data validation is unforced client side by StructNoSQL, not on 
 the database side which might cause the retrieved_value to be None or have less items than is actually present in the 

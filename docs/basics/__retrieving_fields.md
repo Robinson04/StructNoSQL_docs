@@ -14,8 +14,6 @@ You have multiple operations at your disposition :
 - [get_field](../api/get_field.md)
 - [get_multiple_fields](../api/get_multiple_fields.md)
 
-todo: should querying fields be included here, or have its own page ?
-
 
 ### Creating the table for our example
 ```python
@@ -112,6 +110,7 @@ retrieved_friends_value: Optional[dict] = retrieved_values['friends']
 
 
 ### 4 - Getting a single nested field value
+{{file::docs_parts/targeting_nested_field.md::}}
 ```python
 from typing import Optional
 
@@ -122,8 +121,7 @@ retrieved_friend_name: Optional[str] = table_client.get_field(
 ```
 
 ### 5 - Getting multiple nested fields values with a multi-selector
-You can use multi-selectors even with nested fields, and even with query_kwargs.
-The only constraint, is the multi-selector must be the last 'path element' of your field path.
+{{file::docs_parts/you_can_use_multi_selectors_with_nested_fields.md::}}
 ```python
 from typing import Dict, Optional, Any
 
@@ -138,14 +136,14 @@ If you need to retrieve fields from totally different places, use [get_multiple_
 showcased in the examples below.
 
 
-### 5 - Getting multiple fields values with get_multiple_fields
-You can use [get_multiple_fields](../api/get_multiple_fields) to retrieve multiple fields at once from the same 
-record with a single database operation.
-Like update_field, you select the record you want to update with its primary key value passed in the ```key_value``` 
-parameter.
-Specify the different fields you want to retrieved by passing a dictionary of [FieldGetter](../api/FieldGetter).
-Similarly to get_field, each [FieldGetter](../api/FieldGetter) requires the field_path parameter, and has an optional 
-query_kwargs parameter.
+### 6 - Getting multiple fields values with get_multiple_fields
+{{template::{
+    'filepath': 'docs_parts/templates/grouped_fields_operation_template.md', 
+    'operation_link': "[get_multiple_fields](../api/get_multiple_fields)",
+    'type_operation_single': "get_field", 'alteration_type': "retrieve",
+    'object_link': "[FieldGetter](../api/FieldGetter)",
+    'additional': " at once from the same record with a single database operation"
+}::}}
 ```python
 from typing import Dict, Optional, Any
 from StructNoSQL import FieldGetter
@@ -173,7 +171,7 @@ retrieved_last_login_timestamp: Optional[int] = retrieved_values['metadata_lastL
 }::}}
 
 
-### 6 - Getting multiple fields values with get_multiple_fields without data validation
+### 7 - Getting multiple fields values with get_multiple_fields without data validation
 {{file::docs_parts/reason_for_disabling_data_validation.md::}}
 ```python
 from typing import Dict, Optional, Any
