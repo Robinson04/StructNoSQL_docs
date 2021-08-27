@@ -76,13 +76,14 @@ If the record you tried to remove did not exist, a value of ```None``` will be r
 
 If you want to change the primary key value of a record, you will need to remove the record, change its primary key 
 value and create a new record.
+
 Use the [remove_record](../api/remove_record) operation showed in the above example, if the removal has succeeded, and
 the ```removed_record_data``` is not None, create a new dictionary with the all the old attributes, and override the
 your primary key value (in Python, when creating a new dict, make sure that the attribute you are modifying are set after 
 the unpacking of your old dictionary, otherwise your old dictionary will override the attributes you are trying to modify).
-You could also directly modify the ```removed_record_data``` dictionary instead of recreating a ```altered_record_data```,
-but it is a better practice to separate create a new dictionary if it is for a different usage than your initial dictionary.
-Then 
+We create a new dictionary instead of directly modifying the ```removed_record_data```, because we need to keep the source
+```removed_record_data``` intact if the creation of our new record fails where we would then restore our old record.
+
 ```python
 from typing import Optional
 
@@ -100,6 +101,19 @@ if removed_record_data is not None:
             record_dict_data=removed_record_data
         )
         if old_record_restoration_success is not True:
-            print("Old record has not been able to be restored")
+            print(
+                "Old record has not been able to be restored. This is likely due to a "
+                "manual modification or deletion of your table in your AWS account."
+            )
 ```
 The need to re-create the entirety of the record is a limitation imposed by DynamoDB, not by StructNoSQL.
+
+If a record with the new primary key value already exist, or if the new primary key value you specified is of an invalid
+type the ```put_record``` operation will fail and return a success value of ```False```. In which case, we will try to
+restore our previous ```removed_record_data```. The restoring will likely work, unless your manually modified or removed
+your table in your AWS account, in which case we display an error message.
+
+Note that this is only way of doing things. You could also retrieve all the fields of your record, alter its data,
+create your new record, and if it succeeded removed the old record. If you expect to have a lots ```put_record``` 
+failures, prefer this get/put/delete instead of the remove/put/restore approach, as you might end saving in
+database reads and writes, and avoid risks of losing records if your record restoration fails for some reason.
