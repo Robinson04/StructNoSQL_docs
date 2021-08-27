@@ -17,6 +17,12 @@ For deletion and removal, you have multiple operations at your disposition :
 - [remove_field](../api/remove_field.md)
 - [remove_multiple_fields](../api/remove_multiple_fields.md)
 
+:::info You cannot delete or remove the primary key value of a record
+{{file::docs_parts/creating_deleting_records/remove_alter_and_create_record_to_change_primary_key_value.md::}}
+Refer yourself to [Creating & deleting records (changing a record primary key value by removing and recreating it)](
+../basics/creating_deleting_records#4---changing-a-record-primary-key-value-by-removing-and-recreating-it)
+{{file::docs_parts/creating_deleting_records/limitation_record_recreation_to_change_primary_key_value.md::}}
+::: 
 
 ### Creating the table for our example
 ```python

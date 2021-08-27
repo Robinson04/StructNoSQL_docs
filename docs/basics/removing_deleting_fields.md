@@ -17,6 +17,13 @@ For deletion and removal, you have multiple operations at your disposition :
 - [remove_field](../api/remove_field.md)
 - [remove_multiple_fields](../api/remove_multiple_fields.md)
 
+:::info You cannot delete or remove the primary key value of a record
+If you want to change the primary key value of a record, you will need to remove the record, change its primary key 
+value and create a new record.
+Refer yourself to [Creating & deleting records (changing a record primary key value by removing and recreating it)](
+../basics/creating_deleting_records#4---changing-a-record-primary-key-value-by-removing-and-recreating-it)
+The need to re-create the entirety of the record is a limitation imposed by DynamoDB, not by StructNoSQL.
+::: 
 
 ### Creating the table for our example
 ```python

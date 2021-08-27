@@ -1,0 +1,1 @@
+The need to re-create the entirety of the record is a limitation imposed by DynamoDB, not by StructNoSQL.
