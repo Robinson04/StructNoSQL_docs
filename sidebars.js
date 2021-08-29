@@ -16,7 +16,7 @@ module.exports = {
         'caching_table/introduction',
         'caching_table/creating_a_caching_table',
         'caching_table/committing_operations',
-        'caching_table/clearing_cache',
+        'caching_table/clearing_cache_and_operations',
     ],
     "NoSQL best practices": [
         "nosql_best_practices/flattening-data",
