@@ -116,3 +116,8 @@ Note that this is only way of doing things. You could also retrieve all the fiel
 create your new record, and if it succeeded removed the old record. If you expect to have a lots ```put_record``` 
 failures, prefer this get/put/delete instead of the remove/put/restore approach, as you might end saving in
 database reads and writes, and avoid risks of losing records if your record restoration fails for some reason.
+
+:::info This operation is safe from data discrepancies
+If you use a CachingTable where the data will be saved record by record, be re-assured that when you call create or 
+delete/remove a record from your database, the in-memory cache of your table is being correctly updated.
+:::
