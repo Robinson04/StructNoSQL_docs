@@ -8,9 +8,9 @@ title: Creating & deleting records
 
 You have multiple operations at your disposition :
 
-- [put_record](../api/put_record)
-- [delete_record](../api/delete_record)
-- [remove_record](../api/remove_record)
+- [put_record](../api/put_record) showcased in [Creating a record with put_record](../basics/creating_deleting_records#1---creating-a-record-with-put_record)
+- [delete_record](../api/delete_record) showcased in [Deleting a record](../basics/creating_deleting_records#2---deleting-a-record)
+- [remove_record](../api/remove_record) showcased in [Removing a record](../basics/creating_deleting_records#3---removing-a-record)
 
 :::info Trying to update a non-existing record will automatically create it
 

@@ -130,20 +130,3 @@ table_client.clear_pending_remove_operations()
 
 :::warning This function can cause data discrepancies
 :::
-
----
-
-Note that this will clear both the data that has been retrieved and cached, and the data that has been defined
-client-side, but not yet committed to the database. This might cause issues, where you might update or delete a field, 
-which will be saved client-side in the cached_data and create a pending database operation, then you would clear the
-cached_data, re-retrieve the field you modified earlier, then finally commit the database operation tasked with 
-modifying it. 
-
-:::warning This function can cause data discrepancies
-When an operation has been set as pending (for example, updating a field), the in-memory cache has been updated right
-away to reflect the change, even before the operation is actually committed to your database. Clearing your pending
-operations without also clearing the cached data can cause scenarios where even the in-memory cache can incorrectly reflect
-the actual data in your database. If you want to avoid all risks, use the 
-[clear_cached_data_and_pending_operations](../api/clear_cached_data_and_pending_operations) showcased above in 
-[Clearing all cached data and pending operations](../caching_table/clearing_cache_and_operations#2---clearing-all-cached-data-and-pending-operations)
-:::
