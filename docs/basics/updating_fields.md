@@ -11,13 +11,21 @@ title: Updating fields
 
 You have multiple operations at your disposition :
 
-- [update_field](../api/update_field.md)
-- [update_multiple_fields](../api/update_multiple_fields.md)
-- [update_field_return_old](../api/update_field_return_old.md)
-- [update_multiple_fields_return_old](../api/update_multiple_fields_return_old.md)
+- [update_field](../api/update_field.md) showcased in
+[Updating a single simple field](../basics/updating_fields#1---updating-a-single-simple-field) &
+[Updating a nested map field](../basics/updating_fields#2---updating-a-nested-map-field) &
+[Updating a nested dict field](../basics/updating_fields#3---updating-a-nested-dict-field) &
+[Updating a deeply nested dict field](../basics/updating_fields#4---updating-a-deeply-nested-dict-field)
+- [update_multiple_fields](../api/update_multiple_fields.md) showcased in
+[Updating multiple fields at once](../basics/updating_fields#5---updating-multiple-fields-at-once)
+- [update_field_return_old](../api/update_field_return_old.md) showcased in
+[Updating a single field and returning its old value](../basics/updating_fields#6--updating-a-single-field-and-returning-its-old-value)
+- [update_multiple_fields_return_old](../api/update_multiple_fields_return_old.md) showcased in
+[Updating multiple fields at once and returning their old values](../basics/updating_fields#7--updating-multiple-fields-at-once-and-returning-their-old-values) &
+[Updating multiple fields at once and returning their old values without data validation](../basics/updating_fields#8--updating-multiple-fields-at-once-and-returning-their-old-values-without-data-validation)
 
 
-### Creating the table for our example
+### Creating the table for our examples
 ```python
 import json
 from typing import Dict
