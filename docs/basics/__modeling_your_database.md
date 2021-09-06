@@ -38,7 +38,7 @@ class UsersTableModel(TableDataModel):
     userId = BaseField(field_type=str, required=True)
 ```
 
-### 2 - Creating a root required field
+### 2 - Root required field's
 The same way you defined as required the field used as the primary key value of your records (in our example, ```userId```),
 you can create other required fields by setting the ```required``` parameter of your field to ```True```.
 
@@ -82,13 +82,75 @@ Use non required fields both for non-crucial fields, and for fields you have add
 database. Otherwise, you might end-up with old records that are missing some fields that are not required, and will not
 be considered as valid by StructNoSQL.
 
+### 5 - Allowing any value in a field
 
-### 5 - Adding structured dictionaries
+To allow any value in a field, import ```Any``` from the ```typing``` module (which is pre-installed with Python), and
+use it as the field_type of your field.
+
+```python
+from StructNoSQL import TableDataModel, BaseField
+from typing import Any
+
+class UsersTableModel(TableDataModel):
+    userId = BaseField(field_type=str, required=True)
+    requiredUserStatus = BaseField(field_type=Any, required=True)
+    optionalMetadata = BaseField(field_type=Any, required=False)
+```
+
+:::important Required fields that accept any value still need to be specified
+Even tough a field accepting any value, will consider a value of ```None``` to be valid, the attribute will
+still need to be specified. 
+In our example above, if you tried to create a new record without specifying the ```requiredUserStatus``` attribute, the 
+record creation would fail. 
+Whereas ```optionalMetadata``` also can accept any value, but since it is not a required field, not specifying it will 
+not cause a record creation to fails.
+:::
+
+### 6 - Structured map's
+You can create ```MapModel``'s allowing to group multiple fields inside a dictionary.
+
+First create a new class that inherit from ```MapModel```. You can name the class however you want, in our example we
+use ```MetadataModel``` which is pretty descriptive.
+Inside this class, define the various fields of your model, similarly to how we were defining the fields of your 
+```TableDataModel```. 
+Finally, create a new field (for example ```metadata```) and set its field_type to the ```MapModel``` class you created.
+
+In our example, metadata is not required, but if it was the case, the required fields of the ```MetadataModel``` would
+also be required. Since metadata is at the root of the table data model, this means that if metadata would be required,
+any record would need the metadata field to be a dictionary that at least contain the ```accountCreationTimestamp``` attribute.
+
+```python
+from StructNoSQL import TableDataModel, BaseField, MapModel
+
+class UsersTableModel(TableDataModel):
+    userId = BaseField(field_type=str, required=True)
+    class MetadataModel(MapModel):
+        accountCreationTimestamp = BaseField(field_type=int, required=True)
+        lastConnectionTimestamp = BaseField(field_type=int, required=False)
+    metadata = BaseField(field_type=MetadataModel, required=False)
+```
+
+Note that in our example we create the ```MetadataModel``` class inside the scope of the ```UsersTableModel``` to keep
+the code clearer. But nothing stops you to create your ```MapModel```'s outside of the scope of your existing table data
+model, or even in totally different files, and then being able to use them as ```field_type``` for one of your field.
+
+You can now target with a field_path any field that is inside of your ```MapModel````.
+
+Example usage :
+```python
+from typing import Optional
+
+account_creation_timestamp_from_metadata: Optional[int] = table_client.get_field(
+    field_path='metadata.accountCreationTimestamp'
+)
+```
+
+### 7 - Structured dictionaries
 You can create structured dictionaries, where you can have as many items as you want with different key names, but still
 keep the items values structured.
 
 First create a ```MapModel``` that will be the model of each item in your dictionary.
-Inside the ```MapModel```` (node the indentation), we define the different fields of the dictionary items the same way
+Inside the ```MapModel``` (note the indentation), we define the different fields of the dictionary items the same way
 we did previously.
 
 Note that our ```expirationTimestamp``` field is required. When 
@@ -142,7 +204,8 @@ authentication tokens, so we keep the name descriptive with ```AuthTokenModel```
 You can also create the ```MapModel``` in other files or outside the ```TableDataModel```, unlike what is
 showed in the example, our example stay descriptive by creating the model right above its usage.
 
-### 6 - Non required nested fields
+
+### 8 - Non required nested fields
 Similarly to [non required root fields](../basics/modeling_your_database#4---non-required-root-fields), you can also
 create non-required fields inside nested ```MapModel```'s.
 When creating/updating/retrieving items from a dictionary or a list, each item will be validated individually. If you
@@ -165,7 +228,107 @@ class UsersTableModel(TableDataModel):
     tokens = BaseField(field_type=Dict[str, AuthTokenModel], key_name='tokenId', required=False)
 ```
 
-### 7 : Creating structured list fields
+
+### 9 - Nested structured dictionary fields
+You can create keep nesting fields, dictionary or list's inside a structured list, until you reach the maximum 32 depth 
+limit imposed by DynamoDB (see [The depth limit](../basics/recursive_nesting#the-depth-limit)).
+
+```python
+from StructNoSQL import TableDataModel, BaseField, MapModel
+from typing import Dict
+
+class UsersTableModel(TableDataModel):
+    userId = BaseField(field_type=str, required=True)
+    class AuthTokenModel(MapModel):
+        expirationTimestamp = BaseField(field_type=int, required=True)
+        class PermissionMetadataModel(MapModel):
+            permissionGrantedBy = BaseField(field_type=str, required=True)
+            permissionExpirationTimestamp = BaseField(field_type=int, required=False)
+        tokenPermissions = BaseField(field_type=Dict[str, PermissionMetadataModel], key_name='permissionKey', required=False)
+    tokens = BaseField(field_type=Dict[str, AuthTokenModel], key_name='tokenId', required=False)
+```
+
+Example usage :
+```python
+from typing import Optional
+
+token_write_permission_metadata: Optional[dict] = table_client.get_field(
+    field_path='tokens.{{tokenId}}.tokenPermissions.{{permissionKey}}',
+    query_kwargs={'tokenId': "exampleTokenId", 'permissionKey': "write"}
+)
+```
+
+:::info A structured dictionary has a depth of 2 items
+Even tough you only define one field, a structured dictionary is actually composed of two dictionaries. The first one
+holding all of your items, and the second depth of dictionary being your items dictionaries holding the attributes of
+your items.
+
+This means that two nested structured dictionaries have a depth of 4, and four nested of them have depth of 8. The
+maximum depth limit imposed by StructNoSQL is 32 (see [The depth limit](../basics/recursive_nesting#the-depth-limit)). 
+
+It is unlikely you will ever reach this limit, but if it's the case, it cannot be increased by StructNoSQL or by 
+DynamoDB. Thus, you should consider restructuring your data, maybe by flattening it as shown in 
+[NoSQL best practices/Flattening data](../nosql-best-practices/flattening-data)
+:::
+
+### 10 - Primitive dictionary fields
+You can also create dictionary fields that accept primitive values that are not structured. You can use any primitive type
+like ```int```, ```float```, ```dict```, ```list```, etc. You can also allow multiple types at the same time by wrapping 
+them with parenthesis.
+
+```python
+from StructNoSQL import TableDataModel, BaseField
+from typing import Dict
+
+class UsersTableModel(TableDataModel):
+    userId = BaseField(field_type=str, required=True)
+    orderedLogMessages = BaseField(field_type=Dict[str, (str, dict)], key_name='logId', required=False)
+```
+
+{{file::docs_parts/modeling_your_database/admonition_unstructured_data_cannot_be_navigated_into.md::}}
+
+Example usage :
+```python
+from typing import Optional, Union
+
+third_log_message: Optional[Union[str, dict]] = table_client.get_field(
+    field_path='orderedLogMessages.{{logId}}',
+    query_kwargs={'logIndex': "exampleLogId"}
+)
+```
+
+
+### 11 - Unvalidated dictionary fields
+To create a list that can accept any values, either create a field with a ```field_type``` of ```dict``` or of 
+```Dict[Any]``` (import both ```Dict``` and ```Any``` from the typing module).
+
+Similarly to a primitive dict field showcased in 
+[Primitive dictionary fields](../basics/modeling_your_database#10--primitive-dictionary-fields), the data will be
+unstructured, you will not be able to navigate into your dict items.
+
+```python
+from StructNoSQL import TableDataModel, BaseField
+from typing import Dict, Any
+
+class UsersTableModel(TableDataModel):
+    userId = BaseField(field_type=str, required=True)
+    primaryOrderedLogMessages = BaseField(field_type=dict, key_name='logId', required=False)
+    secondaryOrderedLogMessages = BaseField(field_type=Dict[str, Any], key_name='logId', required=False)
+    # Both primary and secondary orderedLogMessages fields are equivalent
+```
+
+Example usage :
+```python
+from typing import Optional, Any
+
+third_log_message: Optional[Any] = table_client.get_field(
+    field_path='primaryOrderedLogMessages.{{logId}}',
+    query_kwargs={'logId': "exampleLogId"}
+)
+```
+
+
+### 11 - Structured list fields
 You can create list where specific 
 ```python
 from StructNoSQL import TableDataModel, BaseField, MapModel
@@ -189,7 +352,7 @@ third_friend_id: Optional[str] = table_client.get_field(
 )
 ```
 
-### 8 : Creating nested structured list fields
+### 12 - Nested structured list fields
 You can create keep nesting fields, dictionary or list's inside a structured list, until you reach the maximum 32 depth 
 limit imposed by DynamoDB (see [The depth limit](../basics/recursive_nesting#the-depth-limit)).
 
@@ -228,7 +391,7 @@ second_shared_friend_id_of_third_friend: Optional[dict] = table_client.get_field
 )
 ```
 
-### 8 : Creating primitive list fields
+### 13 - Primitive list fields
 You can also create list fields that accept primitive values that are not structured. You can use any primitive type
 like ```int```, ```float```, ```dict```, ```list```, etc. You can also allow multiple types at the same time by wrapping 
 them with parenthesis.
@@ -242,11 +405,7 @@ class UsersTableModel(TableDataModel):
     orderedLogMessages = BaseField(field_type=List[(str, dict)], key_name='logIndex', required=False)
 ```
 
-:::info Unstructured data cannot be navigated into
-Even if you define the item type of your list to be a ```dict``` or ```list```, since it is unstructured, you will not
-be able to navigate into or select specific attributes to retrieve/update/delete inside your list items like you
-can do with a structured list field as shown above. You will only be able to target the entire dict or list value.
-:::
+{{file::docs_parts/modeling_your_database/admonition_unstructured_data_cannot_be_navigated_into.md::}}
 
 Example usage :
 ```python
@@ -258,12 +417,12 @@ third_log_message: Optional[Union[str, dict]] = table_client.get_field(
 )
 ```
 
-### 8 : Creating unvalidated list fields
+### 14 - Unvalidated list fields
 To create a list that can accept any values, either create a field with a ```field_type``` of ```list``` or of 
 ```List[Any]``` (import both ```List``` and ```Any``` from the typing module).
 
 Similarly to a primitive list field showcased in 
-[Creating primitive list fields](../basics/modeling_your_database#8--creating-primitive-list-fields), the data will be
+[Primitive list fields](../basics/modeling_your_database#8--primitive-list-fields), the data will be
 unstructured, you will not be able to navigate into your list items.
 
 ```python
@@ -287,14 +446,20 @@ third_log_message: Optional[Any] = table_client.get_field(
 )
 ```
 
-### Creating self nested models
+### 15 - Recursive nesting
+You can recursively nest a ```MapModel``` inside itself by using the ```ActiveSelf```.
+You can use it both by itself to create a recursive map, or inside a ```List``` or ```Dict```.
+This is a delicate feature, read more about how to use it here : [Recursive nesting](../basics/recursive_nesting)
+
 ```python
+from StructNoSQL import TableDataModel, MapModel, BaseField, ActiveSelf
 from typing import Any, Dict
-from StructNoSQL import MapModel, BaseField, ActiveSelf
 
-class ParameterModel(MapModel):
-    value = BaseField(field_type=Any, required=False)
-    childParameters = BaseField(field_type=Dict[str, ActiveSelf], key_name='childParameterKey{i}', max_nested_depth=8, required=False)
-parameters = BaseField(field_type=Dict[str, ParameterModel], key_name='parameterKey', required=False)
-
+class UsersTableModel(TableDataModel):
+    userId = BaseField(field_type=str, required=True)
+    class ParameterModel(MapModel):
+        value = BaseField(field_type=Any, required=False)
+        childParameter = BaseField(field_type=ActiveSelf, required=False)
+        childrenParameters = BaseField(field_type=Dict[str, ActiveSelf], key_name='childParameterKey{i}', max_nested_depth=8, required=False)
+    parameters = BaseField(field_type=Dict[str, ParameterModel], key_name='parameterKey', required=False)
 ```
